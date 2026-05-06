@@ -22,11 +22,7 @@ public class EnemyState
 
     public virtual void FrameUpdate()
     {}
-
-    public virtual void 
-
     /* public virtual void AnimationTriggerEvent
     {} */
-
 
 }
