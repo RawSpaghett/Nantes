@@ -9,14 +9,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float moveSpeed = 5.0f;
 
     [SerializeField] bool lockCursor = true;
-    CharacterController controller = null;
+    // CharacterController controller = null;
+    [SerializeField] Rigidbody rigidBody = null;
 
     float cameraPitch = 0.0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        controller = GetComponent<CharacterController>();
+        // controller = GetComponent<CharacterController>();
+        rigidBody = GetComponent<Rigidbody>();
         if (lockCursor)
         {
             Cursor.lockState = CursorLockMode.Locked;
@@ -47,9 +49,12 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 inputDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         inputDir.Normalize();
+        Debug.Log(inputDir.x + ", " +inputDir.y);
+
 
         Vector3 velocity = (transform.forward * inputDir.y + transform.right * inputDir.x) * moveSpeed;
     
-        controller.Move(velocity * Time.deltaTime);
+        // controller.Move(velocity * Time.deltaTime);
+        rigidBody.AddForce(velocity * Time.deltaTime, ForceMode.VelocityChange);
     }
 }
