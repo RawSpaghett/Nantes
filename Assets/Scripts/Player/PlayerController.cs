@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class PlayerController : MonoBehaviour
+public partial class PlayerController : MonoBehaviour
 {
     [SerializeField] Transform playerCamera = null;
     [SerializeField] float mouseSensitivity = 5.0f;
@@ -10,16 +10,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float crouchSpeedModifier = 0.5f;
 
     [SerializeField] bool lockCursor = true;
-    [SerializeField] Rigidbody rigidBody = null;
+    [SerializeField] public Rigidbody rigidBody = null;
 
-    [SerializeField] PlayerHandManager handStateMachine = null;
+    
     [SerializeField] PlayerMovementManager movementStateMachine = null;
 
     public Vector2 MoveInput;
+    public Vector3 velocity;
 
     float cameraPitch = 0.0f;
-
-    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -47,8 +46,7 @@ public class PlayerController : MonoBehaviour
     {
         //UpdateMovement();
         Vector2 MoveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
-
-        
+        movementStateMachine.Update();
     }
 
     void UpdateMouseLook()
@@ -61,16 +59,4 @@ public class PlayerController : MonoBehaviour
         playerCamera.localEulerAngles = Vector3.right * cameraPitch;
         transform.Rotate(Vector3.up * mouseDelta.x * mouseSensitivity);
     }
-    
-    //void UpdateMovement()
-    //{ 
-
-
-    //    Vector3 velocity = transform.right * inputDir.x + transform.forward * inputDir.y;
-
-        
-        
-    //    // rigidBody.AddForce(velocity, ForceMode.Acceleration);
-    //    rigidBody.linearVelocity = new Vector3(velocity.x * moveSpeed, 0.0f, velocity.z * moveSpeed);
-    //}
 }
