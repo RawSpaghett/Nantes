@@ -23,11 +23,11 @@ public class EnemySegmentController : MonoBehaviour
         for(int i = 0; i < segmentAmount; i++) //spawn the objects and attatch to array
             segments[i] = Instantiate(segmentPrefab,monsterHead.transform.position,monsterHead.transform.rotation); //spawns at same position as head
 
-        speed = enemyScript.StateMachine.currentState.speed;
     }
 
     void Update()
     {
+        speed = enemyScript.StateMachine.currentState.speed;
         for(int i=0; i< segments.Length; i++)
         {
             Transform target = (i == 0) ? monsterHead.transform : segments[i - 1].transform; //if [0] follow monster head, else follow next segment

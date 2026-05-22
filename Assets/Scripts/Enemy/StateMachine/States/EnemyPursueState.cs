@@ -4,7 +4,7 @@ using UnityEngine.AI;
 public class EnemyPursueState : EnemyState
 {
 
-    private float pursueSpeed = 2f;
+    private float pursueSpeed = 4.5f;
     private Vector3 pursueTarget;
     private float recalculateRate = 0.2f;
     private float recalculateTimer = 0;

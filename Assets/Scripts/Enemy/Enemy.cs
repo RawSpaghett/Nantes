@@ -25,7 +25,6 @@ public class Enemy : MonoBehaviour
 
     [Header("debugging tools")]
     [SerializeField]
-    private float timer;
     private float debugTimer = 1f;
     [SerializeField]
     private Vector3 velocity;
@@ -55,8 +54,8 @@ public class Enemy : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
 
-        StateMachine.Intialize(PursueState);
-        Debug.Log($"Monster StateMachine Intialized: {StateMachine.currentState.ToString()}");
+        StateMachine.Intialize(IdleState);
+        Debug.Log($"<color = green> Monster StateMachine Intialized: {StateMachine.currentState.ToString()} </color");
     }
 
     void Start()
@@ -70,38 +69,12 @@ public class Enemy : MonoBehaviour
         if(corners != null && debugTimer >= 1f)
         {
             Debug.Log($"Current Corner Index: {currentCornerIndex.ToString()}");
+            Debug.Log($"speed: {StateMachine.currentState.speed}");
             debugTimer = 0f;
         }
         StateMachine.currentState.FrameUpdate();
     }
-
-    
-    void LateUpdate() //lateupdate so the previous states functions can finish up cleanly
-    {
-        timer += Time.deltaTime;
-        if (timer >= switchTime && StateMachine.currentState.isPassive)
-        {
-            IdleWanderSwitch();
-            timer = 0;
-        }
-    }
-    
-
     #endregion
-    
-    private void IdleWanderSwitch()
-    {
-        if (UnityEngine.Random.Range(1,3) == 1 && StateMachine.currentState.isPassive) 
-        {
-            if (StateMachine.currentState == IdleState)
-            {
-                Debug.Log("LateUpdateIdleSwitchTrue");
-                StateMachine.ChangeState(WanderState);
-                return;
-            }
-        }
-        Debug.Log("LateUpdateIdleSwitchFalse");
-    }
 
     public void MoveEnemy() //navigates the mesh from pathfinder
     {
@@ -124,7 +97,7 @@ public class Enemy : MonoBehaviour
 
         transform.forward = Vector3.Slerp(transform.forward, direction, Time.deltaTime * 5f); 
 
-        if (Vector3.Distance(new Vector3(transform.position.x, 0, transform.position.z),new Vector3(targetCorner.x, 0, targetCorner.z)) < 2f)
+        if (Vector3.Distance(new Vector3(transform.position.x, 0, transform.position.z),new Vector3(targetCorner.x, 0, targetCorner.z)) < 1f)
         {
             currentCornerIndex++;
         }

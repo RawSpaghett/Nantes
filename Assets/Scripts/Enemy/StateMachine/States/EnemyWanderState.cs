@@ -3,10 +3,10 @@ using UnityEngine.AI;
 
 public class EnemyWanderState : EnemyState //wandering
 {
-    public float WanderMinimum = 10f;
-    public float WanderMaximum = 20f;
+    public float WanderMinimum = 20f;
+    public float WanderMaximum = 30f;
     private float WanderRandom;
-    private float wanderSpeed;
+    private float wanderSpeed = 3f;
     private Vector3 randomLocation;
     private NavMeshPath randomPath;
 
@@ -18,9 +18,9 @@ public class EnemyWanderState : EnemyState //wandering
      public override void EnterState()
     {
         base.EnterState();
+        speed = wanderSpeed;
         randomLocation = RandomNearbyLocation();
         enemy.Pathfinder(randomLocation);
-        speed = wanderSpeed;
     }
 
     public override void ExitState()
