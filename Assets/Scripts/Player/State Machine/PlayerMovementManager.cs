@@ -18,7 +18,12 @@ public class PlayerMovementManager : MonoBehaviour
 
     public void Update()
     {
+        currentState.Update();
         currentState.UpdateState(this);
+    }
+
+    public void FixedUpdate() {
+        currentState.FixedUpdate();
     }
 
     public void SwitchState(PlayerBaseState state) 
