@@ -4,6 +4,16 @@ public class PlayerIdleState : PlayerBaseState
 {
     public PlayerIdleState(PlayerMovementManager sm) : base(sm) { }
 
+    public override void Update() 
+    {
+        
+    }
+
+    public override void FixedUpdate()
+    {        
+
+    }
+
     public override void EnterState(PlayerMovementManager movementManager) 
     {
         Debug.Log("Entered Idle state");
@@ -13,6 +23,7 @@ public class PlayerIdleState : PlayerBaseState
     {
         if (player.MoveInput.magnitude > 0.1f)
         {
+            Debug.Log("magnitude > 0.1f");
             stateMachine.SwitchState(new PlayerWalkingState(stateMachine));
         }
         if (Input.GetKey(KeyCode.C))

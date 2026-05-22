@@ -9,8 +9,23 @@ public class PlayerWalkingState : PlayerBaseState
         Debug.Log("Entered Walk state");
     }
 
+    public override void Update() {
+        
+    }
+
+    public override void FixedUpdate()
+    {
+        Vector3 moveDir = 
+            player.transform.right * player.MoveInput. x + 
+            player.transform.forward * player.MoveInput.y;
+
+        player.rigidBody.linearVelocity = new Vector3(moveDir.x * player.MoveInput.x, 0.0f, moveDir.z * player.MoveInput.y);
+
+    }
+
     public override void UpdateState(PlayerMovementManager movementManager)
     {
+
         if (player.MoveInput.magnitude < 0.1f)
         {
             stateMachine.SwitchState(new PlayerIdleState(stateMachine));
