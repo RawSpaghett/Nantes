@@ -6,7 +6,7 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void Update() 
     {
-        
+        player.rigidBody.linearVelocity /= 2;
     }
 
     public override void FixedUpdate()
@@ -23,7 +23,7 @@ public class PlayerIdleState : PlayerBaseState
     {
         if (player.MoveInput.magnitude > 0.1f)
         {
-            Debug.Log("Idle UpdateState is called");
+            //Debug.Log("Idle UpdateState is called");
             stateMachine.SwitchState(new PlayerWalkingState(stateMachine));
         }
         if (Input.GetKey(KeyCode.C))

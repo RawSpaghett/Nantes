@@ -11,12 +11,17 @@ public class PlayerCrouchingState : PlayerBaseState
 
     public override void FixedUpdate()
     {
-        
+        Vector3 moveDir =
+            player.transform.right * player.MoveInput.x +
+            player.transform.forward * player.MoveInput.y;
+
+        player.rigidBody.linearVelocity = moveDir * 5f * player.crouchSpeedModifier;
     }
 
-    public override void EnterState(PlayerMovementManager movementManager) 
+    public override void EnterState(PlayerMovementManager movementManager)
     {
         Debug.Log("Entered Crouch state");
+        player.playerCamera.position -= Vector3.up * 0.4f;
     }
 
     public override void UpdateState(PlayerMovementManager movementManager)
@@ -29,7 +34,7 @@ public class PlayerCrouchingState : PlayerBaseState
 
     public override void ExitState(PlayerMovementManager movementManager)
     {
-
+        player.playerCamera.position += Vector3.up * 0.4f;
     }
 
     public override void CheckSwitchState(PlayerMovementManager movementManager)
