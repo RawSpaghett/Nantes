@@ -10,13 +10,11 @@ public partial class PlayerController : MonoBehaviour
     [SerializeField] float crouchSpeedModifier = 0.5f;
 
     [SerializeField] bool lockCursor = true;
-    [SerializeField] public Rigidbody rigidBody = null;
+    [SerializeField] public Rigidbody rigidBody { get; private set; }
 
-    
-    [SerializeField] PlayerMovementManager movementStateMachine = null;
+    [SerializeField] public PlayerMovementManager movementStateMachine { get; private set; }
 
-    public Vector2 MoveInput;
-    public Vector3 velocity;
+    public Vector2 MoveInput { get; private set; }
 
     float cameraPitch = 0.0f;
 
@@ -39,14 +37,14 @@ public partial class PlayerController : MonoBehaviour
     void Update()
     {
         UpdateMouseLook();
+        MoveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+        movementStateMachine.Update();
     }
 
     // FixedUpdate is called in a fixed interval, regardless of framerate
     private void FixedUpdate()
     {
-        //UpdateMovement();
-        Vector2 MoveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
-        movementStateMachine.Update();
+        movementStateMachine.FixedUpdate();
     }
 
     void UpdateMouseLook()

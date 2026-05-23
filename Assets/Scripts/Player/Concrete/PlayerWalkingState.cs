@@ -6,7 +6,7 @@ public class PlayerWalkingState : PlayerBaseState
 
     public override void EnterState(PlayerMovementManager movementManager) 
     {
-        Debug.Log("Entered Walk state");
+        //Debug.Log("Entered Walk state");
     }
 
     public override void Update() {
@@ -16,10 +16,10 @@ public class PlayerWalkingState : PlayerBaseState
     public override void FixedUpdate()
     {
         Vector3 moveDir = 
-            player.transform.right * player.MoveInput. x + 
+            player.transform.right * player.MoveInput.x + 
             player.transform.forward * player.MoveInput.y;
 
-        player.rigidBody.linearVelocity = new Vector3(moveDir.x * player.MoveInput.x, 0.0f, moveDir.z * player.MoveInput.y);
+        player.rigidBody.linearVelocity = moveDir * 5f;
 
     }
 

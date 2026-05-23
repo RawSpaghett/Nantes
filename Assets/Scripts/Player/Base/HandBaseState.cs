@@ -9,4 +9,5 @@ public abstract class HandBaseState
     public abstract void ExitState(PlayerHandManager handManager);
 
     public abstract void CheckSwitchState(PlayerHandManager handManager);
+
 }

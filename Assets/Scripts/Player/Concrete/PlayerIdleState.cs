@@ -16,14 +16,14 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void EnterState(PlayerMovementManager movementManager) 
     {
-        Debug.Log("Entered Idle state");
+        //Debug.Log("Entered Idle state");
     }
 
     public override void UpdateState(PlayerMovementManager movementManager)
     {
         if (player.MoveInput.magnitude > 0.1f)
         {
-            Debug.Log("magnitude > 0.1f");
+            Debug.Log("Idle UpdateState is called");
             stateMachine.SwitchState(new PlayerWalkingState(stateMachine));
         }
         if (Input.GetKey(KeyCode.C))
