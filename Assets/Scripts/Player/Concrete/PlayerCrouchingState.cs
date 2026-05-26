@@ -20,7 +20,7 @@ public class PlayerCrouchingState : PlayerBaseState
 
     public override void EnterState(PlayerMovementManager movementManager)
     {
-        Debug.Log("Entered Crouch state");
+        //Debug.Log("Entered Crouch state");
         player.playerCamera.position -= Vector3.up * 0.4f;
     }
 
