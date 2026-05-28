@@ -2,7 +2,7 @@ using UnityEngine;
 
 public partial class PlayerController
 {
-    [SerializeField] PlayerHandManager handStateMachine = null;
+    //[SerializeField] PlayerHandManager handStateMachine = null;
 
     
 }

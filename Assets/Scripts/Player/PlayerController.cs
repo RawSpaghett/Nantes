@@ -25,7 +25,7 @@ public partial class PlayerController : MonoBehaviour
     {
         
         rigidBody = GetComponent<Rigidbody>();
-        handStateMachine = GetComponent<PlayerHandManager>();
+        //handStateMachine = GetComponent<PlayerHandManager>();
         movementStateMachine = GetComponent<PlayerMovementManager>();
 
         if (lockCursor)

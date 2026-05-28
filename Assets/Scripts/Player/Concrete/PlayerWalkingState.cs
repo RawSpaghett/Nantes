@@ -19,7 +19,7 @@ public class PlayerWalkingState : PlayerBaseState
             player.transform.right * player.MoveInput.x + 
             player.transform.forward * player.MoveInput.y;
 
-        player.rigidBody.linearVelocity = moveDir * 5f;
+        player.rigidBody.linearVelocity = moveDir * 25f;
 
     }
 

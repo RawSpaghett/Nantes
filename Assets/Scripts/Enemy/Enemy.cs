@@ -54,13 +54,13 @@ public class Enemy : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
 
-        StateMachine.Intialize(IdleState);
+        StateMachine.Intialize(PursueState);
         Debug.Log($"<color = green> Monster StateMachine Intialized: {StateMachine.currentState.ToString()} </color");
     }
 
     void Start()
     {
-        velocity = rb.linearVelocity;
+       // velocity = rb.linearVelocity;
     }
 
     void Update()
