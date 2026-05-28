@@ -1,0 +1,3 @@
+Navmesh and A* Pathfinding Algorithm
+https://www.reddit.com/r/unity/comments/yvy35p/how_to_write_a_custom_a_pathfinding_algorithm_in/
+https://en.wikipedia.org/wiki/A*_search_algorithm 
