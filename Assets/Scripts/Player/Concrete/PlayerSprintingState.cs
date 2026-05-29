@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class PlayerCrouchingState : PlayerBaseState
+public class PlayerSprintingState : PlayerBaseState
 {
-    public PlayerCrouchingState(PlayerMovementManager sm) : base(sm) { }
-    
-    public override void Update() 
+    public PlayerSprintingState(PlayerMovementManager sm) : base(sm) { }
+
+    public override void Update()
     {
-        
+
     }
 
     public override void FixedUpdate()
@@ -15,27 +15,33 @@ public class PlayerCrouchingState : PlayerBaseState
             player.transform.right * player.MoveInput.x +
             player.transform.forward * player.MoveInput.y;
 
-        player.rigidBody.linearVelocity = moveDir * player.moveSpeed * player.crouchSpeedModifier;
-        Debug.Log("Crouch state");
+        player.rigidBody.linearVelocity = moveDir * player.moveSpeed * player.sprintSpeedModifier;
     }
 
     public override void EnterState(PlayerMovementManager movementManager)
     {
-        //Debug.Log("Entered Crouch state");
-        player.playerCamera.position -= Vector3.up * 0.4f;
+        //Debug.Log("Entered Sprint state");   
     }
 
     public override void UpdateState(PlayerMovementManager movementManager)
     {
-        if(!(Input.GetKey(KeyCode.C) || (Input.GetKey(KeyCode.LeftControl) )) )
+        if (player.MoveInput.magnitude < 0.1f)
+        {
+            stateMachine.SwitchState(new PlayerIdleState(stateMachine));
+        }
+        if (!Input.GetKey(KeyCode.LeftShift))
         {
             stateMachine.SwitchState(new PlayerWalkingState(stateMachine));
+        }
+        if (Input.GetKey(KeyCode.C) || Input.GetKey(KeyCode.LeftControl))
+        {
+            stateMachine.SwitchState(new PlayerCrouchingState(stateMachine));
         }
     }
 
     public override void ExitState(PlayerMovementManager movementManager)
     {
-        player.playerCamera.position += Vector3.up * 0.4f;
+        
     }
 
     public override void CheckSwitchState(PlayerMovementManager movementManager)

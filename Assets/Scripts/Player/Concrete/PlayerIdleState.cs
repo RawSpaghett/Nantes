@@ -10,8 +10,8 @@ public class PlayerIdleState : PlayerBaseState
     }
 
     public override void FixedUpdate()
-    {        
-
+    {
+        Debug.Log("Idle state");
     }
 
     public override void EnterState(PlayerMovementManager movementManager) 
@@ -21,12 +21,13 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void UpdateState(PlayerMovementManager movementManager)
     {
-        if (player.MoveInput.magnitude > 0.1f)
+        if (player.MoveInput.magnitude < 0.1f)
         {
-            //Debug.Log("Idle UpdateState is called");
-            stateMachine.SwitchState(new PlayerWalkingState(stateMachine));
+            {
+                stateMachine.SwitchState(new PlayerWalkingState(stateMachine));
+            }
         }
-        if (Input.GetKey(KeyCode.C))
+        if (Input.GetKey(KeyCode.C) || Input.GetKey(KeyCode.LeftControl))
         {
             stateMachine.SwitchState(new PlayerCrouchingState(stateMachine));
         }

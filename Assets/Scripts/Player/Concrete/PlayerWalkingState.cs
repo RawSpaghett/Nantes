@@ -19,18 +19,23 @@ public class PlayerWalkingState : PlayerBaseState
             player.transform.right * player.MoveInput.x + 
             player.transform.forward * player.MoveInput.y;
 
-        player.rigidBody.linearVelocity = moveDir * 25f;
-
+        player.rigidBody.linearVelocity = moveDir * player.moveSpeed;
     }
 
     public override void UpdateState(PlayerMovementManager movementManager)
     {
-
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            Debug.Log("Shift pressed!");
+            stateMachine.SwitchState(new PlayerSprintingState(stateMachine));
+        }
         if (player.MoveInput.magnitude < 0.1f)
         {
+            // Player only enters sprint state when also inputting a direction           
             stateMachine.SwitchState(new PlayerIdleState(stateMachine));
+
         }
-        if (Input.GetKey(KeyCode.C))
+        if (Input.GetKey(KeyCode.C) || Input.GetKey(KeyCode.LeftControl))
         {
             stateMachine.SwitchState(new PlayerCrouchingState(stateMachine));
         }

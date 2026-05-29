@@ -6,10 +6,11 @@ public partial class PlayerController : MonoBehaviour
 {
 
     [SerializeField] float mouseSensitivity = 5.0f;
-    [SerializeField] float moveSpeed = 5.0f;
+    [SerializeField] public float moveSpeed = 25.0f;
     [SerializeField] bool lockCursor = true;
 
     [SerializeField] public float crouchSpeedModifier = 0.5f;
+    [SerializeField] public float sprintSpeedModifier = 1.3f;
 
     [SerializeField] public Transform playerCamera = null;
     [SerializeField] public Rigidbody rigidBody { get; private set; }
