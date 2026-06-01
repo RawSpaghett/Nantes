@@ -1,11 +1,6 @@
 fileFormatVersion: 2
-<<<<<<<< Updated upstream:Assets/project.unity.meta
-guid: f418ddb76b70f764ba3e691e8208ccfe
-DefaultImporter:
-========
-guid: 3f6fcd0076d024e09a12b60e4b90a38b
-NativeFormatImporter:
->>>>>>>> Stashed changes:Assets/Scenes/Main/NavMesh-floor.asset.meta
+guid: fb85beea9ca524aa0b32fdea641d8b37
+PrefabImporter:
   externalObjects: {}
   userData: 
   assetBundleName: 

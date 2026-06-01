@@ -63,12 +63,13 @@ public class Enemy : MonoBehaviour
        // velocity = rb.linearVelocity;
     }
 
-    void FixedUpdate()
+    void Update()
     {
         debugTimer += Time.deltaTime;
         if(corners != null && debugTimer >= 1f)
         {
             Debug.Log($"Current Corner Index: {currentCornerIndex.ToString()}");
+            Debug.Log($"speed: {StateMachine.currentState.speed}");
             debugTimer = 0f;
         }
         StateMachine.currentState.FrameUpdate();
@@ -77,6 +78,13 @@ public class Enemy : MonoBehaviour
 
     public void MoveEnemy() //navigates the mesh from pathfinder
     {
+        if(corners == null)
+        {
+            Debug.Log($"Still finding path: {pathTime}");
+            pathTime = Time.time * 1000f; //milliseconds
+            return;
+        }
+
         Vector3 targetCorner = corners[currentCornerIndex];
         Vector3 direction = (targetCorner - transform.position).normalized; //keeps direction, drops velocity
         /*
@@ -87,7 +95,7 @@ public class Enemy : MonoBehaviour
 
         rb.AddForce(direction * StateMachine.currentState.speed,ForceMode.Acceleration);//applies actual speed to object
 
-        transform.forward = Vector3.Slerp(transform.forward, direction, Time.fixedDeltaTime * 5f); 
+        transform.forward = Vector3.Slerp(transform.forward, direction, Time.deltaTime * 5f); 
 
         if (Vector3.Distance(new Vector3(transform.position.x, 0, transform.position.z),new Vector3(targetCorner.x, 0, targetCorner.z)) < 1f)
         {
