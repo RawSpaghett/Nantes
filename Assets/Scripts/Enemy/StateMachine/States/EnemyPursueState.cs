@@ -4,7 +4,12 @@ using UnityEngine.AI;
 public class EnemyPursueState : EnemyState
 {
 
-    private float pursueSpeed = 4f;
+<<<<<<< Updated upstream
+    private float pursueSpeed = 4.5f;
+    private Vector3 pursueTarget;
+=======
+    private float pursueSpeed = 15f;
+>>>>>>> Stashed changes
     private float recalculateRate = 0.2f;
     private float recalculateTimer = 0;
     private GameObject targetObj; //grab from search state
