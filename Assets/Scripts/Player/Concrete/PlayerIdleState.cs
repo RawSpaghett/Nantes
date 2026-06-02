@@ -11,7 +11,7 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void FixedUpdate()
     {
-        Debug.Log("Idle state");
+        //Debug.Log("Idle state");
     }
 
     public override void EnterState(PlayerMovementManager movementManager) 
