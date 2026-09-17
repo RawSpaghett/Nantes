@@ -1,17 +1,37 @@
 using UnityEngine;
+using System;
+using UnityEngine.AI;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
-public class Enemy: MonoBehaviour
+//https://docs.unity3d.com/6000.4/Documentation/ScriptReference/AI.NavMesh.html
+
+public abstract class Enemy: MonoBehaviour
 {
-    #region Variables
-    #endregion
+    [Header("Enemy Components")]
+    private Rigidbody rb {get; set;}
+    private EStateMachine stateMachine {get; set;}
 
-    #region Awake, Update
+    [Header("Nav Mesh")]
+    protected NavMeshPath path;
+    protected Vector3[] corners;
+    protected int currentCornerIndex;
 
-    void Awake()
+    protected virtual void Awake() //base.Awake()
+    {
+        path = new NavMeshPath();
+        stateMachine = new EStateMachine();
+        rb = GetComponent<Rigidbody>();
+    }
+
+    protected virtual void FixedUpdate()
     {}
 
-    void FixedUpdate()
+    protected virtual void Move()
     {}
 
-    #endregion
+    protected virtual void PathFinder()
+    {}
+
 }
