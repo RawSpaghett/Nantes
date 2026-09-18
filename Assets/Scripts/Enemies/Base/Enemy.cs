@@ -10,8 +10,8 @@ using System.Linq;
 public abstract class Enemy: MonoBehaviour
 {
     [Header("Enemy Components")]
-    private Rigidbody rb {get; set;}
-    private EStateMachine stateMachine {get; set;}
+    protected Rigidbody rb;
+    public EStateMachine stateMachine {get; set;}
 
     [Header("Nav Mesh")]
     protected NavMeshPath path;
