@@ -6,7 +6,6 @@ public class Touch: MonoBehaviour
     //Variables
     private SphereCollider sphereCollider;
     private Enemy parent;
-    private event Action OnCollision;
 
     void Awake()
     {

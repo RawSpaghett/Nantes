@@ -1,7 +1,22 @@
 using UnityEngine;
 
-public class Eyes
+public class Eyes: MonoBehaviour
 {
-    private Collider cone;
+    private BoxCollider collider;
+    private Enemy parent;
+
+    void Awake()
+    {
+        collider = GetComponent<BoxCollider>();
+        parent = GetComponentInParent<Enemy>();
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Player")
+        {
+            parent.stateMachine.ChangeState(null); //Pursue
+        }
+    }
     
 }

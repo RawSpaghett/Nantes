@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.Events;
+
 public class Ears: MonoBehaviour
 {
 
@@ -10,14 +12,14 @@ public class Ears: MonoBehaviour
         parent = GetComponentInParent<Enemy>();
     }
 
-    void OnEnable()
+    void OnEnable()//Subscribe to relevant actions
     {
-        
+        //Throwable.OnLand += Listen;
     }
 
-    void OnDisable()
+    void OnDisable()//Unsubscribe
     {
-        
+        //Throwable.OnLand -= Listen;
     }
 
     private void Listen(Vector3 sourcePosition, float loudness)
@@ -27,11 +29,7 @@ public class Ears: MonoBehaviour
 
         if(distance <= range)
         {
-            
-
-
-
-
+            parent.stateMachine.ChangeState(null); //Investigate
         }
     }
 
