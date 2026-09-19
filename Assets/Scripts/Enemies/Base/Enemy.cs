@@ -10,8 +10,8 @@ using System.Linq;
 public abstract class Enemy: MonoBehaviour
 {
     [Header("Enemy Components")]
-    protected Rigidbody rb;
-    public EStateMachine stateMachine {get; set;}
+    public Rigidbody rb;
+    public EStateMachine<Enemy> stateMachine {get; set;}
 
     [Header("Nav Mesh")]
     protected NavMeshPath path;
@@ -21,7 +21,7 @@ public abstract class Enemy: MonoBehaviour
     protected virtual void Awake() //base.Awake()
     {
         path = new NavMeshPath();
-        stateMachine = new EStateMachine();
+        stateMachine = new EStateMachine<Enemy>();
         rb = GetComponent<Rigidbody>();
     }
 

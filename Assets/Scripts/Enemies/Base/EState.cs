@@ -2,12 +2,12 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-public class EnemyState
+public class EState<T> where T : Enemy //can be any child of enemy
 {
-    protected Enemy enemy;
-    protected EStateMachine enemyStateMachine;
+    protected T enemy;
+    protected EStateMachine<T> enemyStateMachine;
 
-    public EnemyState (Enemy enemy, EStateMachine enemyStateMachine) // when declaring a new enemy state, EnemyState state = new EnemyState(enemy,enemyStateMachine)
+    public EState (T enemy, EStateMachine<T> enemyStateMachine) // when declaring a new enemy state, EnemyState state = new EnemyState(enemy,enemyStateMachine)
     {
         this.enemy = enemy;
         this.enemyStateMachine = enemyStateMachine;
@@ -22,7 +22,7 @@ public class EnemyState
     public virtual void AnimationTriggerEvent()
     {}
 
-    public virtual void AudioTriggerEvenet()
+    public virtual void AudioTriggerEvent()
     {}
 
 }
