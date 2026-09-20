@@ -17,7 +17,6 @@ public abstract class Enemy: MonoBehaviour
     protected Vector3[] cornerArray = new Vector3[64]; //pre-allocate for memory
     protected int currentCornerIndex;
     protected int cornerCount;
-    protected Vector3 target;
 
     protected virtual void Awake() //base.Awake()
     {
@@ -29,10 +28,26 @@ public abstract class Enemy: MonoBehaviour
     {
     }
 
-    protected virtual void Move()
-    {}
+    protected virtual void Move()// Use "Look-ahead" Smoothing, Handle sharp turns, and self-collision
+    {
+        
 
-    protected virtual void PathFinder()
-    {}
+    }
 
+    protected virtual void PathFinder(Vector3 target)
+    {
+        //Grabs closest path to a target
+        if (NavMesh.CalculatePath(transform.position, target, NavMesh.AllAreas, path)) // stores resulting path
+        {
+            if(path.status == NavMeshPathStatus.PathComplete || path.status == NavMeshPathStatus.PathPartial)
+            {
+                cornerCount = path.GetCornersNonAlloc(cornerArray);
+                currentCornerIndex = 1; //not including self
+            }
+        }
+        else
+        {
+            Debug.Log("<Color=red>No Complete OR Partial path found</Color>");
+        }
+    }
 }

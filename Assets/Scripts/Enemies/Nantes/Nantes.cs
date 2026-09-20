@@ -29,31 +29,7 @@ public class Nantes: Enemy, IEars, IEyes, ITouch
        stateMachine.currentState.FrameUpdate();
     }
     
-
-    protected override void Move()
-    {
-        
-    }
-
-    protected override void PathFinder()
-    {
-        //Grabs closest path to a target
-        if (NavMesh.CalculatePath(transform.position, base.target, NavMesh.AllAreas, path)) // stores resulting path
-        {
-            if(path.status == NavMeshPathStatus.PathComplete || path.status == NavMeshPathStatus.PathPartial)
-            {
-                base.cornerCount = path.GetCornersNonAlloc(base.cornerArray);
-                currentCornerIndex = 1; //not including self
-            }
-        }
-        else
-        {
-            Debug.Log("<Color=red>No Complete OR Partial path found</Color>");
-        }
-    }
-
     //Interfaces
-
     public void OnNoiseHeard()
     {}
 

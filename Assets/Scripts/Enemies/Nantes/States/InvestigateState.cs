@@ -6,6 +6,7 @@ public class InvestigateState: EState<Nantes>
     {}
     public override void EnterState()
     {
+        Debug.Log($"EnterState: {enemy.stateMachine.currentState}");
         enemy.eyes.enabled = true;
     }
     public override void ExitState()
