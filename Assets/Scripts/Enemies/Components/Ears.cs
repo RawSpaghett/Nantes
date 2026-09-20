@@ -3,13 +3,12 @@ using UnityEngine.Events;
 
 public class Ears: MonoBehaviour
 {
-
     private float hearingSensitivity = 1f;
-    private Enemy parent;
+    private IEars parent;
 
     void Awake()
     {
-        parent = GetComponentInParent<Enemy>();
+        parent = GetComponentInParent<IEars>();
     }
 
     void OnEnable()//Subscribe to relevant actions
@@ -29,7 +28,7 @@ public class Ears: MonoBehaviour
 
         if(distance <= range)
         {
-            parent.stateMachine.ChangeState(null); //Investigate
+            parent.OnNoiseHeard(); //Investigate
         }
     }
 

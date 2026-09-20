@@ -5,24 +5,26 @@ public class Touch: MonoBehaviour
 {
     //Variables
     private SphereCollider sphereCollider;
-    private Enemy parent;
+    private ITouch parent;
 
     void Awake()
     {
         sphereCollider = GetComponent<SphereCollider>();
-        parent = GetComponentInParent<Enemy>();
+        parent = GetComponentInParent<ITouch>();
     }
 
     void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
         {
-            parent.stateMachine.ChangeState(null); //probably pursue
+            parent.OnTouch(); //probably pursue
         }
+        /*
         if(other.tag == "Thrown")
         {
-            parent.stateMachine.ChangeState(null); //probably investigate
+            parent.OnTouch(); //probably investigate
         }
+        */
     }
 
 }

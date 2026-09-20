@@ -3,19 +3,19 @@ using UnityEngine;
 public class Eyes: MonoBehaviour
 {
     private BoxCollider collider;
-    private Enemy parent;
+    private IEyes parent;
 
     void Awake()
     {
         collider = GetComponent<BoxCollider>();
-        parent = GetComponentInParent<Enemy>();
+        parent = GetComponentInParent<IEyes>();
     }
 
     void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
         {
-            parent.stateMachine.ChangeState(null); //Pursue
+            parent.OnSee(); //Pursue
         }
     }
     
