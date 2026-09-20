@@ -2,5 +2,5 @@ using UnityEngine;
 
 public interface IEyes
 {
-    public void OnSee();
+    public void OnSee(Vector3 target);
 }

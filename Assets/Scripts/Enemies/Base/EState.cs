@@ -5,6 +5,8 @@ using System.Collections.Generic;
 public class EState<T> where T : Enemy //can be any child of enemy
 {
     protected T enemy;
+    //Individual state stats
+    public float speed;
     protected EStateMachine<T> enemyStateMachine;
 
     public EState (T enemy, EStateMachine<T> enemyStateMachine) // when declaring a new enemy state, EnemyState state = new EnemyState(enemy,enemyStateMachine)

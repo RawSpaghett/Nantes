@@ -1,9 +1,11 @@
 using UnityEngine;
+using System;
 
 public class Eyes: MonoBehaviour
 {
     private BoxCollider collider;
     private IEyes parent;
+    [SerializeField] private float raycastDistance = 20f;
 
     void Awake()
     {
@@ -13,9 +15,12 @@ public class Eyes: MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        if(Physics.Raycast(transform.position,(transform.position - other.transform.position))) //check if other stuff is in the way
         {
-            parent.OnSee(); //Pursue
+            if(other.tag == "Player")
+            {
+                parent.OnSee(other.transform.position); //Pursue
+            }
         }
     }
     

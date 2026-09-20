@@ -28,7 +28,7 @@ public class Ears: MonoBehaviour
 
         if(distance <= range)
         {
-            parent.OnNoiseHeard(); //Investigate
+            parent.OnNoiseHeard(sourcePosition); //Investigate
         }
     }
 

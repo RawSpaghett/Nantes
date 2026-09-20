@@ -17,6 +17,10 @@ public abstract class Enemy: MonoBehaviour
     protected Vector3[] cornerArray = new Vector3[64]; //pre-allocate for memory
     protected int currentCornerIndex;
     protected int cornerCount;
+    [SerializeField] private float navErrorMargin = 0.5f;
+
+    [Header("Stats")]
+    protected abstract float CurrentSpeed {get;}
 
     protected virtual void Awake() //base.Awake()
     {
@@ -28,10 +32,15 @@ public abstract class Enemy: MonoBehaviour
     {
     }
 
-    protected virtual void Move()// Use "Look-ahead" Smoothing, Handle sharp turns, and self-collision
+    public virtual void Move()// Use "Look-ahead" Smoothing, Handle sharp turns, and self-collision
     {
-        
-
+        Vector3 targetCorner = cornerArray[currentCornerIndex];
+        Vector3 direction = new Vector3(targetCorner.x - transform.position.x,0,targetCorner.z - transform.position.z).normalized; //direction, flatten y, normalize
+        rb.AddForce(direction * CurrentSpeed,ForceMode.Force); //adds the force in the proper XY direction
+        if (Vector3.Distance(new Vector3(transform.position.x, 0, transform.position.z),new Vector3(targetCorner.x, 0, targetCorner.z)) < navErrorMargin)
+        {
+            currentCornerIndex++;
+        }
     }
 
     protected virtual void PathFinder(Vector3 target)

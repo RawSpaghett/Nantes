@@ -8,10 +8,12 @@ public class Nantes: Enemy, IEars, IEyes, ITouch
     public Touch touch;
 
     public EStateMachine<Nantes> stateMachine {get; set;}
-
     #region States
-    public PursueState pursueState;
+    private PursueState pursueState;
+    private InvestigateState investigateState;
     #endregion
+
+    protected override float CurrentSpeed => stateMachine.currentState.speed; //cast back to base class
 
     protected override void Awake()
     {
@@ -23,6 +25,7 @@ public class Nantes: Enemy, IEars, IEyes, ITouch
         //States
         stateMachine = new EStateMachine<Nantes>();
         pursueState = new PursueState(this,stateMachine);
+        investigateState = new InvestigateState(this,stateMachine);
     }
     protected override void FixedUpdate()
     {
@@ -30,13 +33,22 @@ public class Nantes: Enemy, IEars, IEyes, ITouch
     }
     
     //Interfaces
-    public void OnNoiseHeard()
-    {}
+    public void OnNoiseHeard(Vector3 target)
+    {
+        base.PathFinder(target);
+        stateMachine.ChangeState(investigateState);
+    }
 
-    public void OnSee()
-    {}
+    public void OnSee(Vector3 target)
+    {
+        base.PathFinder(target);
+        stateMachine.ChangeState(pursueState);
+    }
 
-    public void OnTouch()
-    {}
+    public void OnTouch(Vector3 target)
+    {
+        base.PathFinder(target);
+        stateMachine.ChangeState(pursueState);
+    }
     
 }

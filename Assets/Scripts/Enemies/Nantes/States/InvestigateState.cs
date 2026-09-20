@@ -12,7 +12,9 @@ public class InvestigateState: EState<Nantes>
     public override void ExitState()
     {}
     public override void FrameUpdate()
-    {}
+    {
+        enemy.Move();
+    }
     public override void AnimationTriggerEvent()
     {}
     public override void AudioTriggerEvent()

@@ -11,6 +11,7 @@ public class BNantes: Enemy, ITouch
     public PursueState pursueState;
     public RetreatState retreatState;
     #endregion
+    protected override float CurrentSpeed => stateMachine.currentState.speed; //cast back to base class
 
     protected override void Awake()
     {

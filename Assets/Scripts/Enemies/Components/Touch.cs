@@ -17,7 +17,7 @@ public class Touch: MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            parent.OnTouch(); //probably pursue
+            parent.OnTouch(other.transform.position); //probably pursue
         }
         /*
         if(other.tag == "Thrown")
