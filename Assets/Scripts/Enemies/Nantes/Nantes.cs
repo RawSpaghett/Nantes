@@ -11,6 +11,7 @@ public class Nantes: Enemy, IEars, IEyes, ITouch
     #region States
     private PursueState pursueState;
     private InvestigateState investigateState;
+    private IdleState idleState;
     #endregion
 
     protected override float CurrentSpeed => stateMachine.currentState.speed; //cast back to base class
@@ -26,6 +27,8 @@ public class Nantes: Enemy, IEars, IEyes, ITouch
         stateMachine = new EStateMachine<Nantes>();
         pursueState = new PursueState(this,stateMachine);
         investigateState = new InvestigateState(this,stateMachine);
+        idleState = new IdleState(this,stateMachine);
+        stateMachine.Intialize(idleState);
     }
     protected override void FixedUpdate()
     {
