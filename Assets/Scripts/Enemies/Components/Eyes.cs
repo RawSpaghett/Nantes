@@ -3,25 +3,27 @@ using System;
 
 public class Eyes: MonoBehaviour
 {
-    private BoxCollider collider;
     private IEyes parent;
-    [SerializeField] private float raycastDistance = 20f;
+    [SerializeField] private float raycastDistance = 50f;
 
     void Awake()
     {
-        collider = GetComponent<BoxCollider>();
         parent = GetComponentInParent<IEyes>();
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
-        if(Physics.Raycast(transform.position,(transform.position - other.transform.position))) //check if other stuff is in the way
-        {
-            if(other.tag == "Player")
+            if(other.CompareTag("Player") && this.enabled)
             {
-                parent.OnSee(other.transform.position); //Pursue
+                if(Physics.Raycast(transform.position,(other.transform.position - transform.position), out RaycastHit hit, raycastDistance)) //check if other stuff is in the way
+                {
+                    if(hit.collider == other)
+                    {
+                        parent.OnSee(other.transform.position); //Pursue
+                    }
+                }
             }
-        }
+        
     }
     
 }

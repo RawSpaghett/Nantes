@@ -6,6 +6,7 @@ public class PursueState: EState<Nantes>
     {}
     public override void EnterState()
     {
+        enemy.stateMachine.currentState.speed = 5f;
         Debug.Log($"EnterState: {enemy.stateMachine.currentState}");
         enemy.eyes.enabled = true; //wont crash if already true
     }

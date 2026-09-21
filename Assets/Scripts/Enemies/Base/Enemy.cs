@@ -17,7 +17,9 @@ public abstract class Enemy: MonoBehaviour
     protected Vector3[] cornerArray = new Vector3[64]; //pre-allocate for memory
     protected int currentCornerIndex;
     protected int cornerCount;
-    [SerializeField] private float navErrorMargin = 0.5f;
+    protected Quaternion deltaRotation;
+    [SerializeField] private float navErrorMargin = 0.5f; //squared
+    [SerializeField] private float turnSpeed = 500f;
 
     [Header("Stats")]
     protected abstract float CurrentSpeed {get;}
@@ -26,6 +28,7 @@ public abstract class Enemy: MonoBehaviour
     {
         path = new NavMeshPath();
         rb = GetComponent<Rigidbody>();
+        deltaRotation = Quaternion.Euler(0,turnSpeed * Time.fixedDeltaTime,0);
     }
 
     protected virtual void FixedUpdate()
@@ -34,12 +37,40 @@ public abstract class Enemy: MonoBehaviour
 
     public virtual void Move()// Use "Look-ahead" Smoothing, Handle sharp turns, and self-collision
     {
-        Vector3 targetCorner = cornerArray[currentCornerIndex];
-        Vector3 direction = new Vector3(targetCorner.x - transform.position.x,0,targetCorner.z - transform.position.z).normalized; //direction, flatten y, normalize
-        rb.AddForce(direction * CurrentSpeed,ForceMode.Force); //adds the force in the proper XY direction
-        if (Vector3.Distance(new Vector3(transform.position.x, 0, transform.position.z),new Vector3(targetCorner.x, 0, targetCorner.z)) < navErrorMargin)
+        if(cornerArray == null || currentCornerIndex >= cornerCount)
+        {
+            rb.angularVelocity = Vector3.zero;
+            rb.linearVelocity = Vector3.zero;
+            return;
+        }
+
+        //Grab positions
+        Vector3 currentPosition = new Vector3(transform.position.x,0,transform.position.z);
+        Vector3 targetPosition = new Vector3(cornerArray[currentCornerIndex].x,0,cornerArray[currentCornerIndex].z);
+
+        //Get numbers
+        Vector3 header = (targetPosition - currentPosition);
+        float distance = header.sqrMagnitude;
+        Vector3 direction = header.normalized;
+
+        //Look ahead smoothing
+
+        //Sharp turn handling
+
+        Vector3 finalForces = (direction * CurrentSpeed);
+        rb.AddForce(finalForces, ForceMode.Force);
+        //rotate
+        if (direction != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            // MoveRotation is the physics-safe way to rotate a Rigidbody
+            rb.MoveRotation(Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime * turnSpeed));
+        }
+        //advance
+        if (distance < navErrorMargin * navErrorMargin) //sqr
         {
             currentCornerIndex++;
+            Debug.Log($"Current Corner: {currentCornerIndex}");
         }
     }
 
@@ -51,7 +82,7 @@ public abstract class Enemy: MonoBehaviour
             if(path.status == NavMeshPathStatus.PathComplete || path.status == NavMeshPathStatus.PathPartial)
             {
                 cornerCount = path.GetCornersNonAlloc(cornerArray);
-                currentCornerIndex = 1; //not including self
+                currentCornerIndex = 0; 
             }
         }
         else

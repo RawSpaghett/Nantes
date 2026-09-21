@@ -13,7 +13,7 @@ public class IdleState: EState<Nantes>
         enemy.rb.angularVelocity = Vector3.zero;
         */
         Debug.Log($"EnterState: {enemy.stateMachine.currentState}");
-        enemy.eyes.enabled = false;
+        //enemy.eyes.enabled = false; commented for debugging
     }
     public override void FrameUpdate() //deccelleration 
     {
