@@ -1,4 +1,4 @@
-"""Rebuild the encounter WAVs. Needs numpy, imageio-ffmpeg, and the source MP3."""
+"""Rebuild the menu WAVs. Needs numpy, imageio-ffmpeg, and the source MP3."""
 from pathlib import Path
 import subprocess,wave
 import numpy as np
@@ -55,3 +55,31 @@ t=np.arange(round(2.3*rate))/rate
 envelope=np.minimum(1,t/.025)*np.exp(-t*2.05)*np.minimum(1,(2.3-t)/.16)
 burst=(noise(2.3,80,4600)*.18+np.sin(2*np.pi*(210*t+70*(1-np.exp(-t*5))))*.16)*envelope
 save('Ship-Breakaway.wav',np.column_stack((burst,np.roll(burst,330)*.92)))
+
+t=np.arange(round(.55*rate))/rate
+rng=np.random.default_rng(472525)
+raw_noise=rng.standard_normal(len(t))
+air=np.zeros(len(t));low=0.;bass=0.
+for i in range(len(t)):
+    cutoff=900+4200*np.exp(-((t[i]-.29)/.12)**2)
+    low+=(1-np.exp(-2*np.pi*cutoff/rate))*(raw_noise[i]-low)
+    bass+=(1-np.exp(-2*np.pi*280/rate))*(low-bass)
+    air[i]=low-bass
+swell=np.exp(-((t-.265)/.075)**2)*.24
+snap=np.exp(-((t-.31)/.006)**2)*.55
+body=np.sin(2*np.pi*(180*t-95*t*t))*np.where(t>=.31,np.exp(-(t-.31)*40),0)*.11
+sound=(air*(swell+snap)+body)*np.minimum(1,t/.018)*np.minimum(1,(.55-t)/.045)
+sound*=.58/max(abs(sound))
+right=np.concatenate([np.zeros(24),sound[:-24]])*.96
+base=np.column_stack((sound,right))
+# Preserve the forward strike's original WAV rounding before adding the backswing.
+base=(base*32767).astype('<i2').astype(float)/32768
+mix=np.zeros((round(.39*rate)+len(base),2));mix[round(.39*rate):]=base
+t=np.arange(len(mix))/rate
+rng=np.random.default_rng(2069)
+backswing=rng.normal(0,1,(len(mix),2))
+for channel in range(2):
+    backswing[:,channel]=np.convolve(backswing[:,channel],np.ones(9)/9,'same')
+mix+=backswing*(.075*np.exp(-((t-.22)/.092)**2))[:,None]
+mix[:480]*=np.linspace(0,1,480)[:,None]
+save('Selector-Whip.wav',mix)

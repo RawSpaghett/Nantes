@@ -4,7 +4,7 @@ I handled the menu's look, layout, and interactions. It combines credited models
 
 ## 1. Earth
 
-The model is Earth by Akshat on Sketchfab, using the supplied 8K version. It was converted for Unity and smoothed so its outline holds up close to the camera.
+The model is Earth by Akshat on Sketchfab, using the 8K version. It was converted for Unity and smoothed so its outline holds up close to the camera.
 
 Slow rotation, directional lighting, and a separate atmospheric layer create the moving planet and thin blue edge. The clouds on Earth are part of its surface image. The drifting smoke in front is a separate effect.
 
@@ -38,7 +38,7 @@ It comes from the left, passes over the word, curls around the right, and return
 
 Clicking opens the loop, pulls the tip left, sends a bend forward like a rope, strikes the word, and recoils.
 
-The pullback takes about 0.36 seconds. The strike lands around 0.70 seconds, and the option opens around 0.94 seconds. That short delay lets the movement finish before the page changes. The crack sound follows the strike, and extra clicks cannot trigger duplicate actions during it.
+The pullback takes about 0.36 seconds. The strike lands around 0.70 seconds, and the option opens around 0.94 seconds. That delay keeps the page visible through the strike and the start of the recoil. The crack sound lands with the strike, and extra clicks cannot trigger duplicate actions during it.
 
 ## 7. Ship grab and escape
 
@@ -56,7 +56,7 @@ Each eligible check has a 10% ship-grab chance, 10% Earth-spin chance, and 80% c
 
 ## 9. Logo and font
 
-The lettering uses Nantes Display, a modified Michroma font with an open uppercase A and wide spacing. The SVG has editable letter shapes, the PSD has separate letter layers, and Unity uses the transparent PNG.
+The lettering uses Nantes Display, a modified Michroma font with an open uppercase A and wide spacing. [Nantes-Logo-Original.svg](../../../Design/Logo/Nantes-Logo-Original.svg) has editable letter shapes. [Nantes-Logo-Original.psd](../../../Design/Logo/Nantes-Logo-Original.psd) has six pixel layers, one per letter. Unity uses [NantesLogo.png](../Logo/NantesLogo.png).
 
 A shader briefly shifts sections of the title to create stuttering glitches. The glitches build in intensity during a repeating cycle, with quiet gaps so the name stays readable. The source artwork stays clean.
 
@@ -80,16 +80,16 @@ A separate camera draws the ship's silhouette. That shape hides matching parts o
 
 ## 13. Music and sound
 
-| Sound | How it was used |
+| Sound | How I made it |
 | --- | --- |
-| Background music | The supplied OGG fades in and loops. Its supplied credit is Universe - Space Sounds by JuliusH; file details are in the [music source note](Sources/Music.md). |
-| Earth whoosh | Simple Whoosh 02 by DRAGON-STUDIO, retimed so its strongest moment matches the release. |
-| Ship binding | A short synthesized impact timed to the tentacles catching the hull. |
-| Ship struggle | Generated noise and tones form an engine loop. Pitch and volume increase with engine effort. |
-| Ship escape | A short burst plays when the grip breaks. |
-| Selector whip | A pullback swish and crack match the forward strike. |
+| Background music | I repeated Universe - Space Sounds by JuliusH into a 25:13 track, then set it to fade in and loop in Unity. |
+| Earth whoosh | I stretched and retimed Simple Whoosh 02 by DRAGON-STUDIO so its loudest part matches the release. |
+| Ship binding | I layered a short noise swish, a falling bass tone, and rough low noise for the impact. |
+| Ship struggle | I combined filtered noise with two low, wobbling tones in a four-second loop. Its pitch and volume follow engine effort. |
+| Ship escape | I mixed a noisy burst with a falling tone, added a slight stereo delay, and timed it to the grip breaking. |
+| Selector whip | I combined a filtered swish, a short noise crack, and a low tone. I added a softer pullback swish and timed the crack to the strike. |
 
-The effects follow the animation's timing. Master Volume controls music and effects together.
+The ship and selector sounds were generated using Python and NumPy. [The sound notes](Audio.md) explain the layers, edits, and timing for each one. Master Volume controls music and effects together.
 
 ## 14. Buttons and settings
 
@@ -97,6 +97,6 @@ The menu uses Unity's UI controls and TextMesh Pro for lettering. The tentacle p
 
 The volume slider accepts dragging across its full handle height. Reduced Motion stops the ongoing animation and makes selection immediate. Volume and reduced-motion preferences are saved.
 
-Continue stays disabled until a save is available. New Game currently opens a preview notice; its connection to gameplay still needs to be added. Navigation, different screen sizes, sound timing, and both events were checked in the standalone preview.
+Continue stays disabled until a save is available. New Game currently shows a preview notice; its connection to gameplay still needs to be added. Navigation, different screen sizes, sound timing, and both events were checked in the standalone preview.
 
 [Menu setup](Menu-setup.md) · [Asset credits](Asset-credits.md)

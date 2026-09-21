@@ -14,7 +14,7 @@ Edit [NantesMenu.prefab](../Prefabs/NantesMenu.prefab) for layout and controls. 
 
 The editable logo files are in [Design/Logo](../../../Design/Logo). See [logo editing](Logo-editing.md) for exporting them to Unity.
 
-**Tools > Nantes UI > Apply horror art direction** resets the menu to the supplied layout and effects. Edit the prefab directly to keep your own changes.
+**Tools > Nantes UI > Apply horror art direction** resets the menu to the preset layout and effects. Edit the prefab directly to keep your own changes.
 
 ## Gameplay
 

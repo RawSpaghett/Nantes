@@ -21,12 +21,12 @@ Converted the hull to OBJ and centered it. Original textures are kept. The menu 
 
 ## Music
 
-Credit supplied for the music file: “Universe - Space Sounds” by JuliusH, Pixabay Content License.
+“Universe - Space Sounds” by JuliusH, Pixabay Content License.
 
 Source: https://pixabay.com/music/ambient-universe-space-sounds-3595/
 License: https://pixabay.com/service/license-summary/
 
-See [the music source note](Sources/Music.md) for the supplied file details.
+Repeated into a 25:13 background loop. See [the music source note](Sources/Music.md).
 
 ## Earth whoosh
 
@@ -39,7 +39,7 @@ Edited and retimed for the Earth spin. The [source MP3](../ThirdParty/DragonStud
 
 ## Menu effects
 
-Ship binding, strain, escape, and selector whip sounds were made for Nantes. The encounter sound generator is in [GenerateEncounterAudio.py](../../../Design/Audio/GenerateEncounterAudio.py).
+Ship binding, strain, escape, and selector whip sounds were made for Nantes from generated noise and tones. The sound generator is in [GenerateEncounterAudio.py](../../../Design/Audio/GenerateEncounterAudio.py). [How the sounds were made](Audio.md).
 
 ## Font
 
