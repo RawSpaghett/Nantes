@@ -1,6 +1,6 @@
-# Nantes menu
+# Menu setup
 
-Open `Scenes/NantesMenuPreview.unity` and press Play. You can also use **Tools > Nantes UI > Open menu preview**.
+Open [NantesMenuPreview.unity](../Scenes/NantesMenuPreview.unity) and press Play. You can also use **Tools > Nantes UI > Open menu preview**.
 
 Use the mouse or arrows and Enter. Escape goes back. Keyboard focus stays selected until the mouse moves.
 
@@ -10,9 +10,9 @@ The ship grab and Earth spin each have a 10% chance per eligible check. They can
 
 ## Editing
 
-Edit `Prefabs/NantesMenu.prefab` for layout and controls. `NantesTheme.asset` holds the UI colors.
+Edit [NantesMenu.prefab](../Prefabs/NantesMenu.prefab) for layout and controls. [NantesTheme.asset](../NantesTheme.asset) holds the UI colors.
 
-The active logo's SVG, PSD, and PNG are in `Design/Logo` at the project root. Unity uses `Logo/NantesLogo.png`. Export over that PNG after editing the logo.
+The editable logo files are in [Design/Logo](../../../Design/Logo). See [logo editing](Logo-editing.md) for exporting them to Unity.
 
 **Tools > Nantes UI > Apply horror art direction** resets the menu to the supplied layout and effects. Edit the prefab directly to keep your own changes.
 
@@ -26,4 +26,4 @@ Use an EventSystem with InputSystemUIInputModule. Keep the animated-space root a
 
 The team project uses Unity 6000.3.10f1. The standalone was checked in 6000.5.10f1; the team's URP setup still needs testing.
 
-Credits and licenses: `ThirdParty/ASSET-CREDITS.md`. Font license: `Fonts/OFL.txt`.
+[Credits and licenses](Asset-credits.md)
