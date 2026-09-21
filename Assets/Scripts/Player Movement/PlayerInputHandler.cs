@@ -8,6 +8,7 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] private PlayerMovement playerMovement;
     public Vector2 move, look;
     public bool sprintHeld;
+    public bool interactTriggered;
 
     public void OnMoveInput(InputAction.CallbackContext context)
     {
@@ -37,6 +38,19 @@ public class PlayerInputHandler : MonoBehaviour
         if(context.canceled)
         {
             sprintHeld = false;
+        }
+    }
+
+    public void OnInteractInput(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+        {
+            interactTriggered = true;
+        }
+
+        if(context.canceled)
+        {
+            interactTriggered = false;
         }
     }
 
