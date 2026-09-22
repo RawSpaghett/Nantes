@@ -14,21 +14,23 @@ public abstract class Enemy: MonoBehaviour
 
     [Header("Nav Mesh")]
     protected NavMeshPath path;
-    protected Vector3[] cornerArray = new Vector3[64]; //pre-allocate for memory
+    protected Vector3[] cornerArray;
     protected int currentCornerIndex;
     protected int cornerCount;
     protected Quaternion deltaRotation;
-    [SerializeField] private float navErrorMargin = 0.5f; //squared
-    [SerializeField] private float turnSpeed = 500f;
-
     [Header("Stats")]
+    [SerializeField] private float navErrorMargin = 3f; //squared
+    [SerializeField] private float turnSpeed = 5f;
+    [SerializeField] private float maxSpeed = 5f;
+
+    //callbacks
     protected abstract float CurrentSpeed {get;}
+    protected abstract float MaxSpeed {get;}
 
     protected virtual void Awake() //base.Awake()
     {
         path = new NavMeshPath();
         rb = GetComponent<Rigidbody>();
-        deltaRotation = Quaternion.Euler(0,turnSpeed * Time.fixedDeltaTime,0);
     }
 
     protected virtual void FixedUpdate()
@@ -37,52 +39,41 @@ public abstract class Enemy: MonoBehaviour
 
     public virtual void Move()// Use "Look-ahead" Smoothing, Handle sharp turns, and self-collision
     {
-        if(cornerArray == null || currentCornerIndex >= cornerCount)
-        {
-            rb.angularVelocity = Vector3.zero;
-            rb.linearVelocity = Vector3.zero;
-            return;
-        }
+        if(cornerArray == null || currentCornerIndex >= cornerArray.Length) return;
+        Vector3 targetCorner = cornerArray[currentCornerIndex];
+        Vector3 direction = (targetCorner - transform.position).normalized; //keeps direction, drops velocity
+        /*
+        Debug.Log($"direction:{direction.ToString()}");
+        Debug.Log($"speed:{speed.ToString()}");
+        */
+        direction.y = 0;
 
-        //Grab positions
-        Vector3 currentPosition = new Vector3(transform.position.x,0,transform.position.z);
-        Vector3 targetPosition = new Vector3(cornerArray[currentCornerIndex].x,0,cornerArray[currentCornerIndex].z);
+        rb.AddForce(direction * CurrentSpeed,ForceMode.VelocityChange);//applies actual speed to object
+        rb.linearVelocity = Vector3.ClampMagnitude(rb.linearVelocity, maxSpeed); //clamp 
 
-        //Get numbers
-        Vector3 header = (targetPosition - currentPosition);
-        float distance = header.sqrMagnitude;
-        Vector3 direction = header.normalized;
-
-        //Look ahead smoothing
-
-        //Sharp turn handling
-
-        Vector3 finalForces = (direction * CurrentSpeed);
-        rb.AddForce(finalForces, ForceMode.Force);
-        //rotate
         if (direction != Vector3.zero)
         {
             Quaternion targetRotation = Quaternion.LookRotation(direction);
-            // MoveRotation is the physics-safe way to rotate a Rigidbody
             rb.MoveRotation(Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime * turnSpeed));
         }
-        //advance
-        if (distance < navErrorMargin * navErrorMargin) //sqr
+
+        if (Vector3.Distance(new Vector3(transform.position.x, 0, transform.position.z),new Vector3(targetCorner.x, 0, targetCorner.z)) < navErrorMargin)
         {
             currentCornerIndex++;
-            Debug.Log($"Current Corner: {currentCornerIndex}");
+            Debug.Log($"current corner {currentCornerIndex}");
         }
     }
 
-    protected virtual void PathFinder(Vector3 target)
+    public virtual void PathFinder(Vector3 target)
     {
+        //Debug.Log("<Color=green>Pathfinder called</Color>");
         //Grabs closest path to a target
         if (NavMesh.CalculatePath(transform.position, target, NavMesh.AllAreas, path)) // stores resulting path
         {
             if(path.status == NavMeshPathStatus.PathComplete || path.status == NavMeshPathStatus.PathPartial)
             {
-                cornerCount = path.GetCornersNonAlloc(cornerArray);
-                currentCornerIndex = 0; 
+                cornerArray = path.corners;
+                currentCornerIndex = 1; 
             }
         }
         else

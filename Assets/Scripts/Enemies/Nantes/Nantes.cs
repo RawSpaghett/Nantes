@@ -6,6 +6,7 @@ public class Nantes: Enemy, IEars, IEyes, ITouch
     public Eyes eyes;
     public Ears ears;
     public Touch touch;
+    public Transform playerLocation;
 
     public EStateMachine<Nantes> stateMachine {get; set;}
     #region States
@@ -15,6 +16,7 @@ public class Nantes: Enemy, IEars, IEyes, ITouch
     #endregion
 
     protected override float CurrentSpeed => stateMachine.currentState.speed; //cast back to base class
+    protected override float MaxSpeed => stateMachine.currentState.speed;
 
     protected override void Awake()
     {
@@ -45,13 +47,15 @@ public class Nantes: Enemy, IEars, IEyes, ITouch
     public void OnSee(Vector3 target)
     {
         base.PathFinder(target);
-        stateMachine.ChangeState(pursueState);
+        if(stateMachine.currentState != pursueState)
+            stateMachine.ChangeState(pursueState);
     }
 
     public void OnTouch(Vector3 target)
     {
         base.PathFinder(target);
-        stateMachine.ChangeState(pursueState);
+        if(stateMachine.currentState != pursueState)
+            stateMachine.ChangeState(pursueState);
     }
     
 }
