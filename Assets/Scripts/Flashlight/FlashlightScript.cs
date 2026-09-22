@@ -2,23 +2,49 @@ using UnityEngine;
 
 public class FlashlightScript : MonoBehaviour
 {
-    [SerializeField] PlayerInputHandler playerInputHandler;
+    [SerializeField] private PlayerInputHandler playerInputHandler;
+    [SerializeField] private GameObject flashlight;
     [SerializeField] private float timer = 0f;
-    [SerializeField] private float stopTimer = 8f;
-    [SerializeField] private bool flashlightActive;
+    [SerializeField] private float maxTimer = 8f;
+    [SerializeField] private float minTimer = 0f;
+    //[SerializeField] private bool flashlightActive;
+
+    void Awake()
+    {
+        flashlight.SetActive(false);
+    }
 
     void FixedUpdate()
     {
-        if(playerInputHandler.crankHeld && !flashlightActive)
+        if(timer >= maxTimer/2)
+        {
+            flashlight.SetActive(true);
+        }
+
+
+        if(playerInputHandler.crankHeld)
         {
             timer += Time.fixedDeltaTime;
 
-            if(timer >= stopTimer)
+            if(timer >= maxTimer)
             {
                 //Debug.Log("Stopped");
-                timer = stopTimer;
+                timer = maxTimer;
+                //flashlightActive = true;
+                return;
+            }
+        }
 
-                flashlightActive = true;
+        if(!playerInputHandler.crankHeld)
+        {
+            timer -= Time.fixedDeltaTime;
+
+            if(timer <= minTimer)
+            {
+                timer = minTimer;
+
+                //flashlightActive = false;
+                flashlight.SetActive(false);
                 return;
             }
         }
