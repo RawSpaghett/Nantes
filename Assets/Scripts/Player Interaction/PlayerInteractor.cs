@@ -5,7 +5,7 @@ public class PlayerInteractor : MonoBehaviour
     [SerializeField] private Camera playerCamera;
     [SerializeField] private float interactionDistance = 3f;
     [SerializeField] private PlayerInputHandler playerInputHandler;
-    [SerializeField] private ThrowableObjects throwableObjects;
+    //[SerializeField] private ThrowableObjects throwableObjects;
 
     private IInteractable currentInteractable;
 
