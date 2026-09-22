@@ -10,6 +10,8 @@ public class Segments : MonoBehaviour
     
     [Header("Creature Settings")]
     [SerializeField] private string parentString;
+    [SerializeField] private string folderString;
+
     [SerializeField] private int segmentAmount = 10; //infinitely scalable
     [SerializeField] private float saveDistance = 2f; //aka follow distance, change this to change distance between segments
 
@@ -23,7 +25,7 @@ public class Segments : MonoBehaviour
         locationArray = new Vector3[segmentAmount + 1]; //leave room for monster transform
         monsterHead = GameObject.FindWithTag(parentString);
         rb = monsterHead.GetComponent<Rigidbody>(); //grab rigid body
-        GameObject folder = new GameObject("SegmentFolder");
+        GameObject folder = new GameObject(folderString);
     
 
 

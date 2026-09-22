@@ -134,6 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bd09809d39b048f7a9f8f89de791a21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ears
+  hearingSensitivity: 10
 --- !u!1 &4886959379591646453
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,7 +181,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Segments
   monsterHead: {fileID: 0}
   segmentPrefab: {fileID: 7090245914129130752, guid: 62e34b74148984ed6be0d4497a0526e5, type: 3}
-  segmentAmount: 20
+  parentString: Nantes
+  folderString: 
+  segmentAmount: 0
   saveDistance: 2
 --- !u!1 &5116715122141051413
 GameObject:

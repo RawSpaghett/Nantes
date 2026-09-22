@@ -13,7 +13,7 @@ public class BNantes: Enemy, ITouch
     #endregion
     protected override float CurrentSpeed => stateMachine.currentState.speed; //cast back to base class
 
-    protected Transform retreatPoint;
+    public Transform retreatPoint;
 
     protected override void Awake()
     {
@@ -42,6 +42,14 @@ public class BNantes: Enemy, ITouch
     {
         base.PathFinder(retreatPoint.position);
         stateMachine.ChangeState(retreatState);
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Flashlight"))
+        {
+            OnRetreat();
+        }
     }
     
 }

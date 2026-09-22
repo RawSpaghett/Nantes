@@ -8,6 +8,8 @@ TagManager:
   - CinemachineTarget
   - Nantes
   - BNantes
+  - retreatPoint
+  - Flashlight
   layers:
   - Default
   - TransparentFX
