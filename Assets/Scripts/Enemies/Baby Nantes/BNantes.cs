@@ -12,7 +12,6 @@ public class BNantes: Enemy, ITouch
     public RetreatState retreatState;
     #endregion
     protected override float CurrentSpeed => stateMachine.currentState.speed; //cast back to base class
-    protected override float MaxSpeed => stateMachine.currentState.speed; //matches clamp
 
     protected override void Awake()
     {

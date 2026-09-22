@@ -3,20 +3,23 @@ using UnityEngine.AI;
 
 public class Nantes: Enemy, IEars, IEyes, ITouch
 {
+    #region Components
     public Eyes eyes;
     public Ears ears;
     public Touch touch;
-    public Transform playerLocation;
+    #endregion
+
+    #region States
 
     public EStateMachine<Nantes> stateMachine {get; set;}
-    #region States
     private PursueState pursueState;
-    private InvestigateState investigateState;
+    public InvestigateState investigateState;
     private IdleState idleState;
     #endregion
 
-    protected override float CurrentSpeed => stateMachine.currentState.speed; //cast back to base class
-    protected override float MaxSpeed => stateMachine.currentState.speed;
+    public Transform playerGhost {get;set;}
+    public bool activeVision {get;set;}
+    protected override float CurrentSpeed => stateMachine.currentState.speed; //cast back to base class23
 
     protected override void Awake()
     {
@@ -41,19 +44,18 @@ public class Nantes: Enemy, IEars, IEyes, ITouch
     public void OnNoiseHeard(Vector3 target)
     {
         base.PathFinder(target);
-        stateMachine.ChangeState(investigateState);
+        if(stateMachine.currentState != investigateState)
+            stateMachine.ChangeState(investigateState);
     }
 
-    public void OnSee(Vector3 target)
+    public void OnSee()
     {
-        base.PathFinder(target);
         if(stateMachine.currentState != pursueState)
             stateMachine.ChangeState(pursueState);
     }
 
-    public void OnTouch(Vector3 target)
+    public void OnTouch()
     {
-        base.PathFinder(target);
         if(stateMachine.currentState != pursueState)
             stateMachine.ChangeState(pursueState);
     }

@@ -6,8 +6,8 @@ public class InvestigateState: EState<Nantes>
     {}
     public override void EnterState()
     {
-        enemy.stateMachine.currentState.speed = 5f;
-        Debug.Log($"EnterState: {enemy.stateMachine.currentState}");
+        enemy.stateMachine.currentState.speed = 1f;
+        //Debug.Log($"EnterState: {enemy.stateMachine.currentState}");
         enemy.eyes.enabled = true;
     }
     public override void ExitState()

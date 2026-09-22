@@ -2,6 +2,6 @@ using UnityEngine;
 
 public interface ITouch
 {
-    public virtual void OnTouch(Vector3 target)
+    public virtual void OnTouch()
     {}
 }

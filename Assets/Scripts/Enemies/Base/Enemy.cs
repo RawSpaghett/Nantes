@@ -11,13 +11,15 @@ public abstract class Enemy: MonoBehaviour
 {
     [Header("Enemy Components")]
     public Rigidbody rb;
+    public Transform playerLocation;
 
-    [Header("Nav Mesh")]
+    #region Navmesh
     protected NavMeshPath path;
     protected Vector3[] cornerArray;
     protected int currentCornerIndex;
     protected int cornerCount;
-    protected Quaternion deltaRotation;
+    #endregion
+
     [Header("Stats")]
     [SerializeField] private float navErrorMargin = 3f; //squared
     [SerializeField] private float turnSpeed = 5f;
@@ -25,16 +27,17 @@ public abstract class Enemy: MonoBehaviour
 
     //callbacks
     protected abstract float CurrentSpeed {get;}
-    protected abstract float MaxSpeed {get;}
 
     protected virtual void Awake() //base.Awake()
     {
         path = new NavMeshPath();
         rb = GetComponent<Rigidbody>();
+        playerLocation = GameObject.FindWithTag("Player").transform;
     }
 
     protected virtual void FixedUpdate()
     {
+        
     }
 
     public virtual void Move()// Use "Look-ahead" Smoothing, Handle sharp turns, and self-collision
@@ -49,7 +52,7 @@ public abstract class Enemy: MonoBehaviour
         direction.y = 0;
 
         rb.AddForce(direction * CurrentSpeed,ForceMode.VelocityChange);//applies actual speed to object
-        rb.linearVelocity = Vector3.ClampMagnitude(rb.linearVelocity, maxSpeed); //clamp 
+        rb.linearVelocity = Vector3.ClampMagnitude(rb.linearVelocity, CurrentSpeed); //clamp 
 
         if (direction != Vector3.zero)
         {

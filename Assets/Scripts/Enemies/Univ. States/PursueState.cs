@@ -6,7 +6,7 @@ public class PursueState: EState<Nantes>
     {}
     public override void EnterState()
     {
-        enemy.stateMachine.currentState.speed = 5f;
+        enemy.stateMachine.currentState.speed = 1f;
         Debug.Log($"EnterState: {enemy.stateMachine.currentState}");
         enemy.eyes.enabled = true; //wont crash if already true
     }
@@ -14,7 +14,17 @@ public class PursueState: EState<Nantes>
     {}
     public override void FrameUpdate()
     {
-        enemy.Move();
+        if(enemy.activeVision)
+        {
+            enemy.PathFinder(enemy.playerLocation.position);
+            enemy.Move();
+        }
+        else
+        {
+            enemy.PathFinder(enemy.playerGhost.position);
+            enemy.stateMachine.ChangeState(enemy.investigateState);
+        }
+
     }
     public override void AnimationTriggerEvent()
     {}
