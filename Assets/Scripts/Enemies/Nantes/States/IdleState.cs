@@ -12,7 +12,7 @@ public class IdleState: EState<Nantes>
         enemy.rb.linearVelocity = Vector3.zero;
         enemy.rb.angularVelocity = Vector3.zero;
         */
-        Debug.Log($"EnterState: {enemy.stateMachine.currentState}");
+        //Debug.Log($"EnterState: {enemy.stateMachine.currentState}");
 
         enemy.eyes.enabled = false; 
     }

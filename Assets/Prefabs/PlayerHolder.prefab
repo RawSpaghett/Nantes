@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 2736273889620509845}
   m_Layer: 0
   m_Name: PlayerHolder
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -113,7 +113,7 @@ GameObject:
   - component: {fileID: 6073978918906190143}
   m_Layer: 0
   m_Name: MainCamera
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -256,7 +256,7 @@ GameObject:
   - component: {fileID: 1404608521349380551}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -391,8 +391,8 @@ MonoBehaviour:
   playerInputHandler: {fileID: 7160829178056506171}
   rb: {fileID: 1404608521349380551}
   camHolder: {fileID: 5534385256911518621}
-  sensitivity: 0.1
-  speed: 4
+  sensitivity: 0.3
+  speed: 10
   maxForce: 1
   jumpForce: 4
   sprintSpeed: 6
@@ -578,7 +578,7 @@ GameObject:
   - component: {fileID: 5557279769149280444}
   m_Layer: 0
   m_Name: ObjectHolder
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
