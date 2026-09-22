@@ -10,6 +10,7 @@ public class PlayerInputHandler : MonoBehaviour
     public bool sprintHeld;
     public bool interactTriggered;
     public bool walkHeld;
+    public bool crankHeld;
 
     public void OnMoveInput(InputAction.CallbackContext context)
     {
@@ -65,6 +66,19 @@ public class PlayerInputHandler : MonoBehaviour
         if(context.canceled)
         {
             interactTriggered = false;
+        }
+    }
+
+    public void OnCrankInput(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+        {
+            crankHeld = true;
+        }
+
+        if(context.canceled)
+        {
+            crankHeld = false;
         }
     }
 
