@@ -1,0 +1,9 @@
+{
+  "author": "Akshat (https://sketchfab.com/shooter24994)",
+  "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+  "source": "https://sketchfab.com/3d-models/earth-41fc80d85dfd480281f21b74b2de2faa",
+  "title": "Earth",
+  "source_sha256": "d16a9e05c6d8b8d66cf66edc560bd8f012e6480b2873a30f06086d0e13b689fa",
+  "texture_sha256": "f756869160529f667bbaf1316ce436a355d29d0b4b8a418eb141f79fe56b4f4f",
+  "changes": "GLB to OBJ; scene transforms applied; unit radius; sphere subdivided once; original UV layout and texture image bytes preserved."
+}

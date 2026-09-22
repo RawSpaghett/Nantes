@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a04e8d34242a0747ba804e57a0c006d, type: 3}
+  m_Name: NantesTheme
+  m_EditorClassIdentifier: Assembly-CSharp::NantesGame.UI.NantesTheme
+  bone: {r: 0.78, g: 0.82, b: 0.8, a: 1}
+  muted: {r: 0.51, g: 0.58, b: 0.58, a: 1}
+  disabled: {r: 0.25, g: 0.29, b: 0.29, a: 1}
+  blood: {r: 0.48, g: 0.16, b: 0.14, a: 1}
+  deepRed: {r: 0.1, g: 0.13, b: 0.13, a: 1}
+  charcoal: {r: 0.018, g: 0.021, b: 0.023, a: 1}
