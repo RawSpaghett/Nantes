@@ -5,8 +5,10 @@ public class ThrowableObjects : MonoBehaviour, IInteractable
 {
     public bool isHeld = false;
 
+    [Header("References")]
     [SerializeField] private Transform playerHoldPosition;
     [SerializeField] private PlayerInputHandler playerInputHandler;
+    [Header("Variables")]
     [SerializeField] private float throwPower = 15f;
     [SerializeField] private float loudness = 5f;
 
