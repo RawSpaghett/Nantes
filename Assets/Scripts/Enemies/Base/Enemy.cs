@@ -23,7 +23,6 @@ public abstract class Enemy: MonoBehaviour
     [Header("Stats")]
     [SerializeField] private float navErrorMargin = 3f; //squared
     [SerializeField] private float turnSpeed = 5f;
-    [SerializeField] private float maxSpeed = 5f;
 
     //callbacks
     protected abstract float CurrentSpeed {get;}

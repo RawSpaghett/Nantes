@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 public class Ears: MonoBehaviour
 {
-    private float hearingSensitivity = 1f;
+    [SerializeField] private float hearingSensitivity = 100f;
     private IEars parent;
 
     void Awake()
@@ -13,12 +13,12 @@ public class Ears: MonoBehaviour
 
     void OnEnable()//Subscribe to relevant actions
     {
-        //ThrowableObjects.OnLand += Listen;
+        ThrowableObjects.OnLand += Listen;
     }
 
     void OnDisable()//Unsubscribe
     {
-        //ThrowableObjects.OnLand -= Listen;
+        ThrowableObjects.OnLand -= Listen;
     }
 
     private void Listen(Vector3 sourcePosition, float loudness)

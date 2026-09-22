@@ -160,7 +160,7 @@ Transform:
   m_GameObject: {fileID: 4886959379591646453}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.036, y: 0, z: -1.184}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -179,9 +179,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Segments
   monsterHead: {fileID: 0}
-  segmentPrefab: {fileID: 0}
-  segmentAmount: 10
-  saveDistance: 10
+  segmentPrefab: {fileID: 7090245914129130752, guid: 62e34b74148984ed6be0d4497a0526e5, type: 3}
+  segmentAmount: 20
+  saveDistance: 2
 --- !u!1 &5116715122141051413
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,8 +275,8 @@ Transform:
   m_GameObject: {fileID: 8250693623736869714}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.29, y: -0.18, z: 3.8}
-  m_LocalScale: {x: 4.693899, y: 0.8921519, z: 5.727079}
+  m_LocalPosition: {x: -0.29, y: -0.18, z: 3.81}
+  m_LocalScale: {x: 7.415891, y: 0.8921519, z: 6.4083986}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5184969365653561593}
@@ -293,7 +293,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e728ad4854ccd406c9402601e92dc74f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Eyes
-  raycastDistance: 20
 --- !u!65 &4041714806910439499
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -442,7 +441,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8395497140047168809}
   serializedVersion: 5
-  m_Mass: 40
+  m_Mass: 150
   m_LinearDamping: 1
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -476,8 +475,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   playerLocation: {fileID: 0}
   navErrorMargin: 1
-  turnSpeed: 3
-  maxSpeed: 5
+  turnSpeed: 10
   eyes: {fileID: 0}
   ears: {fileID: 0}
   touch: {fileID: 0}
