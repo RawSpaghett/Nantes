@@ -742,6 +742,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 5ab6e4f2-3e37-4774-9fd8-223dd0c70c69
     m_ActionName: 'Player/Interact[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1358143541}
+        m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
+        m_MethodName: OnSlowWalk
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 1813d34a-f22d-4992-8df0-df4e6d2de434
+    m_ActionName: 'Player/SlowWalk[/Keyboard/ctrl]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -767,6 +783,7 @@ MonoBehaviour:
   maxForce: 1
   jumpForce: 4
   sprintSpeed: 6
+  slowWalkSpeed: 2
   grounded: 0
 --- !u!114 &1358143541
 MonoBehaviour:
@@ -785,6 +802,7 @@ MonoBehaviour:
   look: {x: 0, y: 0}
   sprintHeld: 0
   interactTriggered: 0
+  walkHeld: 0
 --- !u!54 &1358143542
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -976,6 +994,7 @@ MonoBehaviour:
   playerHoldPosition: {fileID: 1376185531}
   playerInputHandler: {fileID: 1358143541}
   throwPower: 15
+  loudness: 5
 --- !u!65 &1949879090
 BoxCollider:
   m_ObjectHideFlags: 0

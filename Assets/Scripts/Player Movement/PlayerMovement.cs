@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header ("Variables")]
     public float sensitivity;
-    [SerializeField] private float speed, maxForce, jumpForce, sprintSpeed;
+    [SerializeField] private float speed, maxForce, jumpForce, sprintSpeed, slowWalkSpeed;
     private float speedHolder;
 
     private float lookRotation;
@@ -84,9 +84,11 @@ public class PlayerMovement : MonoBehaviour
         if(playerInputHandler.sprintHeld)
             speed = sprintSpeed;
 
+        else if(playerInputHandler.walkHeld)
+            speed = slowWalkSpeed;
+
         else
             speed = speedHolder;
-
     }
 
     private void Start()

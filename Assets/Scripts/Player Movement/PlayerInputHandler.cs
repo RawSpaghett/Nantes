@@ -9,10 +9,24 @@ public class PlayerInputHandler : MonoBehaviour
     public Vector2 move, look;
     public bool sprintHeld;
     public bool interactTriggered;
+    public bool walkHeld;
 
     public void OnMoveInput(InputAction.CallbackContext context)
     {
         move = context.ReadValue<Vector2>();
+    }
+
+    public void OnSlowWalk(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+        {
+            walkHeld = true;
+        }
+
+        if(context.canceled)
+        {
+            walkHeld = false;
+        }
     }
 
     public void OnLookInput(InputAction.CallbackContext context)

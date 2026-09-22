@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class ThrowableObjects : MonoBehaviour, IInteractable
 {
@@ -7,8 +8,11 @@ public class ThrowableObjects : MonoBehaviour, IInteractable
     [SerializeField] private Transform playerHoldPosition;
     [SerializeField] private PlayerInputHandler playerInputHandler;
     [SerializeField] private float throwPower = 15f;
+    [SerializeField] private float loudness = 5f;
 
     private Rigidbody rb;
+
+    public static Action<Vector3, float> OnLand;
 
     private void Start()
     {
@@ -53,5 +57,12 @@ public class ThrowableObjects : MonoBehaviour, IInteractable
         rb.AddForce(playerHoldPosition.forward * throwPower, ForceMode.Impulse);
 
         isHeld = false;
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("whatup "+ gameObject.transform.position);
+
+        OnLand?.Invoke(gameObject.transform.position, loudness);
     }
 }
