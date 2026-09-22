@@ -1,18 +1,16 @@
-using Unity.VisualScripting;
-using UnityEditor.Rendering;
 using UnityEngine;
 
 public class Segments : MonoBehaviour
 {
     [Header("References")]
-    private GameObject monsterHead;
-    private GameObject segmentPrefab;
+    [SerializeField] private GameObject monsterHead;
+    [SerializeField] private GameObject segmentPrefab;
     private GameObject[] segments;
     private Vector3[] locationArray;
     
     [Header("Creature Settings")]
     [SerializeField] private int segmentAmount = 10; //infinitely scalable
-    [SerializeField] private float saveDistance = 10f; //aka follow distance, change this to change distance between segments
+    [SerializeField] private float saveDistance = 2f; //aka follow distance, change this to change distance between segments
 
     private Vector3 lastSavedPosition;
     private float distanceMoved;
@@ -22,11 +20,18 @@ public class Segments : MonoBehaviour
     {
         segments = new GameObject[segmentAmount]; //size the arrays
         locationArray = new Vector3[segmentAmount + 1]; //leave room for monster transform
+        monsterHead = GameObject.FindWithTag("Nantes");
         rb = monsterHead.GetComponent<Rigidbody>(); //grab rigid body
+        GameObject folder = new GameObject("SegmentFolder");
+    
 
 
         for(int i = 0; i < segmentAmount; i++) //spawn the objects and attatch to array
-            segments[i] = Instantiate(segmentPrefab,monsterHead.transform.position,monsterHead.transform.rotation); //spawns at same position as head
+            {
+                segments[i] = Instantiate(segmentPrefab,monsterHead.transform.position,monsterHead.transform.rotation); //spawns at same position as head
+                segments[i].transform.SetParent(folder.transform);
+            }
+
 
         for(int i = 0; i < locationArray.Length; i++) //intialize array
             locationArray[i] = monsterHead.transform.position;
@@ -59,7 +64,7 @@ public class Segments : MonoBehaviour
             Vector3 direction = target - segments[i].transform.position;
             float distance = direction.magnitude; //length of line between vectors origin and end point
             
-            segments[i].transform.position = Vector3.MoveTowards(segments[i].transform.position, target, rb.velocity.magnitude*Time.fixedDeltaTime);
+            segments[i].transform.position = Vector3.MoveTowards(segments[i].transform.position, target, rb.linearVelocity.magnitude*Time.fixedDeltaTime);
         }
     }
 
