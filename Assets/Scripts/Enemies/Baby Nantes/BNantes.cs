@@ -8,10 +8,12 @@ public class BNantes: Enemy, ITouch
     public EStateMachine<BNantes> stateMachine {get; set;}
 
     #region States
-    public PursueState pursueState;
+    public BPursueState bPursueState;
     public RetreatState retreatState;
     #endregion
     protected override float CurrentSpeed => stateMachine.currentState.speed; //cast back to base class
+
+    protected Transform retreatPoint;
 
     protected override void Awake()
     {
@@ -20,8 +22,10 @@ public class BNantes: Enemy, ITouch
         touch = GetComponentInChildren<Touch>();
         //States
         stateMachine = new EStateMachine<BNantes>();
-        //pursueState = new PursueState(this,stateMachine); Needs to be decoupled from nantes
+        bPursueState = new BPursueState(this,stateMachine); 
         retreatState = new RetreatState(this,stateMachine);
+        stateMachine.Intialize(bPursueState);
+        retreatPoint = GameObject.FindWithTag("retreatPoint").transform;
     }
     protected override void FixedUpdate()
     {
@@ -30,6 +34,14 @@ public class BNantes: Enemy, ITouch
 
     //Interfaces
     public void OnTouch()
-    {}
+    {
+        //player lose state
+    }
+
+    public void OnRetreat()
+    {
+        base.PathFinder(retreatPoint.position);
+        stateMachine.ChangeState(retreatState);
+    }
     
 }

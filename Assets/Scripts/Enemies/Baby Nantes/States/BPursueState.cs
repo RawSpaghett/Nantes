@@ -1,17 +1,18 @@
 using UnityEngine;
 
-public class RetreatState: EState<BNantes>
+public class BPursueState: EState<BNantes>
 {
-    public RetreatState(BNantes enemy, EStateMachine<BNantes> stateMachine) : base(enemy, stateMachine)
+    public BPursueState(BNantes enemy, EStateMachine<BNantes> stateMachine) : base(enemy, stateMachine)
     {}
     public override void EnterState()
     {
-        Debug.Log($"EnterState: {enemy.stateMachine.currentState}");
+        enemy.stateMachine.currentState.speed = 1f;
     }
     public override void ExitState()
     {}
     public override void FrameUpdate()
     {
+        enemy.PathFinder(enemy.playerLocation.position);
         enemy.Move();
     }
     public override void AnimationTriggerEvent()

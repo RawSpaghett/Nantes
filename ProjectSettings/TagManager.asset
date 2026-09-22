@@ -7,6 +7,7 @@ TagManager:
   - NavLayer
   - CinemachineTarget
   - Nantes
+  - BNantes
   layers:
   - Default
   - TransparentFX

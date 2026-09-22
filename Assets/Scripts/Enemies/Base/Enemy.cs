@@ -62,7 +62,7 @@ public abstract class Enemy: MonoBehaviour
         if (Vector3.Distance(new Vector3(transform.position.x, 0, transform.position.z),new Vector3(targetCorner.x, 0, targetCorner.z)) < navErrorMargin)
         {
             currentCornerIndex++;
-            Debug.Log($"current corner {currentCornerIndex}");
+            //Debug.Log($"current corner {currentCornerIndex}");
         }
     }
 
