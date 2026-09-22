@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 
-namespace Nantes.UI
+namespace NantesGame.UI
 {
     // Only the title uses this mask; buttons stay above the ship.
     [DefaultExecutionOrder(100)]
+    [MovedFrom("Nantes.UI")]
     public sealed class NantesTitleDepth : MonoBehaviour
     {
         public NantesSpaceMotion motion;

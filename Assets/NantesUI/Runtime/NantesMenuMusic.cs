@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 
-namespace Nantes.UI
+namespace NantesGame.UI
 {
     [RequireComponent(typeof(AudioSource))]
+    [MovedFrom("Nantes.UI")]
     public sealed class NantesMenuMusic : MonoBehaviour
     {
         [Range(0, 1)] public float level = .48f;

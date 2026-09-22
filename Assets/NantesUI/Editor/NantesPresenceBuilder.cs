@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-namespace Nantes.UI.Editor
+namespace NantesGame.UI.Editor
 {
     public static class NantesPresenceBuilder
     {

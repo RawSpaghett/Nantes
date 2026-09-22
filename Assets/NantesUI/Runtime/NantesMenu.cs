@@ -1,13 +1,15 @@
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
 
-namespace Nantes.UI
+namespace NantesGame.UI
 {
     [DefaultExecutionOrder(-100)]
+    [MovedFrom("Nantes.UI")]
     public sealed class NantesMenu : MonoBehaviour
     {
         public GameObject mainPage, settingsPage, extrasPage, quitPage;

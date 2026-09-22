@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 using UnityEngine.UI;
 
-namespace Nantes.UI
+namespace NantesGame.UI
 {
+    [MovedFrom("Nantes.UI")]
     public sealed class NantesHorrorAtmosphere : MonoBehaviour
     {
         public NantesMenu menu;

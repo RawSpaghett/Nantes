@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a04e8d34242a0747ba804e57a0c006d, type: 3}
   m_Name: NantesTheme
-  m_EditorClassIdentifier: Assembly-CSharp::Nantes.UI.NantesTheme
+  m_EditorClassIdentifier: Assembly-CSharp::NantesGame.UI.NantesTheme
   bone: {r: 0.78, g: 0.82, b: 0.8, a: 1}
   muted: {r: 0.51, g: 0.58, b: 0.58, a: 1}
   disabled: {r: 0.25, g: 0.29, b: 0.29, a: 1}

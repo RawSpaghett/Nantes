@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 
-namespace Nantes.UI
+namespace NantesGame.UI
 {
     [DefaultExecutionOrder(40)]
+    [MovedFrom("Nantes.UI")]
     public sealed class NantesThrusters : MonoBehaviour
     {
         public NantesSpaceMotion motion;

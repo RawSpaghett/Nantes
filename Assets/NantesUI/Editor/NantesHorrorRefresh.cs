@@ -5,7 +5,7 @@ using UnityEngine.Rendering;
 using UnityEngine.UI;
 using TMPro;
 
-namespace Nantes.UI.Editor
+namespace NantesGame.UI.Editor
 {
     public static class NantesHorrorRefresh
     {

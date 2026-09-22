@@ -18,6 +18,8 @@ The editable logo files are in [Design/Logo](../../../Design/Logo). See [logo ed
 
 ## Gameplay
 
+Menu scripts use `NantesGame.UI`; editor tools use `NantesGame.UI.Editor`. These names avoid the monster's `Nantes` class.
+
 Connect `newGameRequested`, `continueRequested`, and `quitRequested` to the game's scene and save flow. Call `SetContinueAvailable(true)` when a save exists.
 
 `NantesMenuPreview` handles the standalone preview. New Game currently shows a notice. Replace that component when hooking up gameplay.

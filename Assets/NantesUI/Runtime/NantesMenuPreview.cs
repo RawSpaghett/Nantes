@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 using TMPro;
 
-namespace Nantes.UI
+namespace NantesGame.UI
 {
     // Preview scene only; keep this off the UI prefab.
+    [MovedFrom("Nantes.UI")]
     public sealed class NantesMenuPreview : MonoBehaviour
     {
         public NantesMenu menu;

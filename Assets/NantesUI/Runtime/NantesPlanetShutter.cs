@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 
-namespace Nantes.UI
+namespace NantesGame.UI
 {
     [DefaultExecutionOrder(55)]
+    [MovedFrom("Nantes.UI")]
     public sealed class NantesPlanetShutter : MonoBehaviour
     {
         public NantesSpaceMotion motion;

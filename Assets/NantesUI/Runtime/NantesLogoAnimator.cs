@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 using UnityEngine.UI;
 
-namespace Nantes.UI
+namespace NantesGame.UI
 {
     [RequireComponent(typeof(RawImage))]
+    [MovedFrom("Nantes.UI")]
     public sealed class NantesLogoAnimator : MonoBehaviour
     {
         public NantesMenu menu;

@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 
-namespace Nantes.UI
+namespace NantesGame.UI
 {
     [DefaultExecutionOrder(50)]
+    [MovedFrom("Nantes.UI")]
     public sealed class NantesForegroundPresence : MonoBehaviour
     {
         public NantesSpaceMotion motion;

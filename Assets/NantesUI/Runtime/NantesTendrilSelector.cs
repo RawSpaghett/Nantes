@@ -1,13 +1,15 @@
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.Rendering;
 using TMPro;
 
-namespace Nantes.UI
+namespace NantesGame.UI
 {
     [DefaultExecutionOrder(75)]
+    [MovedFrom("Nantes.UI")]
     public sealed class NantesTendrilSelector : MaskableGraphic
     {
         public NantesMenu menu;

@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
-namespace Nantes.UI
+namespace NantesGame.UI
 {
+    [MovedFrom("Nantes.UI")]
     public sealed class NantesSpaceMotion : MonoBehaviour
     {
         public NantesMenu menu;

@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 
-namespace Nantes.UI
+namespace NantesGame.UI
 {
     [RequireComponent(typeof(CanvasGroup))]
+    [MovedFrom("Nantes.UI")]
     public sealed class NantesPanelMotion : MonoBehaviour
     {
         public NantesMenu menu;

@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace Nantes.UI
+namespace NantesGame.UI
 {
+    [MovedFrom("Nantes.UI")]
     public sealed class NantesTendrilTarget : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, ISubmitHandler
     {
         public NantesTendrilSelector selector;

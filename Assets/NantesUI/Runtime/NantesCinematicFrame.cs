@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
-namespace Nantes.UI
+namespace NantesGame.UI
 {
     [DefaultExecutionOrder(110)]
+    [MovedFrom("Nantes.UI")]
     public sealed class NantesCinematicFrame : MonoBehaviour
     {
         public NantesSpaceMotion motion;

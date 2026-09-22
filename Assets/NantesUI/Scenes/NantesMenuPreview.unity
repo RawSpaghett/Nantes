@@ -1424,7 +1424,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 032d4b05ea3bffd46bfc4a6a8894d7d1, type: 3}
   m_Name:
-  m_EditorClassIdentifier: Assembly-CSharp::Nantes.UI.NantesMenu
+  m_EditorClassIdentifier: Assembly-CSharp::NantesGame.UI.NantesMenu
 --- !u!224 &541377767 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5904217069550108352, guid: 182cf6c32efd72644b99f5a161f88c4a, type: 3}
@@ -1446,7 +1446,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2755043f6ce6557499115143aff43d4d, type: 3}
   m_Name:
-  m_EditorClassIdentifier: Assembly-CSharp::Nantes.UI.NantesMenuPreview
+  m_EditorClassIdentifier: Assembly-CSharp::NantesGame.UI.NantesMenuPreview
   menu: {fileID: 541377766}
   previewNote: {fileID: 1426999185}
 --- !u!114 &541377770 stripped
@@ -1459,7 +1459,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9821f0adda8f6c4fbba7c6dc764f6cf, type: 3}
   m_Name:
-  m_EditorClassIdentifier: Assembly-CSharp::Nantes.UI.NantesLogoAnimator
+  m_EditorClassIdentifier: Assembly-CSharp::NantesGame.UI.NantesLogoAnimator
 --- !u!1 &591916410
 GameObject:
   m_ObjectHideFlags: 0
@@ -1867,7 +1867,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: af607213b7154d54da200081e6401d4d, type: 3}
   m_Name:
-  m_EditorClassIdentifier: Assembly-CSharp::Nantes.UI.NantesForegroundPresence
+  m_EditorClassIdentifier: Assembly-CSharp::NantesGame.UI.NantesForegroundPresence
   motion: {fileID: 1577609654}
   limbs:
   - {fileID: 778456914}
@@ -2232,7 +2232,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c7446c65e6136a49a771ccaf5eaa25e, type: 3}
   m_Name:
-  m_EditorClassIdentifier: Assembly-CSharp::Nantes.UI.NantesThrusters
+  m_EditorClassIdentifier: Assembly-CSharp::NantesGame.UI.NantesThrusters
   motion: {fileID: 1577609654}
   mainJets:
   - {fileID: 956465604}
@@ -2254,7 +2254,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6e5cb6746bd82b345824756d6cde110d, type: 3}
   m_Name:
-  m_EditorClassIdentifier: Assembly-CSharp::Nantes.UI.NantesVesselLights
+  m_EditorClassIdentifier: Assembly-CSharp::NantesGame.UI.NantesVesselLights
   motion: {fileID: 1577609654}
   apertures:
   - {fileID: 297250419}
@@ -2649,7 +2649,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f2f190f8e97b524eb576e5d75a9bf15, type: 3}
   m_Name:
-  m_EditorClassIdentifier: Assembly-CSharp::Nantes.UI.NantesSpaceMotion
+  m_EditorClassIdentifier: Assembly-CSharp::NantesGame.UI.NantesSpaceMotion
   menu: {fileID: 541377766}
   planet: {fileID: 841676509}
   saucer: {fileID: 1390662507}
@@ -2701,7 +2701,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 82670a6236d4b3045b57a15209cea64a, type: 3}
   m_Name:
-  m_EditorClassIdentifier: Assembly-CSharp::Nantes.UI.NantesEncounterDirector
+  m_EditorClassIdentifier: Assembly-CSharp::NantesGame.UI.NantesEncounterDirector
   motion: {fileID: 1577609654}
   randomEncounters: 1
   chancePerEncounter: 0.1
@@ -2716,7 +2716,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 09410ee50fca0ef4ea85aeb9d402ac98, type: 3}
   m_Name:
-  m_EditorClassIdentifier: Assembly-CSharp::Nantes.UI.NantesTitleDepth
+  m_EditorClassIdentifier: Assembly-CSharp::NantesGame.UI.NantesTitleDepth
   motion: {fileID: 1577609654}
   title: {fileID: 541377770}
   vesselLayer: 29
@@ -2732,7 +2732,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba74a78b659ee2140afd43e4ba0762fd, type: 3}
   m_Name:
-  m_EditorClassIdentifier: Assembly-CSharp::Nantes.UI.NantesCinematicFrame
+  m_EditorClassIdentifier: Assembly-CSharp::NantesGame.UI.NantesCinematicFrame
   motion: {fileID: 1577609654}
   presentation: {fileID: 2100000, guid: ca1840e3b5e67514bae1585caa2a5922, type: 2}
   bloomProcessing: {fileID: 2100000, guid: b01912e50dad9ee4cbe6e5d4a2bda242, type: 2}
@@ -2747,7 +2747,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7bffc3b27ae8e134c99e80b6949961d4, type: 3}
   m_Name:
-  m_EditorClassIdentifier: Assembly-CSharp::Nantes.UI.NantesPlanetShutter
+  m_EditorClassIdentifier: Assembly-CSharp::NantesGame.UI.NantesPlanetShutter
   motion: {fileID: 1577609654}
   encounter: {fileID: 1577609656}
 --- !u!114 &1577609660
@@ -2761,7 +2761,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a7112f6ef37c50c4c8a9e0cec77957a5, type: 3}
   m_Name:
-  m_EditorClassIdentifier: Assembly-CSharp::Nantes.UI.NantesEncounterAudio
+  m_EditorClassIdentifier: Assembly-CSharp::NantesGame.UI.NantesEncounterAudio
   motion: {fileID: 1577609654}
   encounter: {fileID: 1577609656}
   earthFlick: {fileID: 8300000, guid: bb0e955fa06a37b46a457effe9fffe87, type: 3}
@@ -2977,7 +2977,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f6885aaf91e03a46b11f330e92bd605, type: 3}
   m_Name:
-  m_EditorClassIdentifier: Assembly-CSharp::Nantes.UI.NantesMenuMusic
+  m_EditorClassIdentifier: Assembly-CSharp::NantesGame.UI.NantesMenuMusic
   level: 0.48
   fadeInSeconds: 3
 --- !u!82 &1668674300

@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 
-namespace Nantes.UI
+namespace NantesGame.UI
 {
+    [MovedFrom("Nantes.UI")]
     public sealed class NantesMenuItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, ISelectHandler, IDeselectHandler, IPointerDownHandler, IPointerUpHandler
     {
         public NantesLineArt outline;

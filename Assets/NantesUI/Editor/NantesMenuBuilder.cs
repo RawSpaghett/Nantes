@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEditor.SceneManagement;
 
-namespace Nantes.UI.Editor
+namespace NantesGame.UI.Editor
 {
     public static class NantesMenuBuilder
     {

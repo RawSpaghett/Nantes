@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 
-namespace Nantes.UI
+namespace NantesGame.UI
 {
     [DefaultExecutionOrder(60)]
+    [MovedFrom("Nantes.UI")]
     public sealed class NantesEncounterAudio : MonoBehaviour
     {
         public NantesSpaceMotion motion;

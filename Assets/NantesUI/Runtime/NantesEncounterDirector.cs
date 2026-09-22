@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 
-namespace Nantes.UI
+namespace NantesGame.UI
 {
     public enum NantesEncounter { None, ShipGrab, EarthFlick }
 
     [DefaultExecutionOrder(25)]
+    [MovedFrom("Nantes.UI")]
     public sealed class NantesEncounterDirector : MonoBehaviour
     {
         public NantesSpaceMotion motion;

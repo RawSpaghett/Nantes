@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 
-namespace Nantes.UI
+namespace NantesGame.UI
 {
     [CreateAssetMenu(menuName="Nantes/UI color theme")]
+    [MovedFrom("Nantes.UI")]
     public sealed class NantesTheme : ScriptableObject
     {
         public Color bone = new Color(.83f,.80f,.73f);
