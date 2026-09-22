@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 370945299231816172}
   m_Layer: 0
   m_Name: Capsule
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -155,7 +155,7 @@ MonoBehaviour:
   speed: 4
   maxForce: 4
   jumpForce: 4
-  sprintSpeed: 6
+  sprintSpeed: 8
   slowWalkSpeed: 2
   grounded: 0
 --- !u!114 &5477194057686151794
@@ -191,6 +191,7 @@ MonoBehaviour:
   sprintHeld: 0
   interactTriggered: 0
   walkHeld: 0
+  crankHeld: 0
 --- !u!114 &3696123242014990456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,6 +313,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 1813d34a-f22d-4992-8df0-df4e6d2de434
     m_ActionName: 'Player/SlowWalk[/Keyboard/ctrl]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fb50e6ed-8729-4af9-bb8e-2a64a6c187ee
+    m_ActionName: 'Player/Crank[/Keyboard/r]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
