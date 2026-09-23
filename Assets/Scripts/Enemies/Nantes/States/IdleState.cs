@@ -14,7 +14,7 @@ public class IdleState: EState<Nantes>
         */
         //Debug.Log($"EnterState: {enemy.stateMachine.currentState}");
 
-        enemy.eyes.enabled = false; 
+        //enemy.eyes.enabled = false; 
     }
     public override void FrameUpdate() //deccelleration 
     {

@@ -14,11 +14,13 @@ public class Ears: MonoBehaviour
     void OnEnable()//Subscribe to relevant actions
     {
         ThrowableObjects.OnLand += Listen;
+        PlayerMovement.OnPlayerSound += Listen;
     }
 
     void OnDisable()//Unsubscribe
     {
         ThrowableObjects.OnLand -= Listen;
+        PlayerMovement.OnPlayerSound -= Listen;
     }
 
     private void Listen(Vector3 sourcePosition, float loudness)

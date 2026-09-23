@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 3696123242014990456}
   - component: {fileID: 370945299231816172}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,7 +41,6 @@ Transform:
   m_Children:
   - {fileID: 28904978609333845}
   - {fileID: 6420577340607262388}
-  - {fileID: 2043002060570358722}
   m_Father: {fileID: 135678198674194828}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1058087889565223720
@@ -137,10 +136,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlashlightScript
   playerInputHandler: {fileID: 477015156441039442}
+  flashlight: {fileID: 4653362097499069019}
   timer: 0
   maxTimer: 8
   minTimer: 0
-  flashlightActive: 0
 --- !u!114 &1204935317784716869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,8 +188,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteractor
   playerCamera: {fileID: 6598856571624734133}
-  interactionDistance: 3
+  interactionDistance: 5
   playerInputHandler: {fileID: 477015156441039442}
+  ignoreLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &477015156441039442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -351,7 +353,7 @@ MonoBehaviour:
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 6598856571624734133}
 --- !u!54 &370945299231816172
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -389,9 +391,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2277570213559704927}
   - component: {fileID: 131617978161441501}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Light collider
-  m_TagString: Untagged
+  m_TagString: Flashlight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -421,7 +423,7 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -648,12 +650,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5653873558926958240}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.46, y: 0.22, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.40400076, y: -0.30999994, z: 0.8334069}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1080581126465044349}
+  m_Father: {fileID: 3544794993816625529}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6404510729841772020
 GameObject:
@@ -688,6 +690,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8275226044044403444}
+  - {fileID: 2043002060570358722}
   m_Father: {fileID: 28904978609333845}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &6598856571624734133
@@ -811,7 +814,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6420577340607262388
 Transform:
   m_ObjectHideFlags: 0
@@ -821,7 +824,7 @@ Transform:
   m_GameObject: {fileID: 7875442639187313881}
   serializedVersion: 2
   m_LocalRotation: {x: -0.16778064, y: -0, z: -0, w: 0.9858244}
-  m_LocalPosition: {x: 0.01, y: -0.17, z: 0.74}
+  m_LocalPosition: {x: -0.031, y: -0.17, z: 0.74}
   m_LocalScale: {x: 0.07324573, y: 0.07324573, z: 0.07324573}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -901,7 +904,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30

@@ -9,7 +9,8 @@ EditorBuildSettings:
     path: Assets/NantesUI/Scenes/NantesMenuPreview.unity
     guid: 674e2977d40ddb2418f37f5bba5d8f84
   - enabled: 1
-    path: Assets/Boilerplate/Scenes/Prototype_Main.unity
-    guid: 1262cc2e8ed42704f9357ea54c771aa5
+    path: Assets/Scenes/CreatureDebug/CreatureDebug.unity
+    guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:
-    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 1d5d1d1529942d240a7485a175a31eb9, type: 3}
+  m_UseUCBPForAssetBundles: 0

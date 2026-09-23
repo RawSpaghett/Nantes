@@ -9,9 +9,13 @@ using System.Linq;
 
 public abstract class Enemy: MonoBehaviour
 {
+    [Header("Lose Script")]
+    [SerializeField] private LoseScript loseScript;
+
     [Header("Enemy Components")]
     public Rigidbody rb;
     public Transform playerLocation;
+    public AudioSource speakers;
 
     #region Navmesh
     protected NavMeshPath path;
@@ -24,6 +28,7 @@ public abstract class Enemy: MonoBehaviour
     [SerializeField] private float navErrorMargin = 3f; //squared
     [SerializeField] private float turnSpeed = 5f;
 
+
     //callbacks
     protected abstract float CurrentSpeed {get;}
 
@@ -32,12 +37,11 @@ public abstract class Enemy: MonoBehaviour
         path = new NavMeshPath();
         rb = GetComponent<Rigidbody>();
         playerLocation = GameObject.FindWithTag("Player").transform;
+        speakers = GetComponentInChildren<AudioSource>();
     }
 
     protected virtual void FixedUpdate()
-    {
-        
-    }
+    {}
 
     public virtual void Move()// Use "Look-ahead" Smoothing, Handle sharp turns, and self-collision
     {
@@ -81,6 +85,14 @@ public abstract class Enemy: MonoBehaviour
         else
         {
             Debug.Log("<Color=red>No Complete OR Partial path found</Color>");
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.name == "Player")
+        {
+            loseScript.LoseGame();
         }
     }
 }

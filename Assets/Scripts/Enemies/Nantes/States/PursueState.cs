@@ -9,6 +9,8 @@ public class PursueState: EState<Nantes>
         enemy.stateMachine.currentState.speed = 3f;
         Debug.Log($"EnterState: {enemy.stateMachine.currentState}");
         enemy.eyes.enabled = true; //wont crash if already true
+        
+
     }
     public override void ExitState()
     {}
@@ -29,5 +31,6 @@ public class PursueState: EState<Nantes>
     public override void AnimationTriggerEvent()
     {}
     public override void AudioTriggerEvent()
-    {}
+    {
+    }
 }

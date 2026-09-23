@@ -19,6 +19,8 @@ public class Nantes: Enemy, IEars, IEyes, ITouch
 
     public Transform playerGhost {get;set;}
     public bool activeVision {get;set;}
+
+    public AudioClip[] Audio = new AudioClip[3];
     protected override float CurrentSpeed => stateMachine.currentState.speed; //cast back to base class23
 
     protected override void Awake()
@@ -38,6 +40,14 @@ public class Nantes: Enemy, IEars, IEyes, ITouch
     protected override void FixedUpdate()
     {
        stateMachine.currentState.FrameUpdate();
+    }
+
+    public void TriggerAudioEvent()
+    {
+        if (stateMachine != null && stateMachine.currentState != null)
+        {
+            stateMachine.currentState.AudioTriggerEvent();
+        }
     }
     
     //Interfaces

@@ -5,6 +5,10 @@ public class PlayerInteractor : MonoBehaviour
     [SerializeField] private Camera playerCamera;
     [SerializeField] private float interactionDistance = 3f;
     [SerializeField] private PlayerInputHandler playerInputHandler;
+    [SerializeField] private LayerMask ignoreLayer;
+
+    private int layerMask;
+
     //[SerializeField] private ThrowableObjects throwableObjects;
 
     private IInteractable currentInteractable;
@@ -12,10 +16,13 @@ public class PlayerInteractor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        layerMask = ~ignoreLayer;
+
         CheckForInteractable();
 
         if(playerInputHandler.interactTriggered && currentInteractable != null)
         {
+            Debug.Log("hi");
             currentInteractable.Interact(this);
         }
     }
@@ -26,12 +33,13 @@ public class PlayerInteractor : MonoBehaviour
 
         Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
 
-        if(Physics.Raycast(ray, out RaycastHit hit, interactionDistance))
+        if(Physics.Raycast(ray, out RaycastHit hit, interactionDistance,layerMask))
         {
             IInteractable interactable = hit.collider.GetComponent<IInteractable>();
 
             if(interactable != null)
             {
+                Debug.Log(interactable);
                 currentInteractable = interactable;
             }
         }
