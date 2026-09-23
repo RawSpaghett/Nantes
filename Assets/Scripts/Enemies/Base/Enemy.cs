@@ -9,6 +9,9 @@ using System.Linq;
 
 public abstract class Enemy: MonoBehaviour
 {
+    [Header("Lose Script")]
+    [SerializeField] private LoseScript loseScript;
+
     [Header("Enemy Components")]
     public Rigidbody rb;
     public Transform playerLocation;
@@ -23,6 +26,7 @@ public abstract class Enemy: MonoBehaviour
     [Header("Stats")]
     [SerializeField] private float navErrorMargin = 3f; //squared
     [SerializeField] private float turnSpeed = 5f;
+
 
     //callbacks
     protected abstract float CurrentSpeed {get;}
@@ -81,6 +85,14 @@ public abstract class Enemy: MonoBehaviour
         else
         {
             Debug.Log("<Color=red>No Complete OR Partial path found</Color>");
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.name == "Player")
+        {
+            loseScript.LoseGame();
         }
     }
 }
