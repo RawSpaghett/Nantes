@@ -244,6 +244,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 131617978161441501, guid: 7e230d12f01cd0f4a94e825e1fd01eba, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 135678198674194828, guid: 7e230d12f01cd0f4a94e825e1fd01eba, type: 3}
       propertyPath: m_LocalPosition.x
       value: -31.13786
@@ -289,6 +293,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1453503772951195024, guid: 7e230d12f01cd0f4a94e825e1fd01eba, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453503772951195024, guid: 7e230d12f01cd0f4a94e825e1fd01eba, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453503772951195024, guid: 7e230d12f01cd0f4a94e825e1fd01eba, type: 3}
       propertyPath: m_TagString
       value: Flashlight
       objectReference: {fileID: 0}
@@ -311,6 +323,10 @@ PrefabInstance:
     - target: {fileID: 5180116591052920784, guid: 7e230d12f01cd0f4a94e825e1fd01eba, type: 3}
       propertyPath: m_Name
       value: PlayerHolder
+      objectReference: {fileID: 0}
+    - target: {fileID: 5477194057686151794, guid: 7e230d12f01cd0f4a94e825e1fd01eba, type: 3}
+      propertyPath: ignoreLayer.m_Bits
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 5477194057686151794, guid: 7e230d12f01cd0f4a94e825e1fd01eba, type: 3}
       propertyPath: interactionDistance
