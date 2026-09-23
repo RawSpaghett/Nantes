@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bd09809d39b048f7a9f8f89de791a21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ears
-  hearingSensitivity: 10
+  hearingSensitivity: 5
 --- !u!1 &4886959379591646453
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,8 +296,8 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.82
-  m_Pitch: 1
+  m_Volume: 0.476
+  m_Pitch: -1.41
   Loop: 0
   Mute: 0
   Spatialize: 0

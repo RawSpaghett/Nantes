@@ -1795,6 +1795,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6706648787309181593, guid: e9c8b00d9733d43bfb803230cbc967cc, type: 3}
+      propertyPath: m_Pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6706648787309181593, guid: e9c8b00d9733d43bfb803230cbc967cc, type: 3}
+      propertyPath: m_Volume
+      value: 0.505
+      objectReference: {fileID: 0}
     - target: {fileID: 8395497140047168809, guid: e9c8b00d9733d43bfb803230cbc967cc, type: 3}
       propertyPath: m_Name
       value: Nantes

@@ -53,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
         velocityChange = Vector3.ClampMagnitude(velocityChange, maxForce);
 
         rb.AddForce(velocityChange, ForceMode.VelocityChange);
-        OnPlayerSound.Invoke(gameObject.transform.position, speed);
+        OnPlayerSound?.Invoke(gameObject.transform.position, speed);
     }
 
     private void Look()
