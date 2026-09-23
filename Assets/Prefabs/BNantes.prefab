@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 632439113620234578}
   - component: {fileID: 3187217415521668177}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Touch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5990433361684147286}
   - component: {fileID: 2596451919725506969}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Segments
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 8494516620647166873}
   - component: {fileID: 8105248962993280895}
   - component: {fileID: 7384898695868192465}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BNantes
   m_TagString: BNantes
   m_Icon: {fileID: 0}
@@ -222,8 +222,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f10c244dd0f8488f87280fe0c15f24d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BNantes
+  loseScript: {fileID: 0}
   rb: {fileID: 0}
   playerLocation: {fileID: 0}
+  speakers: {fileID: 0}
   navErrorMargin: 3
   turnSpeed: 5
   touch: {fileID: 0}

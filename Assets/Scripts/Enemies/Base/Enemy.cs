@@ -15,6 +15,7 @@ public abstract class Enemy: MonoBehaviour
     [Header("Enemy Components")]
     public Rigidbody rb;
     public Transform playerLocation;
+    public AudioSource speakers;
 
     #region Navmesh
     protected NavMeshPath path;
@@ -36,12 +37,11 @@ public abstract class Enemy: MonoBehaviour
         path = new NavMeshPath();
         rb = GetComponent<Rigidbody>();
         playerLocation = GameObject.FindWithTag("Player").transform;
+        speakers = GetComponentInChildren<AudioSource>();
     }
 
     protected virtual void FixedUpdate()
-    {
-        
-    }
+    {}
 
     public virtual void Move()// Use "Look-ahead" Smoothing, Handle sharp turns, and self-collision
     {

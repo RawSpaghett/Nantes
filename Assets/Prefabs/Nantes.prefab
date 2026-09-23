@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8359968200014537628}
   - component: {fileID: 7236497364215691161}
   - component: {fileID: 5504018900587716436}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   m_Component:
   - component: {fileID: 257460609218146366}
   - component: {fileID: 8094487081864007356}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ears
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +145,7 @@ GameObject:
   m_Component:
   - component: {fileID: 93759156604947894}
   - component: {fileID: 846683725402949301}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Segments
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,8 +183,8 @@ MonoBehaviour:
   segmentPrefab: {fileID: 7090245914129130752, guid: 62e34b74148984ed6be0d4497a0526e5, type: 3}
   parentString: Nantes
   folderString: NantesSegment
-  segmentAmount: 10
-  saveDistance: 2
+  segmentAmount: 20
+  saveDistance: 0.5
 --- !u!1 &5116715122141051413
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,7 +196,7 @@ GameObject:
   - component: {fileID: 1418848868050285731}
   - component: {fileID: 7207056596075795405}
   - component: {fileID: 613201031792039305}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Touch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -251,6 +251,135 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.6
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &7368511887682842023
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8404813283836768320}
+  - component: {fileID: 6706648787309181593}
+  m_Layer: 7
+  m_Name: AudioSource
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8404813283836768320
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7368511887682842023}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5184969365653561593}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &6706648787309181593
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7368511887682842023}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.82
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &8250693623736869714
 GameObject:
   m_ObjectHideFlags: 0
@@ -262,7 +391,7 @@ GameObject:
   - component: {fileID: 1585906783144818348}
   - component: {fileID: 7501772991840118952}
   - component: {fileID: 4041714806910439499}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -331,7 +460,7 @@ GameObject:
   - component: {fileID: 3821052493487917466}
   - component: {fileID: 7701112276415878735}
   - component: {fileID: 2771439142520559482}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Nantes
   m_TagString: Nantes
   m_Icon: {fileID: 0}
@@ -356,6 +485,7 @@ Transform:
   - {fileID: 1418848868050285731}
   - {fileID: 8359968200014537628}
   - {fileID: 93759156604947894}
+  - {fileID: 8404813283836768320}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 91.742, z: 0}
 --- !u!33 &6454019102306379451
@@ -475,10 +605,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9fe73a89c4df4f57b5c214ca8f34ac0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Nantes
+  loseScript: {fileID: 0}
   rb: {fileID: 0}
   playerLocation: {fileID: 0}
+  speakers: {fileID: 0}
   navErrorMargin: 1
   turnSpeed: 10
   eyes: {fileID: 0}
   ears: {fileID: 0}
   touch: {fileID: 0}
+  Audio:
+  - {fileID: 8300000, guid: b87b029ecd60748ce8958cad7ceabe06, type: 3}
+  - {fileID: 8300000, guid: bde690917d7464ad0bad772c07af0fed, type: 3}
+  - {fileID: 0}

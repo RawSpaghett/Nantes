@@ -241,7 +241,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 135678198674194828, guid: 7e230d12f01cd0f4a94e825e1fd01eba, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -31.13786
+      value: -40.4
       objectReference: {fileID: 0}
     - target: {fileID: 135678198674194828, guid: 7e230d12f01cd0f4a94e825e1fd01eba, type: 3}
       propertyPath: m_LocalPosition.y
@@ -249,7 +249,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 135678198674194828, guid: 7e230d12f01cd0f4a94e825e1fd01eba, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -39.878845
+      value: -41.6
       objectReference: {fileID: 0}
     - target: {fileID: 135678198674194828, guid: 7e230d12f01cd0f4a94e825e1fd01eba, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1930,18 +1930,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 286502965558485783, guid: 4d9b5a9bf5be0478bbbe56519cbd8123, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 286502965558485783, guid: 4d9b5a9bf5be0478bbbe56519cbd8123, type: 3}
-      propertyPath: m_ProvidesContacts
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 617473188669587386, guid: 4d9b5a9bf5be0478bbbe56519cbd8123, type: 3}
-      propertyPath: isHeld
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 617473188669587386, guid: 4d9b5a9bf5be0478bbbe56519cbd8123, type: 3}
       propertyPath: playerHoldPosition
       value: 

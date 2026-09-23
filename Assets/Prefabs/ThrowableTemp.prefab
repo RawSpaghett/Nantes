@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 286502965558485783}
   - component: {fileID: 617473188669587386}
   - component: {fileID: 4155075868785961541}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ThrowableTemp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
