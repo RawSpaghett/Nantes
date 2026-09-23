@@ -10,12 +10,12 @@ namespace NantesGame.Gameplay
 {
     public sealed class GamePause : MonoBehaviour
     {
-        public GameObject panel,aim;
+        public GameObject panel;
         public CanvasGroup presentation;
         public RectTransform options;
         public RawImage backdrop;
         public Button resume,save,restart,mainMenu,quit;
-        public TMP_Text hint,saveStatus;
+        public TMP_Text saveStatus;
         public LevelSave saving;
         public PlayerInputHandler input;
         public ChestTablet chest;
@@ -24,13 +24,13 @@ namespace NantesGame.Gameplay
         public int Focused { get; private set; }
         public bool IsPaused { get; private set; }
         bool held,movementWasEnabled,actionsWereActive,transitioning;
-        float started,fadeVelocity;
+        float fadeVelocity;
         Vector2 pointer,optionsPosition;
         Material backdropMaterial;
         RenderTexture frozenView;
         void Start()
         {
-            started=Time.unscaledTime;optionsPosition=options.anchoredPosition;
+            optionsPosition=options.anchoredPosition;
             if(Mouse.current!=null)pointer=Mouse.current.position.ReadValue();
             backdropMaterial=new Material(backdrop.material);backdrop.material=backdropMaterial;
             presentation.alpha=0;presentation.blocksRaycasts=false;panel.SetActive(false);
@@ -41,7 +41,7 @@ namespace NantesGame.Gameplay
         void Update()
         {
             float dt=Mathf.Min(Time.unscaledDeltaTime,.05f);
-            if(ScreenTransition.Busy){hint.text="";return;}
+            if(ScreenTransition.Busy)return;
             if(Keyboard.current!=null&&Keyboard.current.escapeKey.wasPressedThisFrame||Gamepad.current!=null&&Gamepad.current.startButton.wasPressedThisFrame)SetPaused(!IsPaused);
             if(Keyboard.current!=null&&Keyboard.current.f11Key.wasPressedThisFrame)Screen.fullScreen=!Screen.fullScreen;
             if(panel.activeSelf){
@@ -53,9 +53,6 @@ namespace NantesGame.Gameplay
             }
             float master=PlayerPrefs.GetFloat("Nantes.UI.MasterVolume",1);
             AudioListener.volume=Mathf.Lerp(AudioListener.volume,master*(IsPaused?.38f:1),1-Mathf.Exp(-dt*9));
-            if(IsPaused){hint.text="";return;}
-            if(chest.LookingDown){hint.text=chest.CursorMode?"CLICK  Select     TAB / RIGHT CLICK  Look around":"TAB  Use tablet     1  Home     2  Scanner     SPACE  Scan";return;}
-            hint.text=Time.unscaledTime-started<22?"WASD  Move     MOUSE  Look     LOOK DOWN  Tablet     HOLD R  Charge light     ESC  Pause":"";
         }
         public void PointerFocus(int index)
         {
@@ -71,7 +68,6 @@ namespace NantesGame.Gameplay
             if(ScreenTransition.Busy||IsPaused==value)return;
             IsPaused=value;HoldControls(value);Time.timeScale=value?0:1;
             presentation.blocksRaycasts=value;presentation.interactable=value;if(value){CaptureBackdrop();panel.SetActive(true);}
-            if(aim)aim.SetActive(!value);
             Cursor.lockState=value?CursorLockMode.None:CursorLockMode.Locked;Cursor.visible=value;
             if(value){Focused=0;if(Mouse.current!=null)pointer=Mouse.current.position.ReadValue();}
             if(EventSystem.current)EventSystem.current.SetSelectedGameObject(value?resume.gameObject:null);
@@ -80,7 +76,6 @@ namespace NantesGame.Gameplay
         {
             transitioning=value;HoldControls(value||IsPaused);Time.timeScale=value||IsPaused?0:1;
             Cursor.lockState=value||IsPaused?CursorLockMode.None:CursorLockMode.Locked;Cursor.visible=!value&&IsPaused;
-            if(aim)aim.SetActive(!value&&!IsPaused);
         }
         void CaptureBackdrop()
         {
@@ -103,8 +98,8 @@ namespace NantesGame.Gameplay
             if(ScreenTransition.Busy)return false;
             bool success=saving.Save(out var message);ShowSaveResult(success,message);return success;
         }
-        public void Restart(){GameFlow.StartNew(hint.font);}
-        public void ReturnToMenu(){if(SaveBeforeLeaving())ScreenTransition.Load(GameFlow.Menu,hint.font);}
+        public void Restart(){GameFlow.StartNew(saveStatus.font);}
+        public void ReturnToMenu(){if(SaveBeforeLeaving())ScreenTransition.Load(GameFlow.Menu,saveStatus.font);}
         public void SaveAndQuit(){if(SaveBeforeLeaving())GameFlow.Quit();}
         void OnApplicationFocus(bool focused){if(!focused&&!IsPaused&&!transitioning&&!ScreenTransition.Busy)SetPaused(true);}
         void OnDestroy(){if(backdropMaterial)Destroy(backdropMaterial);if(frozenView){frozenView.Release();Destroy(frozenView);}if(!ScreenTransition.Busy)Time.timeScale=1;}

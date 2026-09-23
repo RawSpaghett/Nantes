@@ -59,8 +59,6 @@ public static class GameplayBuilder
     {
         var canvas=Canvas("Game interface");var pause=canvas.gameObject.AddComponent<GamePause>();
         var link=canvas.gameObject.AddComponent<SceneUI>();link.pause=pause;link.screenPrefab=screen;
-        pause.hint=Text(canvas.transform,"Controls","",new Vector2(0,-502),new Vector2(1780,46),17);
-        var aim=new GameObject("Aim",typeof(RectTransform),typeof(Image));aim.transform.SetParent(canvas.transform,false);aim.GetComponent<RectTransform>().sizeDelta=new Vector2(3,3);aim.GetComponent<Image>().color=new Color(.77f,.84f,.78f,.7f);aim.GetComponent<Image>().raycastTarget=false;pause.aim=aim;
         var panel=Panel(canvas.transform,"Pause panel",Color.clear);pause.panel=panel;pause.presentation=panel.AddComponent<CanvasGroup>();
         var backdrop=new GameObject("Dark glass",typeof(RectTransform),typeof(RawImage));backdrop.transform.SetParent(panel.transform,false);
         var dr=backdrop.GetComponent<RectTransform>();dr.anchorMin=Vector2.zero;dr.anchorMax=Vector2.one;dr.offsetMin=dr.offsetMax=Vector2.zero;

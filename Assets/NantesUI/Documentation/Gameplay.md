@@ -2,6 +2,8 @@
 
 New Game opens the team's `CreatureDebug` scene and starts a fresh save. Escape opens Resume, Save Game, Restart, Main Menu, and Quit. Escape again resumes. Restart starts the level over and replaces the save.
 
+Gameplay has no control prompts or crosshair. The only in-game UI is the Escape menu and the tablet.
+
 Save Game keeps your position, facing direction, flashlight charge, tablet food count and range, and the positions of throwable objects and creatures. A held object stays held. Creature behavior starts again when the scene loads; it does not save their current thoughts or chase paths.
 
 Main Menu and Quit save before leaving. If saving fails, the menu stays open and shows the problem. Continue loads the save, including after closing and reopening the game. It stays disabled when there is no usable save.
