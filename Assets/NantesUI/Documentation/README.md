@@ -8,4 +8,6 @@
 - [Editing the logo](Logo-editing.md)
 - [Audio files](Audio.md)
 - [Asset credits](Asset-credits.md)
+- [Object outline](Object-outline.md)
+- [Sky and world preview](World-look.md)
 - [Source details](Sources) and [font license](Licenses/OFL.txt)

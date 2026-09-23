@@ -57,3 +57,12 @@ Source: https://fontstruct.com/fontstructions/show/2147152
 ## Tablet icons and sounds
 
 The shrimp, home, scanner, power, and range icons are drawn in code for Nantes. The shrimp uses an original outline; no downloaded shrimp SVG is included. Tablet key and scan sounds are short tones generated in Unity. [Tablet setup and drawing steps](Tablet.md).
+
+## World sky
+
+Kloppenheim 07 (Pure Sky) by Greg Zaal, with sky edits by Jarod Guest. Poly Haven, CC0.
+
+Source: https://polyhaven.com/a/kloppenheim_07_puresky
+License: https://polyhaven.com/license
+
+Used in the world preview with reduced saturation, a gray-green tint, horizon haze, and moving cloud shadows. [Setup](World-look.md).

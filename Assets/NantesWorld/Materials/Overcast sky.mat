@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Overcast sky
+  m_Shader: {fileID: 4800000, guid: f0c75a43e3f0c3144a3043daafafab6f, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _Panorama:
+        m_Texture: {fileID: 2800000, guid: 2f061a23f1ee9084a9e78c20e4d142a1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _CloudCover: 0.18
+    - _Exposure: 0.7
+    - _Rotation: 85
+    - _Wind: 0.003
+    m_Colors:
+    - _CloudColor: {r: 0.24, g: 0.28, b: 0.27, a: 1}
+    - _Horizon: {r: 0.14, g: 0.135, b: 0.105, a: 1}
+    - _MoonDirection: {r: 0.2, g: 0.38, b: 0.9, a: 0}
+    - _Tint: {r: 0.72, g: 0.78, b: 0.76, a: 1}
+    - _Zenith: {r: 0.015, g: 0.024, b: 0.036, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
