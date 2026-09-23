@@ -231,11 +231,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 267564079}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!20 &445629853 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 6598856571624734133, guid: 7e230d12f01cd0f4a94e825e1fd01eba, type: 3}
-  m_PrefabInstance: {fileID: 629284559}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &629284559
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -244,10 +239,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 131617978161441501, guid: 7e230d12f01cd0f4a94e825e1fd01eba, type: 3}
-      propertyPath: m_IncludeLayers.m_Bits
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 135678198674194828, guid: 7e230d12f01cd0f4a94e825e1fd01eba, type: 3}
       propertyPath: m_LocalPosition.x
       value: -31.13786
@@ -288,57 +279,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 371736404226217296, guid: 7e230d12f01cd0f4a94e825e1fd01eba, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1453503772951195024, guid: 7e230d12f01cd0f4a94e825e1fd01eba, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1453503772951195024, guid: 7e230d12f01cd0f4a94e825e1fd01eba, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1453503772951195024, guid: 7e230d12f01cd0f4a94e825e1fd01eba, type: 3}
-      propertyPath: m_TagString
-      value: Flashlight
-      objectReference: {fileID: 0}
-    - target: {fileID: 3696123242014990456, guid: 7e230d12f01cd0f4a94e825e1fd01eba, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 445629853}
-    - target: {fileID: 3696123242014990456, guid: 7e230d12f01cd0f4a94e825e1fd01eba, type: 3}
-      propertyPath: m_DefaultActionMap
-      value: d6b06fc0-f434-45fd-ac72-260f2529a0fe
-      objectReference: {fileID: 0}
-    - target: {fileID: 4336011681140315816, guid: 7e230d12f01cd0f4a94e825e1fd01eba, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4336011681140315816, guid: 7e230d12f01cd0f4a94e825e1fd01eba, type: 3}
-      propertyPath: flashlight
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 5180116591052920784, guid: 7e230d12f01cd0f4a94e825e1fd01eba, type: 3}
       propertyPath: m_Name
       value: PlayerHolder
-      objectReference: {fileID: 0}
-    - target: {fileID: 5477194057686151794, guid: 7e230d12f01cd0f4a94e825e1fd01eba, type: 3}
-      propertyPath: ignoreLayer.m_Bits
-      value: 64
-      objectReference: {fileID: 0}
-    - target: {fileID: 5477194057686151794, guid: 7e230d12f01cd0f4a94e825e1fd01eba, type: 3}
-      propertyPath: interactionDistance
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6420577340607262388, guid: 7e230d12f01cd0f4a94e825e1fd01eba, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.031
-      objectReference: {fileID: 0}
-    - target: {fileID: 7875442639187313881, guid: 7e230d12f01cd0f4a94e825e1fd01eba, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
