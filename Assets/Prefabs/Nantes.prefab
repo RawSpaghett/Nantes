@@ -179,11 +179,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f16ebcd6eac984f618250f1d3324a7a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Segments
-  monsterHead: {fileID: 0}
+  monsterHead: {fileID: 7090245914129130752, guid: 62e34b74148984ed6be0d4497a0526e5, type: 3}
   segmentPrefab: {fileID: 7090245914129130752, guid: 62e34b74148984ed6be0d4497a0526e5, type: 3}
   parentString: Nantes
-  folderString: 
-  segmentAmount: 0
+  folderString: NantesSegment
+  segmentAmount: 10
   saveDistance: 2
 --- !u!1 &5116715122141051413
 GameObject:

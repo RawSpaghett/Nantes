@@ -89,9 +89,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Segments
   monsterHead: {fileID: 8195064957926718833}
-  segmentPrefab: {fileID: 0}
-  parentString: BNantes1
-  folderString: BNantes1
+  segmentPrefab: {fileID: 568534514961559399, guid: 51de194600216476da0ec8f9e7c0752b, type: 3}
+  parentString: BNantes
+  folderString: BNantes
   segmentAmount: 3
   saveDistance: 0.5
 --- !u!1 &8195064957926718833
