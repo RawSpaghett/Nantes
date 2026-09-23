@@ -73,8 +73,9 @@ public static class GameplayBuilder
         Rule(panel.transform,"Top edge",new Vector2(402,288),new Vector2(604,1),new Color(.28f,.42f,.43f,.28f));
         var help=Text(panel.transform,"Pause controls","ARROWS Navigate     ENTER Select     ESC Resume",new Vector2(-290,-410),new Vector2(880,36),13);help.alignment=TextAlignmentOptions.MidlineLeft;help.color=new Color(.38f,.49f,.48f);
         var options=new GameObject("Options",typeof(RectTransform));options.transform.SetParent(panel.transform,false);pause.options=options.GetComponent<RectTransform>();pause.options.anchoredPosition=new Vector2(402,0);pause.options.sizeDelta=new Vector2(604,500);
-        pause.resume=PauseButton(pause,0,"RESUME",159);pause.restart=PauseButton(pause,1,"RESTART",53);
-        pause.mainMenu=PauseButton(pause,2,"MAIN MENU",-53);pause.quit=PauseButton(pause,3,"QUIT",-159);
+        pause.resume=PauseButton(pause,0,"RESUME",200);pause.save=PauseButton(pause,1,"SAVE GAME",100);
+        pause.restart=PauseButton(pause,2,"RESTART",0);pause.mainMenu=PauseButton(pause,3,"MAIN MENU",-100);pause.quit=PauseButton(pause,4,"QUIT",-200);
+        pause.saveStatus=Text(panel.transform,"Save status","Main Menu and Quit save your progress.",new Vector2(402,-310),new Vector2(604,60),14);
         var events=new GameObject("EventSystem",typeof(EventSystem),typeof(InputSystemUIInputModule));events.transform.SetParent(canvas.transform,false);events.GetComponent<InputSystemUIInputModule>().AssignDefaultActions();
         PrefabUtility.SaveAsPrefabAsset(canvas.gameObject,Root+"/Resources/NantesGameUI.prefab");Object.DestroyImmediate(canvas.gameObject);
     }

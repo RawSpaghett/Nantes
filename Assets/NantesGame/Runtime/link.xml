@@ -1,0 +1,7 @@
+<linker>
+  <assembly fullname="Assembly-CSharp">
+    <type fullname="PlayerMovement" preserve="fields" />
+    <type fullname="FlashlightScript" preserve="fields" />
+    <type fullname="ThrowableObjects" preserve="fields" />
+  </assembly>
+</linker>

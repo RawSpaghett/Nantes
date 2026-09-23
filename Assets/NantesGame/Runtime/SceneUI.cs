@@ -23,6 +23,9 @@ namespace NantesGame.Gameplay
             if(!player){Debug.LogError("The level has no player for the tablet UI.");return;}
             var mount=player.GetComponentsInChildren<Transform>(true).FirstOrDefault(t=>t.name=="Scanner");
             if(!mount){Debug.LogError("The player has no Scanner surface.");return;}
+            var anchor=new GameObject("Tablet mount").transform;
+            anchor.SetParent(mount.parent,false);anchor.localPosition=mount.localPosition;
+            anchor.localRotation=mount.localRotation;anchor.localScale=mount.localScale;mount=anchor;
             var view=player.GetComponentInChildren<Camera>();
             var display=Instantiate(screenPrefab,mount,false);
             var tablet=display.GetComponent<TabletController>();tablet.viewCamera=view;
@@ -30,6 +33,7 @@ namespace NantesGame.Gameplay
             chest.input=player.GetComponent<PlayerInputHandler>();chest.actions=player.GetComponent<PlayerInput>();
             chest.extendedPosition=mount.localPosition+new Vector3(0,0,.18f);chest.foldedPosition=mount.localPosition+new Vector3(0,-.07f,-.44f);
             pause.input=chest.input;pause.chest=chest;pause.movement=player;pause.actions=chest.actions;
+            pause.saving=gameObject.AddComponent<LevelSave>();pause.saving.pause=pause;
             display.SetActive(true);
         }
     }

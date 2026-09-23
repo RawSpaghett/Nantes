@@ -14,8 +14,9 @@ namespace NantesGame.Gameplay
         public CanvasGroup presentation;
         public RectTransform options;
         public RawImage backdrop;
-        public Button resume,restart,mainMenu,quit;
-        public TMP_Text hint;
+        public Button resume,save,restart,mainMenu,quit;
+        public TMP_Text hint,saveStatus;
+        public LevelSave saving;
         public PlayerInputHandler input;
         public ChestTablet chest;
         public PlayerMovement movement;
@@ -34,7 +35,7 @@ namespace NantesGame.Gameplay
             backdropMaterial=new Material(backdrop.material);backdrop.material=backdropMaterial;
             presentation.alpha=0;presentation.blocksRaycasts=false;panel.SetActive(false);
             resume.onClick.AddListener(()=>SetPaused(false));restart.onClick.AddListener(Restart);
-            mainMenu.onClick.AddListener(ReturnToMenu);quit.onClick.AddListener(GameFlow.Quit);
+            save.onClick.AddListener(SaveGame);mainMenu.onClick.AddListener(ReturnToMenu);quit.onClick.AddListener(SaveAndQuit);
             SetTransition(ScreenTransition.Busy);
         }
         void Update()
@@ -93,10 +94,18 @@ namespace NantesGame.Gameplay
             if(held==value)return;
             if(value){movementWasEnabled=movement.enabled;actionsWereActive=actions.inputIsActive;movement.enabled=false;actions.DeactivateInput();}
             else{movement.enabled=movementWasEnabled;if(actionsWereActive)actions.ActivateInput();}
-            input.move=input.look=Vector2.zero;input.interactTriggered=false;input.crankHeld=false;held=value;
+            input.move=input.look=Vector2.zero;input.interactTriggered=false;input.crankHeld=false;input.sprintHeld=input.walkHeld=false;held=value;
         }
-        public void Restart(){ScreenTransition.Load(GameFlow.Level,hint.font);}
-        public void ReturnToMenu(){ScreenTransition.Load(GameFlow.Menu,hint.font);}
+        public void ShowSaveResult(bool success,string message){saveStatus.text=message;saveStatus.color=success?new Color(.5f,.7f,.63f):new Color(.9f,.65f,.5f);}
+        public void SaveGame(){if(ScreenTransition.Busy)return;ShowSaveResult(saving.Save(out var message),message);}
+        bool SaveBeforeLeaving()
+        {
+            if(ScreenTransition.Busy)return false;
+            bool success=saving.Save(out var message);ShowSaveResult(success,message);return success;
+        }
+        public void Restart(){GameFlow.StartNew(hint.font);}
+        public void ReturnToMenu(){if(SaveBeforeLeaving())ScreenTransition.Load(GameFlow.Menu,hint.font);}
+        public void SaveAndQuit(){if(SaveBeforeLeaving())GameFlow.Quit();}
         void OnApplicationFocus(bool focused){if(!focused&&!IsPaused&&!transitioning&&!ScreenTransition.Busy)SetPaused(true);}
         void OnDestroy(){if(backdropMaterial)Destroy(backdropMaterial);if(frozenView){frozenView.Release();Destroy(frozenView);}if(!ScreenTransition.Busy)Time.timeScale=1;}
     }

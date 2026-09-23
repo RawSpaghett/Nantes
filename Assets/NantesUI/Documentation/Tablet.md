@@ -4,7 +4,7 @@
 
 `GameplayBuilder` makes a square housing from cubes and a flat screen from a quad. It saves them as `ChestScreen.prefab` and builds the pause controls into `NantesGameUI.prefab`.
 
-When `Prototype_Main` loads, `SceneUI` finds the player's existing `Scanner` child and attaches the display there. It adds the UI controls at runtime. The team's player prefab, level, and movement scripts stay unchanged.
+When `CreatureDebug` loads, `SceneUI` copies the position, rotation, and scale of the player's `Scanner` child into a separate tablet mount. The display attaches there, so it still works when the original scanner object is off. The team's player prefab, colliders, level, and movement scripts stay unchanged.
 
 ## 2. Draw the interface
 
@@ -44,7 +44,7 @@ The outward pulse reveals nearby dots first. Contacts update while the scanner i
 
 ## 8. Update food
 
-The total starts at zero. `SetFoodCount` sets it and `AddFood` increases it, with a limit of 999. The gameplay pickup code still needs to call one of these methods. Restart resets the total. No inventory or save system is added by the UI.
+The total starts at zero. `SetFoodCount` sets it and `AddFood` increases it, with a limit of 999. The gameplay pickup code still needs to call one of these methods. Restart resets the total. Save Game stores the count and scanner range; Continue restores both. Food collection still needs its gameplay connection.
 
 ## 9. Make the sounds
 

@@ -20,12 +20,12 @@ namespace NantesGame.Gameplay
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         static void ResetState(){current=null;}
-        public static void Load(string scene,TMP_FontAsset font)
+        public static void Load(string scene,TMP_FontAsset font,System.Action loaded=null)
         {
             if(Busy)return;
             if(!Application.CanStreamedLevelBeLoaded(scene)){Debug.LogError("Scene is missing from the build: "+scene);return;}
             var root=new GameObject("Scene transition",typeof(RectTransform),typeof(Canvas),typeof(CanvasScaler),typeof(GraphicRaycaster));
-            DontDestroyOnLoad(root);current=root.AddComponent<ScreenTransition>();current.Create(font);current.StartCoroutine(current.Run(scene));
+            DontDestroyOnLoad(root);current=root.AddComponent<ScreenTransition>();current.Create(font);current.StartCoroutine(current.Run(scene,loaded));
         }
         void Create(TMP_FontAsset font)
         {
@@ -39,7 +39,7 @@ namespace NantesGame.Gameplay
             var tr=text.GetComponent<RectTransform>();tr.anchorMin=tr.anchorMax=new Vector2(.5f,0);tr.anchoredPosition=new Vector2(0,88);tr.sizeDelta=new Vector2(600,40);
             status=text.GetComponent<TextMeshProUGUI>();status.font=font;status.fontSize=15;status.characterSpacing=5;status.alignment=TextAlignmentOptions.Center;status.raycastTarget=false;status.text="";status.color=new Color(.38f,.5f,.48f);
         }
-        IEnumerator Run(string scene)
+        IEnumerator Run(string scene,System.Action loaded)
         {
             var sourceEvents=EventSystem.current;if(sourceEvents)sourceEvents.enabled=false;
             var sourcePause=FindFirstObjectByType<GamePause>();if(sourcePause)sourcePause.SetTransition(true);
@@ -55,6 +55,7 @@ namespace NantesGame.Gameplay
             var logo=FindFirstObjectByType<NantesLogoAnimator>();if(logo){logo.automatic=false;logo.Evaluate(0);}
             AudioListener.volume=0;status.text="";
             yield return null;yield return null;
+            loaded?.Invoke();
             yield return Fade(1,0,reduced?.2f:1f,0,volume);
             if(destinationPause)destinationPause.SetTransition(false);
             if(destinationEvents)destinationEvents.enabled=true;

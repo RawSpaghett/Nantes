@@ -6,7 +6,7 @@ namespace NantesGame.Gameplay
 {
     public sealed class GameFlow : MonoBehaviour
     {
-        public const string Level="Assets/Boilerplate/Scenes/Prototype_Main.unity";
+        public const string Level="Assets/Scenes/CreatureDebug/CreatureDebug.unity";
         public const string Menu="Assets/NantesUI/Scenes/NantesMenuPreview.unity";
         public NantesMenu menu;
         public TMP_FontAsset font;
@@ -14,10 +14,27 @@ namespace NantesGame.Gameplay
         void Start()
         {
             Time.timeScale=1;Cursor.lockState=CursorLockMode.None;Cursor.visible=true;
-            menu.SetContinueAvailable(false);
-            menu.newGameRequested.AddListener(NewGame);menu.quitRequested.AddListener(Quit);
+            RefreshSave();
+            menu.newGameRequested.AddListener(NewGame);menu.continueRequested.AddListener(Continue);menu.quitRequested.AddListener(Quit);
         }
-        public void NewGame(){ScreenTransition.Load(Level,font);}
+        public void RefreshSave()
+        {
+            bool available=GameSave.TryRead(out _,out var message);
+            menu.SetContinueAvailable(available);menu.continueHint.text=message;
+        }
+        public void NewGame(){StartNew(font);}
+        public static void StartNew(TMP_FontAsset font)
+        {
+            ScreenTransition.Load(Level,font,()=>{
+                var save=FindFirstObjectByType<LevelSave>();
+                if(save)save.pause.ShowSaveResult(save.Save(out var message),message);
+            });
+        }
+        public void Continue()
+        {
+            if(!GameSave.TryRead(out var data,out _)){RefreshSave();return;}
+            ScreenTransition.Load(Level,font,()=>FindFirstObjectByType<LevelSave>().Restore(data));
+        }
         public static void Quit(){
             if(ScreenTransition.Busy)return;
 #if UNITY_EDITOR
@@ -26,6 +43,6 @@ namespace NantesGame.Gameplay
             Application.Quit();
 #endif
         }
-        void OnDestroy(){if(menu){menu.newGameRequested.RemoveListener(NewGame);menu.quitRequested.RemoveListener(Quit);}}
+        void OnDestroy(){if(menu){menu.newGameRequested.RemoveListener(NewGame);menu.continueRequested.RemoveListener(Continue);menu.quitRequested.RemoveListener(Quit);}}
     }
 }

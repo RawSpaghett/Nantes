@@ -20,12 +20,12 @@ The editable logo files are in [Design/Logo](../../../Design/Logo). See [logo ed
 
 Menu scripts use `NantesGame.UI`; editor tools use `NantesGame.UI.Editor`. These names avoid the monster's `Nantes` class.
 
-`GameFlow` connects New Game and Quit. New Game opens `Prototype_Main` through `ScreenTransition`. A save system still needs to connect Continue and call `SetContinueAvailable(true)`.
+`GameFlow` connects New Game, Continue, and Quit. New Game opens `CreatureDebug` through `ScreenTransition`. Continue restores the saved run while the screen is faded out. See [game controls and saves](Gameplay.md).
 
 **Tools > Nantes > Prepare game UI** builds the chest display and pause prefab, connects the menu, and adds both scenes to the build list. `NantesMenuPreview` is removed from the playable scene during this step.
 
 Use an EventSystem with InputSystemUIInputModule. Keep the animated-space root and camera when copying the menu. Layer 29 is used for the ship/title overlap.
 
-The team project uses Unity 6000.3.10f1. The playable UI was checked with URP in 6000.5.10f1. Testing in the team's exact 6000.3.10f1 version is still needed.
+The playable menu and game UI are checked in Unity 6000.3.10f1 with URP, matching the team project.
 
 [Credits and licenses](Asset-credits.md)
