@@ -24,7 +24,7 @@ public class FlashlightScript : MonoBehaviour
 
         if(playerInputHandler.crankHeld)
         {
-            timer += Time.fixedDeltaTime;
+            timer += (Time.fixedDeltaTime*2);
 
             if(timer >= maxTimer)
             {
