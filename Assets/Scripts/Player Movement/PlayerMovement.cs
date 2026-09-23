@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -18,6 +20,8 @@ public class PlayerMovement : MonoBehaviour
     private float lookRotation;
 
     public bool grounded;
+
+    public static Action<Vector3, float> OnPlayerSound;
 
     private void FixedUpdate()
     {
@@ -49,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
         velocityChange = Vector3.ClampMagnitude(velocityChange, maxForce);
 
         rb.AddForce(velocityChange, ForceMode.VelocityChange);
+        OnPlayerSound.Invoke(gameObject.transform.position, speed);
     }
 
     private void Look()
