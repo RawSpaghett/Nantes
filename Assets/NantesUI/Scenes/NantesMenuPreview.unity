@@ -1409,17 +1409,14 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5904217069550108352, guid: 182cf6c32efd72644b99f5a161f88c4a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1426999184}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1314793086645984995, guid: 182cf6c32efd72644b99f5a161f88c4a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 541377769}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 182cf6c32efd72644b99f5a161f88c4a, type: 3}
 --- !u!114 &541377766 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5751007336062331039, guid: 182cf6c32efd72644b99f5a161f88c4a, type: 3}
   m_PrefabInstance: {fileID: 541377765}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 541377768}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 032d4b05ea3bffd46bfc4a6a8894d7d1, type: 3}
@@ -1430,25 +1427,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5904217069550108352, guid: 182cf6c32efd72644b99f5a161f88c4a, type: 3}
   m_PrefabInstance: {fileID: 541377765}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &541377768 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1314793086645984995, guid: 182cf6c32efd72644b99f5a161f88c4a, type: 3}
-  m_PrefabInstance: {fileID: 541377765}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &541377769
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 541377768}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2755043f6ce6557499115143aff43d4d, type: 3}
-  m_Name:
-  m_EditorClassIdentifier: Assembly-CSharp::NantesGame.UI.NantesMenuPreview
-  menu: {fileID: 541377766}
-  previewNote: {fileID: 1426999185}
 --- !u!114 &541377770 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4294449696468682366, guid: 182cf6c32efd72644b99f5a161f88c4a, type: 3}
@@ -1889,6 +1867,52 @@ MonoBehaviour:
   - {x: -2, y: 0.8, z: -5}
   - {x: 0.5, y: -1.4, z: -7.8}
   - {x: -4, y: -1.5, z: -7.5}
+--- !u!1 &939276768
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 939276770}
+  - component: {fileID: 939276769}
+  m_Layer: 0
+  m_Name: Menu flow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &939276769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939276768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cd7dc7c8f13410468a7bf5ff40e0677, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::NantesGame.Gameplay.GameFlow
+  menu: {fileID: 541377766}
+  font: {fileID: 11400000, guid: 38c8422deb9aefb4e93d71a345c2cbb5, type: 2}
+--- !u!4 &939276770
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939276768}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &956465603
 GameObject:
   m_ObjectHideFlags: 0
@@ -3371,3 +3395,4 @@ SceneRoots:
   - {fileID: 24571403}
   - {fileID: 1577609655}
   - {fileID: 1668674301}
+  - {fileID: 939276770}

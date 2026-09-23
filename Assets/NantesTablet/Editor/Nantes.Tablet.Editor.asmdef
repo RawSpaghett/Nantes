@@ -1,0 +1,5 @@
+{
+  "name": "Nantes.Tablet.Editor",
+  "references": ["Nantes.Tablet", "Unity.TextMeshPro", "UnityEngine.UI", "Unity.InputSystem"],
+  "includePlatforms": ["Editor"]
+}

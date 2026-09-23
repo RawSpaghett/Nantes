@@ -1,5 +1,8 @@
 # Documentation
 
+- [Playable build](Gameplay.md)
+- [Tablet setup, icons, and controls](Tablet.md)
+
 - [How the menu was made](How-the-menu-was-made.md)
 - [Menu setup and gameplay connections](Menu-setup.md)
 - [Editing the logo](Logo-editing.md)

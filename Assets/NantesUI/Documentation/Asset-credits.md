@@ -49,3 +49,11 @@ Source: https://github.com/google/fonts/tree/main/ofl/michroma
 License: [SIL Open Font License](Licenses/OFL.txt)
 
 The TextMesh Pro shaders come from Unity uGUI.
+
+Alien lettering on the tablet and pause screen uses **Stray** by **MaowCraft1282**, CC BY-ND 3.0. The original font is unchanged.
+Source: https://fontstruct.com/fontstructions/show/2147152
+[License](Stray/license.txt) · [Font readme](Stray/readme.txt)
+
+## Tablet icons and sounds
+
+The shrimp, home, scanner, power, and range icons are drawn in code for Nantes. The shrimp uses an original outline; no downloaded shrimp SVG is included. Tablet key and scan sounds are short tones generated in Unity. [Tablet setup and drawing steps](Tablet.md).

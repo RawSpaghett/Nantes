@@ -55,8 +55,8 @@ namespace NantesGame.UI.Editor
                     text.color=text.fontSize<=15?theme.muted:theme.bone;
                     if(text.name=="Asset credits")
                     {
-                        text.text="Spaceship  /  Dennis Haupt (3DHaupt)\nNon-commercial class prototype\nEarth  /  Akshat, Sketchfab, CC BY 4.0\n\nMusic  /  Universe - Space Sounds\nJuliusH  /  Pixabay Content License\nWhoosh  /  DRAGON-STUDIO, Pixabay\nInterface & ship effects  /  Nantes";
-                        text.fontSize=13;text.rectTransform.sizeDelta=new Vector2(550,190);
+                        text.text=NantesCredits.Text;
+                        text.fontSize=12;text.rectTransform.sizeDelta=new Vector2(610,230);
                         Place(text.rectTransform,0,222);
                     }
                 }

@@ -97,6 +97,6 @@ The menu uses Unity's UI controls and TextMesh Pro for lettering. The tentacle p
 
 The volume slider accepts dragging across its full handle height. Reduced Motion stops the ongoing animation and makes selection immediate. Volume and reduced-motion preferences are saved.
 
-Continue stays disabled until a save is available. New Game currently shows a preview notice; its connection to gameplay still needs to be added. Navigation, different screen sizes, sound timing, and both events were checked in the standalone preview.
+Continue stays disabled until a save is available. New Game fades into the team's Prototype_Main scene. Escape opens the pause menu; Restart and Main Menu use the same fade. Navigation, different screen sizes, sound timing, and both events were checked in the standalone preview.
 
-[Menu setup](Menu-setup.md) · [Asset credits](Asset-credits.md)
+[Menu setup](Menu-setup.md) · [Tablet setup](Tablet.md) · [Asset credits](Asset-credits.md)

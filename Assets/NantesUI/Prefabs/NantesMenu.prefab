@@ -3707,7 +3707,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: -222}
-  m_SizeDelta: {x: 550, y: 190}
+  m_SizeDelta: {x: 610, y: 230}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &994777303494528456
 CanvasRenderer:
@@ -3737,23 +3737,30 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Spaceship  /  Dennis Haupt (3DHaupt)
+  m_text: 'Earth / Akshat, Sketchfab / CC BY 4.0
+
+    Spaceship / Dennis Haupt (3DHaupt),
+    Free3D
 
     Non-commercial class prototype
 
-    Earth
-    /  Akshat, Sketchfab, CC BY 4.0
+
+    Universe - Space Sounds / JuliusH,
+    Pixabay
+
+    Simple Whoosh 02 / DRAGON-STUDIO, Pixabay
+
+    Music & whoosh /
+    Pixabay Content License
 
 
-    Music  /  Universe - Space Sounds
+    Nantes Display / modified Michroma / SIL OFL 1.1
 
-    JuliusH
-    /  Pixabay Content License
+    Stray
+    / MaowCraft1282 / CC BY-ND 3.0
 
-    Whoosh  /  DRAGON-STUDIO, Pixabay
-
-    Interface
-    & ship effects  /  Nantes'
+    Menu effects, tablet tones & shrimp icon
+    / Nantes'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 38c8422deb9aefb4e93d71a345c2cbb5, type: 2}
   m_sharedMaterial: {fileID: 8586093849008084561, guid: 38c8422deb9aefb4e93d71a345c2cbb5, type: 2}
@@ -3780,8 +3787,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 13
-  m_fontSizeBase: 13
+  m_fontSize: 12
+  m_fontSizeBase: 12
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0

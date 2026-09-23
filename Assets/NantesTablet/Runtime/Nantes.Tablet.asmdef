@@ -1,0 +1,5 @@
+{
+  "name": "Nantes.Tablet",
+  "rootNamespace": "NantesGame.Tablet",
+  "references": ["Unity.TextMeshPro", "UnityEngine.UI", "Unity.InputSystem"]
+}
