@@ -184,7 +184,7 @@ MonoBehaviour:
   parentString: Nantes
   folderString: NantesSegment
   segmentAmount: 20
-  saveDistance: 0.5
+  saveDistance: 1
 --- !u!1 &5116715122141051413
 GameObject:
   m_ObjectHideFlags: 0
@@ -290,14 +290,14 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7368511887682842023}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.476
-  m_Pitch: -1.41
+  m_Volume: 0.505
+  m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0

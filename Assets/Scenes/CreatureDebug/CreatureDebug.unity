@@ -283,6 +283,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerHolder
       objectReference: {fileID: 0}
+    - target: {fileID: 7875442639187313881, guid: 7e230d12f01cd0f4a94e825e1fd01eba, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1794,14 +1798,6 @@ PrefabInstance:
     - target: {fileID: 5184969365653561593, guid: e9c8b00d9733d43bfb803230cbc967cc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6706648787309181593, guid: e9c8b00d9733d43bfb803230cbc967cc, type: 3}
-      propertyPath: m_Pitch
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6706648787309181593, guid: e9c8b00d9733d43bfb803230cbc967cc, type: 3}
-      propertyPath: m_Volume
-      value: 0.505
       objectReference: {fileID: 0}
     - target: {fileID: 8395497140047168809, guid: e9c8b00d9733d43bfb803230cbc967cc, type: 3}
       propertyPath: m_Name
