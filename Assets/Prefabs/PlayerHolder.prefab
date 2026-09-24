@@ -170,7 +170,8 @@ MonoBehaviour:
   camHolder: {fileID: 6404510729841772020}
   sensitivity: 0.1
   speed: 4
-  crouchVar: 1.5
+  crouchHeight: 1.5
+  crouchSpeed: 3
   maxForce: 4
   jumpForce: 4
   sprintSpeed: 8

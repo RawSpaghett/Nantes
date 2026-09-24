@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header ("Variables")]
     public float sensitivity;
-    [SerializeField] private float speed, crouchVar, maxForce, jumpForce, sprintSpeed, slowWalkSpeed;
+    [SerializeField] private float speed, crouchHeight, crouchSpeed, maxForce, jumpForce, sprintSpeed, slowWalkSpeed;
     private float speedHolder;
 
     private float lookRotation;
@@ -90,11 +90,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void SpeedCheck()
     {
-        if(playerInputHandler.sprintHeld)
-            speed = sprintSpeed;
-
-        else if(playerInputHandler.walkHeld)
+        if(playerInputHandler.walkHeld || playerInputHandler.crouchHeld)
             speed = slowWalkSpeed;
+
+        else if(playerInputHandler.sprintHeld)
+            speed = sprintSpeed;
 
         else
             speed = speedHolder;
@@ -102,9 +102,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void CrouchCheck()
     {
-        if(playerInputHandler.crouchHeld) playerCollider.height = crouchVar;
-        
-        else playerCollider.height = playerHeight;
+        float targetHeight = playerInputHandler.crouchHeld ? crouchHeight : playerHeight;
+
+        playerCollider.height = Mathf.MoveTowards(playerCollider.height, targetHeight, crouchSpeed * Time.deltaTime);
     }
 
     public void Yell()
