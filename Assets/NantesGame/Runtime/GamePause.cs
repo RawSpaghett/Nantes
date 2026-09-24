@@ -15,6 +15,8 @@ namespace NantesGame.Gameplay
         public RectTransform options;
         public RawImage backdrop;
         public Button resume,save,restart,mainMenu,quit;
+        public Button controls,controlsBack;
+        public GameObject controlsPage;
         public TMP_Text saveStatus;
         public LevelSave saving;
         public PlayerInputHandler input;
@@ -36,13 +38,18 @@ namespace NantesGame.Gameplay
             presentation.alpha=0;presentation.blocksRaycasts=false;panel.SetActive(false);
             resume.onClick.AddListener(()=>SetPaused(false));restart.onClick.AddListener(Restart);
             save.onClick.AddListener(SaveGame);mainMenu.onClick.AddListener(ReturnToMenu);quit.onClick.AddListener(SaveAndQuit);
+            if(controls)controls.onClick.AddListener(()=>ShowControls(true));
+            if(controlsBack)controlsBack.onClick.AddListener(()=>ShowControls(false));
             SetTransition(ScreenTransition.Busy);
         }
         void Update()
         {
             float dt=Mathf.Min(Time.unscaledDeltaTime,.05f);
             if(ScreenTransition.Busy)return;
-            if(Keyboard.current!=null&&Keyboard.current.escapeKey.wasPressedThisFrame||Gamepad.current!=null&&Gamepad.current.startButton.wasPressedThisFrame)SetPaused(!IsPaused);
+            bool back=Keyboard.current!=null&&Keyboard.current.escapeKey.wasPressedThisFrame||Gamepad.current!=null&&Gamepad.current.startButton.wasPressedThisFrame;
+            bool readingControls=controlsPage&&controlsPage.activeSelf;
+            if(back){if(readingControls)ShowControls(false);else SetPaused(!IsPaused);}
+            else if(readingControls&&Gamepad.current!=null&&Gamepad.current.buttonEast.wasPressedThisFrame)ShowControls(false);
             if(Keyboard.current!=null&&Keyboard.current.f11Key.wasPressedThisFrame)Screen.fullScreen=!Screen.fullScreen;
             if(panel.activeSelf){
                 bool reduced=PlayerPrefs.GetInt("Nantes.UI.ReducedMotion",0)==1;
@@ -63,10 +70,19 @@ namespace NantesGame.Gameplay
             if(EventSystem.current)EventSystem.current.SetSelectedGameObject(null);
         }
         public void KeyboardFocus(int index){Focused=index;if(Mouse.current!=null)pointer=Mouse.current.position.ReadValue();}
+        public void ShowControls(bool value)
+        {
+            if(!IsPaused||!controlsPage)return;
+            controlsPage.SetActive(value);options.gameObject.SetActive(!value);
+            if(!value)Focused=2;
+            if(EventSystem.current)EventSystem.current.SetSelectedGameObject(value?controlsBack.gameObject:controls.gameObject);
+        }
         public void SetPaused(bool value)
         {
             if(ScreenTransition.Busy||IsPaused==value)return;
             IsPaused=value;HoldControls(value);Time.timeScale=value?0:1;
+            if(controlsPage)controlsPage.SetActive(false);
+            options.gameObject.SetActive(true);
             presentation.blocksRaycasts=value;presentation.interactable=value;if(value){CaptureBackdrop();panel.SetActive(true);}
             Cursor.lockState=value?CursorLockMode.None:CursorLockMode.Locked;Cursor.visible=value;
             if(value){Focused=0;if(Mouse.current!=null)pointer=Mouse.current.position.ReadValue();}

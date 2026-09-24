@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
 using UnityEngine.Events;
@@ -13,6 +14,8 @@ namespace NantesGame.UI
     public sealed class NantesMenu : MonoBehaviour
     {
         public GameObject mainPage, settingsPage, extrasPage, quitPage;
+        public GameObject controlsPage;
+        public Button controlsButton, controlsBack;
         public Button newGameButton, continueButton, settingsButton, extrasButton, quitButton;
         public Button settingsBack, extrasBack, quitBack, quitConfirm;
         public Slider volumeSlider;
@@ -30,6 +33,7 @@ namespace NantesGame.UI
         GameObject firstControl;
         Button returnControl;
         bool initialized;
+        bool changingPage;
         const string VolumeKey = "Nantes.UI.MasterVolume";
         const string MotionKey = "Nantes.UI.ReducedMotion";
 
@@ -41,6 +45,8 @@ namespace NantesGame.UI
             settingsButton.onClick.AddListener(() => Activate(settingsButton,() => Show("settings")));
             extrasButton.onClick.AddListener(() => Activate(extrasButton,() => Show("extras")));
             quitButton.onClick.AddListener(() => Activate(quitButton,() => Show("quit")));
+            if(controlsButton)controlsButton.onClick.AddListener(() => Activate(controlsButton,() => Show("controls")));
+            if(controlsBack)controlsBack.onClick.AddListener(Back);
             settingsBack.onClick.AddListener(() => Activate(settingsBack,Back));
             extrasBack.onClick.AddListener(() => Activate(extrasBack,Back));
             quitBack.onClick.AddListener(() => Activate(quitBack,Back));
@@ -66,6 +72,7 @@ namespace NantesGame.UI
 
         void Update()
         {
+            if (changingPage) return;
             Keyboard k = Keyboard.current;
             Gamepad g = Gamepad.current;
             if (Mouse.current != null && Mouse.current.delta.ReadValue().sqrMagnitude > .01f) UsePointer();
@@ -99,27 +106,78 @@ namespace NantesGame.UI
 
         public void Show(string page)
         {
-            if (!initialized) return;
-            if (page != "main" && page != "settings" && page != "extras" && page != "quit") return;
+            if (!initialized || changingPage) return;
+            if (page != "main" && page != "settings" && page != "extras" && page != "quit" && page != "controls") return;
+            if (page == "controls" && !controlsPage) return;
             if(selector!=null)selector.PageChanged();
             if (page == "settings") { returnControl = settingsButton; fullscreenToggle.SetIsOnWithoutNotify(Screen.fullScreen); }
             if (page == "extras") returnControl = extrasButton;
             if (page == "quit") returnControl = quitButton;
+            if (page == "controls") returnControl = controlsButton;
+            string previous = CurrentPage;
             CurrentPage = page;
+            firstControl = page == "controls" ? controlsBack.gameObject : page == "settings" ? volumeSlider.gameObject : page == "extras" ? extrasBack.gameObject : page == "quit" ? quitBack.gameObject : newGameButton.gameObject;
+            if (previous == "controls" && page == "main") firstControl = controlsButton.gameObject;
+            if (EventSystem.current != null) EventSystem.current.SetSelectedGameObject(null);
+            if (!ReducedMotion && previous != page && (previous == "controls" || page == "controls"))
+            {
+                StartCoroutine(ChangeControlsPage(page));
+                return;
+            }
+            SetPage(page);
+            if (KeyboardNavigation) Focus(firstControl);
+        }
+
+        void SetPage(string page)
+        {
             mainPage.SetActive(page == "main");
             settingsPage.SetActive(page == "settings");
             extrasPage.SetActive(page == "extras");
             quitPage.SetActive(page == "quit");
-            firstControl = page == "settings" ? volumeSlider.gameObject : page == "extras" ? extrasBack.gameObject : page == "quit" ? quitBack.gameObject : newGameButton.gameObject;
-            if (EventSystem.current != null) EventSystem.current.SetSelectedGameObject(null);
+            if(controlsPage)controlsPage.SetActive(page == "controls");
+        }
+
+        IEnumerator ChangeControlsPage(string page)
+        {
+            changingPage = true;
+            bool opening = page == "controls";
+            var list = mainPage.GetComponent<CanvasGroup>() ?? mainPage.AddComponent<CanvasGroup>();
+            var sheet = controlsPage.GetComponent<CanvasGroup>() ?? controlsPage.AddComponent<CanvasGroup>();
+            var content = (RectTransform)controlsPage.transform.Find("Content");
+            var listRect = (RectTransform)mainPage.transform;
+            Vector2 listPosition = listRect.anchoredPosition;
+            list.interactable = sheet.interactable = false;
+            list.blocksRaycasts = sheet.blocksRaycasts = false;
+            mainPage.SetActive(true); controlsPage.SetActive(true);
+            settingsPage.SetActive(false); extrasPage.SetActive(false); quitPage.SetActive(false);
+            float elapsed = 0;
+            while (elapsed < .42f)
+            {
+                float t = Mathf.SmoothStep(0, 1, elapsed / .42f);
+                float reveal = opening ? t : 1 - t;
+                sheet.alpha = reveal;
+                list.alpha = 1 - reveal;
+                content.anchoredPosition = new Vector2(28 * (1 - reveal), 0);
+                listRect.anchoredPosition = listPosition - Vector2.right * (18 * reveal);
+                yield return null;
+                elapsed += Time.unscaledDeltaTime;
+            }
+            listRect.anchoredPosition = listPosition;
+            content.anchoredPosition = Vector2.zero;
+            list.alpha = sheet.alpha = 1;
+            list.interactable = sheet.interactable = true;
+            list.blocksRaycasts = sheet.blocksRaycasts = true;
+            SetPage(page);
+            changingPage = false;
             if (KeyboardNavigation) Focus(firstControl);
         }
 
         public void Back()
         {
+            if (changingPage) return;
             SavePreferences();
             Show("main");
-            if (KeyboardNavigation && returnControl != null) Focus(returnControl.gameObject);
+            if (!changingPage && KeyboardNavigation && returnControl != null) Focus(returnControl.gameObject);
         }
 
         void Focus(GameObject control)
@@ -129,7 +187,7 @@ namespace NantesGame.UI
 
         void Activate(Button button,UnityAction action)
         {
-            if(!button.isActiveAndEnabled||!button.IsInteractable())return;
+            if(changingPage||!button.isActiveAndEnabled||!button.IsInteractable())return;
             if(selector!=null&&selector.isActiveAndEnabled)selector.Strike((RectTransform)button.transform,action);
             else action.Invoke();
         }

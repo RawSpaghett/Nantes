@@ -74,15 +74,19 @@ public static class GameplayBuilder
         pause.resume=PauseButton(pause,0,"RESUME",200);pause.save=PauseButton(pause,1,"SAVE GAME",100);
         pause.restart=PauseButton(pause,2,"RESTART",0);pause.mainMenu=PauseButton(pause,3,"MAIN MENU",-100);pause.quit=PauseButton(pause,4,"QUIT",-200);
         pause.saveStatus=Text(panel.transform,"Save status","Main Menu and Quit save your progress.",new Vector2(402,-310),new Vector2(604,60),14);
+        AddPauseControls(pause);
         var events=new GameObject("EventSystem",typeof(EventSystem),typeof(InputSystemUIInputModule));events.transform.SetParent(canvas.transform,false);events.GetComponent<InputSystemUIInputModule>().AssignDefaultActions();
         PrefabUtility.SaveAsPrefabAsset(canvas.gameObject,Root+"/Resources/NantesGameUI.prefab");Object.DestroyImmediate(canvas.gameObject);
     }
-    static void PrepareCredits()
+    static void PrepareCredits(bool refreshControls=false)
     {
         const string path="Assets/NantesUI/Prefabs/NantesMenu.prefab";
         var root=PrefabUtility.LoadPrefabContents(path);
         try
         {
+            var menu=root.GetComponent<NantesMenu>();
+            if(refreshControls&&menu.controlsPage)Object.DestroyImmediate(menu.controlsPage);
+            AddMenuControls(menu);
             foreach(var text in root.GetComponentsInChildren<TMP_Text>(true))if(text.name=="Asset credits")
             {
                 text.text=NantesCredits.Text;text.fontSize=12;text.enableAutoSizing=false;
@@ -91,6 +95,52 @@ public static class GameplayBuilder
             PrefabUtility.SaveAsPrefabAsset(root,path);
         }
         finally{PrefabUtility.UnloadPrefabContents(root);}
+    }
+    [MenuItem("Tools/Nantes/Update controls and flashlight UI")]
+    public static void PrepareControls()
+    {
+        const string path=Root+"/Resources/NantesGameUI.prefab";
+        var root=PrefabUtility.LoadPrefabContents(path);
+        try
+        {
+            var pause=root.GetComponent<GamePause>();
+            if(pause.controlsPage)Object.DestroyImmediate(pause.controlsPage);
+            AddPauseControls(pause);PrefabUtility.SaveAsPrefabAsset(root,path);
+        }
+        finally{PrefabUtility.UnloadPrefabContents(root);}
+        PrepareCredits(true);AssetDatabase.SaveAssets();Debug.Log("CONTROLS_UI_PREPARE_PASS");
+    }
+    static void AddMenuControls(NantesMenu menu)
+    {
+        if(!menu.controlsButton)
+        {
+            menu.controlsButton=Object.Instantiate(menu.extrasButton,menu.mainPage.transform);
+            menu.controlsButton.name="Controls";
+            menu.controlsButton.GetComponent<NantesMenuItem>().label.text="CONTROLS";
+        }
+        var buttons=new[]{menu.newGameButton,menu.continueButton,menu.settingsButton,menu.controlsButton,menu.extrasButton,menu.quitButton};
+        for(int i=0;i<buttons.Length;i++)((RectTransform)buttons[i].transform).anchoredPosition=new Vector2(0,-76*i);
+        ((RectTransform)menu.mainPage.transform).sizeDelta=new Vector2(460,456);
+        if(!menu.controlsPage)menu.controlsPage=ControlsPanelBuilder.Create(menu.transform,Font,out menu.controlsBack);
+    }
+    static void AddPauseControls(GamePause pause)
+    {
+        if(!pause.controls)pause.controls=PauseButton(pause,2,"CONTROLS",0);
+        var buttons=new[]{pause.resume,pause.save,pause.controls,pause.restart,pause.mainMenu,pause.quit};
+        for(int i=0;i<buttons.Length;i++)
+        {
+            var rect=(RectTransform)buttons[i].transform;rect.anchoredPosition=new Vector2(-302,220-i*88);rect.sizeDelta=new Vector2(604,74);
+            var option=buttons[i].GetComponent<PauseOption>();option.index=i;option.number.text=(i+1).ToString("00");
+        }
+        if(!pause.controlsPage)pause.controlsPage=ControlsPanelBuilder.Create(pause.panel.transform,Font,out pause.controlsBack);
+        if(!pause.GetComponentInChildren<FlashlightMeter>(true))
+        {
+            var go=new GameObject("Flashlight meter",typeof(RectTransform),typeof(CanvasGroup),typeof(FlashlightMeter));go.transform.SetParent(pause.transform,false);
+            var rect=(RectTransform)go.transform;rect.anchorMin=rect.anchorMax=rect.pivot=new Vector2(1,0);rect.anchoredPosition=new Vector2(-52,42);rect.sizeDelta=new Vector2(236,76);
+            var meter=go.GetComponent<FlashlightMeter>();meter.pause=pause;meter.visibility=go.GetComponent<CanvasGroup>();meter.visibility.blocksRaycasts=false;meter.visibility.interactable=false;meter.raycastTarget=false;
+            meter.status=Text(go.transform,"Charge status","OFF",new Vector2(96,50),new Vector2(140,24),12);
+            var label=meter.status.rectTransform;label.anchorMin=label.anchorMax=new Vector2(0,0);label.pivot=new Vector2(0,.5f);meter.status.alignment=TextAlignmentOptions.MidlineLeft;
+        }
     }
     static void PrepareMenu()
     {

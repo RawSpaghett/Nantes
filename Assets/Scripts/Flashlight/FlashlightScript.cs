@@ -9,9 +9,41 @@ public class FlashlightScript : MonoBehaviour
     [SerializeField] private float minTimer = 0f;
     //[SerializeField] private bool flashlightActive;
 
+    // The meter reads these without changing the charge timer.
+    public float Charge01 => Mathf.InverseLerp(minTimer, maxTimer, timer);
+    public bool IsCranking => playerInputHandler && playerInputHandler.crankHeld;
+    public bool IsLit => flashlight && flashlight.activeSelf;
+    Light[] beamLights;
+    float[] beamIntensities;
+
     void Awake()
     {
+        beamLights = flashlight.GetComponentsInChildren<Light>(true);
+        beamIntensities = new float[beamLights.Length];
+        for (int i = 0; i < beamLights.Length; i++) beamIntensities[i] = beamLights[i].intensity;
         flashlight.SetActive(false);
+    }
+
+    void LateUpdate()
+    {
+        // Only the last part of the charge dims and sputters. Cranking steadies it.
+        float strength = 1f;
+        if (IsLit && !IsCranking)
+        {
+            float low = 1f - Mathf.SmoothStep(0f, 1f, Charge01 / .3f);
+            strength = Mathf.Lerp(1f, .18f, low);
+            if (PlayerPrefs.GetInt("Nantes.UI.ReducedMotion", 0) == 0)
+                strength *= 1f - low * .2f * Mathf.PerlinNoise(Time.time * 13f, 4.7f);
+        }
+        for (int i = 0; i < beamLights.Length; i++)
+            if (beamLights[i]) beamLights[i].intensity = beamIntensities[i] * strength;
+    }
+
+    void OnDisable()
+    {
+        if (beamLights == null) return;
+        for (int i = 0; i < beamLights.Length; i++)
+            if (beamLights[i]) beamLights[i].intensity = beamIntensities[i];
     }
 
     void FixedUpdate()

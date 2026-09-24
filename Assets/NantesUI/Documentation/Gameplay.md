@@ -1,8 +1,10 @@
 # Game UI
 
-New Game opens the team's `CreatureDebug` scene and starts a fresh save. Escape opens Resume, Save Game, Restart, Main Menu, and Quit. Escape again resumes. Restart starts the level over and replaces the save.
+New Game opens the team's `CreatureDebug` scene and starts a fresh save. Escape opens Resume, Save Game, Controls, Restart, Main Menu, and Quit. Escape again resumes. Restart starts the level over and replaces the save.
 
-Gameplay has no control prompts or crosshair. The only in-game UI is the Escape menu and the tablet.
+Gameplay has no control prompts or crosshair. The bottom-right flashlight meter shows its charge. Controls are listed in the main menu and Escape menu; Escape backs out of Controls before resuming.
+
+The flashlight icon is dim grey when off, white while cranking, and gains rays as it charges. The bar drains with the light. READY means the beam is on; LOW CHARGE appears near empty. The beam dims and gently flickers over the last 30% of charge. Cranking steadies it. Reduced Motion disables the flicker. There is no overheating or cooldown system.
 
 Save Game keeps your position, facing direction, flashlight charge, tablet food count and range, and the positions of throwable objects and creatures. A held object stays held. Creature behavior starts again when the scene loads; it does not save their current thoughts or chase paths.
 

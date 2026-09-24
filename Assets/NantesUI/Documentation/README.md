@@ -1,6 +1,7 @@
 # Documentation
 
 - [Playable build](Gameplay.md)
+- [Controls and flashlight](Controls.md)
 - [Tablet setup, icons, and controls](Tablet.md)
 
 - [How the menu was made](How-the-menu-was-made.md)
