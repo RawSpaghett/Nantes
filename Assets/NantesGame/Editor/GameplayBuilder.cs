@@ -89,9 +89,10 @@ public static class GameplayBuilder
             AddMenuControls(menu);
             foreach(var text in root.GetComponentsInChildren<TMP_Text>(true))if(text.name=="Asset credits")
             {
-                text.text=NantesCredits.Text;text.fontSize=12;text.enableAutoSizing=false;
-                text.rectTransform.sizeDelta=new Vector2(610,230);
+                text.text=NantesCredits.Text;text.fontSize=12;text.enableAutoSizing=false;text.characterSpacing=0;
+                text.rectTransform.sizeDelta=new Vector2(610,300);
             }
+            ((RectTransform)menu.extrasPage.transform.Find("Back")).anchoredPosition=new Vector2(0,-545);
             PrefabUtility.SaveAsPrefabAsset(root,path);
         }
         finally{PrefabUtility.UnloadPrefabContents(root);}

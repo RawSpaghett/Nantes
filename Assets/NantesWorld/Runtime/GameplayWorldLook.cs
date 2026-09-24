@@ -38,18 +38,21 @@ namespace NantesGame.World
                 }
             atmosphere = Instantiate(atmospherePrefab, transform);
             atmosphere.SetActive(true);
-            // These are still plain props in the supermarket layout.
+            gameObject.AddComponent<SupermarketDetails>();
+            // Register the food props without changing their prefabs.
             foreach (var item in FindObjectsByType<Transform>(FindObjectsInactive.Include, FindObjectsSortMode.None))
                 foreach (string name in foodPropNames)
-                    if (item.name == name || item.name.StartsWith(name + " (")) { Highlight(item.gameObject); break; }
+                    if (item.name == name || item.name.StartsWith(name + " (") || item.name == name + "(Clone)") { RegisterFood(item.gameObject); break; }
         }
 
-        void Highlight(GameObject target)
+        void RegisterFood(GameObject target)
         {
-            if (target.scene != gameObject.scene || target.GetComponentInParent<ObjectOutline>()) return;
-            var outline = target.AddComponent<ObjectOutline>();
+            if (target.scene != gameObject.scene || target.GetComponentInParent<FoodScanTarget>()) return;
+            var outline = target.GetComponent<ObjectOutline>();
+            if (!outline) outline = target.AddComponent<ObjectOutline>();
             outline.material = outlineMaterial;
-            outline.SetHighlighted(true);
+            target.AddComponent<FoodScanTarget>();
+            if (!target.GetComponent<FoodPickup>()) target.AddComponent<FoodPickup>();
         }
 
         void OnDestroy()

@@ -105,7 +105,7 @@ namespace NantesGame.Gameplay
             if(held==value)return;
             if(value){movementWasEnabled=movement.enabled;actionsWereActive=actions.inputIsActive;movement.enabled=false;actions.DeactivateInput();}
             else{movement.enabled=movementWasEnabled;if(actionsWereActive)actions.ActivateInput();}
-            input.move=input.look=Vector2.zero;input.interactTriggered=false;input.crankHeld=false;input.sprintHeld=input.walkHeld=false;held=value;
+            input.move=input.look=Vector2.zero;input.interactTriggered=false;input.crankHeld=false;input.sprintHeld=input.walkHeld=input.crouchHeld=false;held=value;
         }
         public void ShowSaveResult(bool success,string message){saveStatus.text=message;saveStatus.color=success?new Color(.5f,.7f,.63f):new Color(.9f,.65f,.5f);}
         public void SaveGame(){if(ScreenTransition.Busy)return;ShowSaveResult(saving.Save(out var message),message);}

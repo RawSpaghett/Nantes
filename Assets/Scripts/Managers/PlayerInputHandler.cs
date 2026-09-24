@@ -46,7 +46,10 @@ public class PlayerInputHandler : MonoBehaviour
     
     public void OnYellInput(InputAction.CallbackContext context)
     {
-        playerMovement.Yell();
+        if(context.performed)
+        {
+            playerMovement.Yell();
+        }
     }
 
     public void OnSprintInput(InputAction.CallbackContext context)

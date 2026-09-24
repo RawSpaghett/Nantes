@@ -1,8 +1,10 @@
 # Object outline
 
-The red outline is separate from the object's existing material. It shows through walls and shelves. In the supermarket, `GameplayWorldLook` adds it to CocoCereals, ChocolateBar and Tomato when the scene loads. Creatures, shelves and other objects are not highlighted.
+The red outline is separate from the object's existing material. It shows through walls and shelves. In the supermarket, `GameplayWorldLook` adds it to CocoCereals, ChocolateBar and Tomato, hidden at first. A manual tablet scan reveals food within 25 metres for eight seconds. The radar and detected count use those same items. Leaving range or collecting an item hides its outline immediately. Creatures, shelves and other objects are not highlighted.
 
-The food names are listed on `NantesWorld/Resources/GameplayWorldLook.prefab`. Update that list when adding more food. Pickup and scanner behavior are unchanged.
+The food names are listed on `NantesWorld/Resources/GameplayWorldLook.prefab`. Update that list when adding more food. `FoodScanTarget` handles the timer; another scan refreshes it, pausing freezes it, and collecting the food clears it. `FoodPickup` uses the existing interaction interface and adds to the tablet tally. Original food materials stay unchanged.
+
+The outline fades in over 0.2 seconds and fades out over the last 0.4 seconds of the timer. Rescanning a visible item keeps its current brightness as it returns to full strength. `ObjectOutline.opacity` controls the fade without changing the object's material or the outline width. Leaving range or collecting still clears it straight away.
 
 1. Add `ObjectOutline` to an object.
 2. Assign `NantesWorld/Materials/Red outline` to its Material field.

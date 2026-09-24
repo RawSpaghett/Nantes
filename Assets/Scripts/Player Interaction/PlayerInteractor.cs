@@ -35,7 +35,7 @@ public class PlayerInteractor : MonoBehaviour
 
         if(Physics.Raycast(ray, out RaycastHit hit, interactionDistance,layerMask))
         {
-            IInteractable interactable = hit.collider.GetComponent<IInteractable>();
+            IInteractable interactable = hit.collider.GetComponentInParent<IInteractable>();
 
             if(interactable != null)
             {
@@ -43,5 +43,7 @@ public class PlayerInteractor : MonoBehaviour
                 currentInteractable = interactable;
             }
         }
+        if(currentInteractable == null)
+            currentInteractable = NantesGame.Gameplay.FoodPickup.InReach(playerCamera, interactionDistance, layerMask);
     }
 }

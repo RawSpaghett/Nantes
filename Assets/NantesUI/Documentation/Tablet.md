@@ -4,19 +4,19 @@
 
 `GameplayBuilder` makes a square housing from cubes and a flat screen from a quad. It saves them as `ChestScreen.prefab` and builds the pause controls into `NantesGameUI.prefab`.
 
-When the supermarket in `Prototype_Main` loads, `SceneUI` copies the position, rotation, and scale of the player's `Scanner` child into a separate tablet mount. The display attaches there, so it still works when the original scanner object is off. The team's player prefab, colliders, level, and movement scripts stay unchanged.
+When the supermarket in `Prototype_Main` loads, `SceneUI` adds a separate mount on the player's chest. Tab unfolds it from the chest and tilts the view down to read it. Stowing restores the view. The mount follows the body when crouching. The original Scanner object stays unchanged.
 
 ## 2. Draw the interface
 
 `TabletDisplay` draws the panels, lines, radar rings, and icons from points. `TabletController` places the text over them. A separate camera draws this interface into a RenderTexture, which is an image Unity updates each frame. That image is placed on the square screen with the tablet glass material.
 
-The screen has Home, Scanner, and Power controls. Home opens the scanner. Scanner has a range toggle and scan button. The food total stays in the top-right. The flashlight icon, charge bar and status sit along the bottom on Home and Scanner. `SceneUI` attaches `FlashlightMeter` to the tablet's display canvas, so it is drawn into the screen texture instead of the player's HUD. It reads the existing flashlight charge and stays hidden while the tablet is off or booting.
+The tablet boots straight into Scanner. It has Scan and Power buttons and a fixed 25-metre range. There is no Home page or range toggle. The food total stays in the top-right. The flashlight icon, charge bar and status sit along the bottom. `SceneUI` attaches the meter to the tablet canvas, so it appears on the device and stays hidden while off or booting.
 
 ## 3. Use the alien font
 
 The original Stray font by MaowCraft1282 is kept unchanged. `TabletFont.Prepare` makes a TextMesh Pro font atlas, which stores the shapes Unity needs to draw the letters.
 
-Labels contain real words such as HOME, SCANNER, FOOD, and RANGE, rendered in Stray. Numbers and keyboard hints use Nantes Display. Stray also appears above the pause title. The main-menu logo stays in Nantes Display.
+Labels contain real words such as SCANNER, FOOD, and RANGE, rendered in Stray. Numbers and keyboard hints use Nantes Display. Stray also appears above the pause title. The main-menu logo stays in Nantes Display.
 
 ## 4. Draw the shrimp
 
@@ -26,25 +26,29 @@ Each pair of points becomes a thin strip of triangles. The strips scale with the
 
 ## 5. Boot and fold away
 
-`ChestTablet` checks the direction of the player's camera. Looking down for 0.2 seconds starts the boot and moves the mount forward. Looking away for 0.35 seconds starts shutdown and folds it back. Different thresholds stop the screen from switching on and off at the edge of the viewing angle.
+`ChestTablet` uses Tab to raise or stow the device. Its position and angle ease between those two poses. The housing tucks into the chest and its renderers switch off when stowed, so looking straight down shows no panel. Looking around never opens the tablet.
 
 Boot lasts 1.55 seconds. Shutdown lasts 0.75 seconds. Screen brightness and the startup graphics follow those states. The food value stays in memory while the screen is off.
 
 ## 6. Use the controls
 
-Looking down leaves mouse look active. Tab unlocks the pointer for the screen; Tab or right-click returns to mouse look. The pointer is projected onto the screen to find which control it touches.
+While raised, the mouse moves the tablet cursor. Stowing restores mouse look. The pointer is projected onto the screen to find which button it touches.
 
-1 opens Home, 2 opens Scanner, and Space scans while Scanner is open. Jump and Interact are held while using the tablet so a scan does not also jump or use a world object. Their previous states return afterward.
+Space scans while the tablet is open. World interaction is held while using the tablet so selecting a button cannot also collect or throw something. Previous input states return afterward. Escape opens the pause menu.
 
 ## 7. Read the scanner
 
-Opening Scanner sends a scan. `ChestTablet` gathers existing `Enemy` objects within the selected range and turns their world positions into positions relative to the player. These positions become dots on the radar.
+Opening Scanner does not scan. Click Scan or press Space to find food within 25 metres. `ChestTablet` reveals those items through walls for eight seconds, with a 0.2-second fade in and a 0.4-second fade out. Scanning again restarts that timer without blinking the outline off. Closing the tablet leaves the reveal running; reopening does not refresh it. Pausing freezes it.
 
-The outward pulse reveals nearby dots first. Contacts update while the scanner is open. The range button switches between 25 and 50 metres. This is a position display, not a change to enemy senses or behavior. It does not test walls or detect food pickups yet.
+Food and existing `Enemy` objects within 25 metres become radar dots relative to the player. Food dots, the detected count, and red outlines use the same results. Moving out of range, collecting food, or reaching the eight-second limit removes a result. Moving back into range needs another scan. The outward ring is the scan animation; it does not delay individual dots. Enemy senses and behavior are unchanged.
+
+`GameplayWorldLook` registers CocoCereals, ChocolateBar and Tomato as `FoodScanTarget` objects at runtime. Add new prop names to its prefab list, or add `FoodScanTarget` and assign the red material on its `ObjectOutline`. Change `ChestTablet.foodRevealSeconds` to adjust the duration. Disabled or removed food stops showing up.
 
 ## 8. Update food
 
-The total starts at zero. `SetFoodCount` sets it and `AddFood` increases it, with a limit of 999. The gameplay pickup code still needs to call one of these methods. Restart resets the total. Save Game stores the count and scanner range; Continue restores both. Food collection still needs its gameplay connection.
+Aim at food within interaction reach and press E. No scan is needed. `FoodPickup` uses the existing `IInteractable` interface, adds one to the tally, then disables the food and its outline. It also consumes that key press so holding E cannot count the same item twice. Saves store each collected item's scene path and the total. Continue keeps collected food hidden; New Game and Restart bring it back.
+
+Small food props have 12 cm of aiming allowance. The pickup check still needs a clear line to the item, so it cannot reach through walls or shelves. Other object interactions use the original ray.
 
 ## 9. Make the sounds
 

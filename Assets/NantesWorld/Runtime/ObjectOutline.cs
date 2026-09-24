@@ -10,6 +10,7 @@ namespace NantesGame.World
         public Material material;
         [Range(0, 8)] public float width = 2.5f;
         public Color color = new Color(.85f, .065f, .035f);
+        [Range(0, 1)] public float opacity = 1;
         public bool highlighted;
         readonly List<Renderer> sources = new List<Renderer>();
         readonly List<Renderer> shells = new List<Renderer>();
@@ -108,7 +109,9 @@ namespace NantesGame.World
         void Refresh()
         {
             if (!initialized) return;
-            properties.SetColor("_OutlineColor", color);
+            var tint = color;
+            tint.a *= opacity;
+            properties.SetColor("_OutlineColor", tint);
             for (int i = 0; i < shells.Count; i++)
             {
                 if (!shells[i]) continue;

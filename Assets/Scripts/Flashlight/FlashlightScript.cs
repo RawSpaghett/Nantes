@@ -12,7 +12,8 @@ public class FlashlightScript : MonoBehaviour
     // The meter reads these without changing the charge timer.
     public float Charge01 => Mathf.InverseLerp(minTimer, maxTimer, timer);
     public bool IsCranking => playerInputHandler && playerInputHandler.crankHeld;
-    public bool IsLit => flashlight && flashlight.activeSelf;
+    public bool IsLit => flashlight && flashlight.activeSelf && !warmingUp;
+    private bool warmingUp;
     Light[] beamLights;
     float[] beamIntensities;
 
@@ -20,21 +21,29 @@ public class FlashlightScript : MonoBehaviour
     {
         beamLights = flashlight.GetComponentsInChildren<Light>(true);
         beamIntensities = new float[beamLights.Length];
-        for (int i = 0; i < beamLights.Length; i++) beamIntensities[i] = beamLights[i].intensity;
+        for (int i = 0; i < beamLights.Length; i++)
+        {
+            beamIntensities[i] = beamLights[i].intensity;
+            //keep the beam from shining through shelves and walls
+            beamLights[i].shadows = LightShadows.Soft;
+            beamLights[i].shadowBias = .015f;
+            beamLights[i].shadowNormalBias = .06f;
+        }
         flashlight.SetActive(false);
     }
 
     void LateUpdate()
     {
-        // Only the last part of the charge dims and sputters. Cranking steadies it.
-        float strength = 1f;
-        if (IsLit && !IsCranking)
+        //more charge makes the bulb brighter
+        float strength = Mathf.Lerp(.12f, 1f, Charge01);
+        bool flicker = PlayerPrefs.GetInt("Nantes.UI.ReducedMotion", 0) == 0;
+        if(warmingUp)
         {
-            float low = 1f - Mathf.SmoothStep(0f, 1f, Charge01 / .3f);
-            strength = Mathf.Lerp(1f, .18f, low);
-            if (PlayerPrefs.GetInt("Nantes.UI.ReducedMotion", 0) == 0)
-                strength *= 1f - low * .2f * Mathf.PerlinNoise(Time.time * 13f, 4.7f);
+            strength = Charge01 * .7f;
+            if(flicker) strength *= Mathf.Lerp(.3f, 1f, Mathf.PerlinNoise(Time.time * 17f, 4.7f));
         }
+        else if(IsLit && Charge01 < .3f && !IsCranking && flicker)
+            strength *= 1f - (1f - Charge01 / .3f) * .3f * Mathf.PerlinNoise(Time.time * 13f, 4.7f);
         for (int i = 0; i < beamLights.Length; i++)
             if (beamLights[i]) beamLights[i].intensity = beamIntensities[i] * strength;
     }
@@ -50,12 +59,16 @@ public class FlashlightScript : MonoBehaviour
     {
         if(timer >= maxTimer/2)
         {
+            warmingUp = false;
             flashlight.SetActive(true);
         }
 
 
         if(playerInputHandler.crankHeld)
         {
+            //the bulb sputters while it builds enough charge to stay on
+            if(!flashlight.activeSelf) warmingUp = true;
+            flashlight.SetActive(true);
             timer += (Time.fixedDeltaTime*2);
 
             if(timer >= maxTimer)
@@ -69,11 +82,13 @@ public class FlashlightScript : MonoBehaviour
 
         if(!playerInputHandler.crankHeld)
         {
+            if(warmingUp) flashlight.SetActive(false);
             timer -= Time.fixedDeltaTime;
 
             if(timer <= minTimer)
             {
                 timer = minTimer;
+                warmingUp = false;
 
                 //flashlightActive = false;
                 flashlight.SetActive(false);

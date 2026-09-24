@@ -31,7 +31,9 @@ namespace NantesGame.Tablet
         public float Range { get; private set; } = 25;
         public float Clock => Time.unscaledTime;
         public float Transition => Mathf.Clamp01((Clock-stateStarted)/transitionDuration);
-        public float ScanAge => Clock-scanStarted;
+        float ScanClock => usePreviewKeys ? Clock : Time.time;
+        public float ScanAge => ScanClock-scanStarted;
+        public bool HasScan => scanStarted>=0;
         public int Hover { get; private set; } = -1;
         public IReadOnlyList<ScannerContact> Contacts => contacts;
         public bool HasFocus => State != TabletState.Off && State != TabletState.ShuttingDown;
@@ -80,7 +82,7 @@ namespace NantesGame.Tablet
             float dt=Mathf.Min(Time.unscaledDeltaTime,.05f);
             if(InputEnabled){if(usePreviewKeys)ReadKeys();ReadPointer();}
             else Hover=-1;
-            if(State==TabletState.Booting && Transition>=1)ChangeState(TabletState.Home,0);
+            if(State==TabletState.Booting && Transition>=1){ChangeState(TabletState.Scanner,0);keyboardFocus=4;}
             if(State==TabletState.ShuttingDown && Transition>=1)ChangeState(TabletState.Off,0);
             float target=State==TabletState.Off?0:State==TabletState.ShuttingDown?1-Mathf.SmoothStep(0,1,Transition):1;
             raise=Mathf.SmoothDamp(raise,target,ref raiseVelocity,.22f,100,dt);
@@ -110,9 +112,12 @@ namespace NantesGame.Tablet
             if(values==null)return;
             foreach(var contact in values){if(contacts.Count>=64)break;if(float.IsNaN(contact.position.x)||float.IsNaN(contact.position.y)||float.IsInfinity(contact.position.x)||float.IsInfinity(contact.position.y))continue;contacts.Add(contact);}
         }
-        public void SetRange(float metres){Range=Mathf.Clamp(metres,5,100);}
+        public void SetRange(float metres){Range=25;}
         public float ContactVisibility(ScannerContact contact)
         {
+            if(!HasScan)return 0;
+            //Live dots use the same results as the food outlines.
+            if(!usePreviewKeys)return contact.confidence;
             float delay=contact.position.magnitude/Range*1.8f;
             if(ScanAge<delay)return 0;
             return Mathf.Clamp01((ScanAge-delay)*5)*Mathf.Clamp01(1-(ScanAge-5)/8)*contact.confidence;
@@ -128,12 +133,12 @@ namespace NantesGame.Tablet
             ChangeState(TabletState.ShuttingDown,.75f);ReleaseFocus();Click();
         }
         public void TogglePower(){if(State==TabletState.Off||State==TabletState.ShuttingDown)PowerOn();else PowerOff();}
-        public void ShowHome(){if(!IsReady)return;ChangeState(TabletState.Home,0);keyboardFocus=3;Click();}
-        public void ShowScanner(){if(!IsReady)return;ChangeState(TabletState.Scanner,0);keyboardFocus=4;RequestScan();}
+        public void ShowHome(){ShowScanner();}
+        public void ShowScanner(){if(!IsReady)return;ChangeState(TabletState.Scanner,0);keyboardFocus=4;}
         public void RequestScan()
         {
             if(State!=TabletState.Scanner || ScanAge<1.85f)return;
-            scanStarted=Clock;ScanRequested?.Invoke(Range);impulse=.4f;
+            scanStarted=ScanClock;ScanRequested?.Invoke(Range);impulse=.4f;
             if(speaker && scanSound)speaker.PlayOneShot(scanSound,.7f);
         }
         public void Activate(int action)
@@ -143,7 +148,6 @@ namespace NantesGame.Tablet
             else if(action==1||action==3)ShowScanner();
             else if(action==2)PowerOff();
             else if(action==4)RequestScan();
-            else if(action==5){SetRange(Range<40?50:25);scanStarted=-100;RequestScan();}
         }
         public void RenderDisplay(){Canvas.ForceUpdateCanvases();if(screenCamera)screenCamera.Render();}
         void ChangeState(TabletState state,float duration){State=state;stateStarted=Clock;transitionDuration=Mathf.Max(.001f,duration);Hover=-1;}
@@ -157,11 +161,9 @@ namespace NantesGame.Tablet
             if(k.tabKey.wasPressedThisFrame)TogglePower();
             if(k.f11Key.wasPressedThisFrame)Screen.fullScreen=!Screen.fullScreen;
             if(!IsReady)return;
-            if(k.escapeKey.wasPressedThisFrame){if(State==TabletState.Scanner)ShowHome();else PowerOff();}
-            if(k.digit1Key.wasPressedThisFrame)ShowHome();
-            if(k.digit2Key.wasPressedThisFrame)ShowScanner();
+            if(k.escapeKey.wasPressedThisFrame)PowerOff();
             if(k.spaceKey.wasPressedThisFrame && State==TabletState.Scanner)RequestScan();
-            if(k.upArrowKey.wasPressedThisFrame || k.downArrowKey.wasPressedThisFrame){pointerMode=false;int[] options=State==TabletState.Home?new[]{3,1,2}:new[]{4,5,0,2};int index=Array.IndexOf(options,keyboardFocus);index=(index+(k.upArrowKey.wasPressedThisFrame?-1:1)+options.Length)%options.Length;keyboardFocus=options[index];Hover=keyboardFocus;}
+            if(k.upArrowKey.wasPressedThisFrame || k.downArrowKey.wasPressedThisFrame){pointerMode=false;int[] options={4,2};int index=Array.IndexOf(options,keyboardFocus);index=(index+(k.upArrowKey.wasPressedThisFrame?-1:1)+options.Length)%options.Length;keyboardFocus=options[index];Hover=keyboardFocus;}
             if(k.enterKey.wasPressedThisFrame){pointerMode=false;Hover=keyboardFocus;Activate(keyboardFocus);}
         }
 
@@ -200,18 +202,16 @@ namespace NantesGame.Tablet
         {
             if(!IsReady)return -1;
             if(squareDisplay){
-                if(new Rect(36,132,100,104).Contains(point))return 0;
-                if(new Rect(36,255,100,104).Contains(point))return 1;
+                if(new Rect(36,132,100,104).Contains(point))return 1;
                 if(new Rect(36,782,100,104).Contains(point))return 2;
                 if(State==TabletState.Home&&new Rect(174,136,804,770).Contains(point))return 3;
-                if(State==TabletState.Scanner){if(new Rect(550,815,414,96).Contains(point))return 4;if(new Rect(188,815,305,96).Contains(point))return 5;}
+                if(State==TabletState.Scanner&&new Rect(550,815,414,96).Contains(point))return 4;
                 return -1;
             }
-            if(new Rect(44,135,96,98).Contains(point))return 0;
-            if(new Rect(44,258,96,98).Contains(point))return 1;
+            if(new Rect(44,135,96,98).Contains(point))return 1;
             if(new Rect(44,634,96,98).Contains(point))return 2;
             if(State==TabletState.Home && new Rect(190,132,1207,568).Contains(point))return 3;
-            if(State==TabletState.Scanner){if(new Rect(986,557,404,74).Contains(point))return 4;if(new Rect(736,697,156,50).Contains(point))return 5;}
+            if(State==TabletState.Scanner&&new Rect(986,557,404,74).Contains(point))return 4;
             return -1;
         }
 
@@ -299,7 +299,7 @@ namespace NantesGame.Tablet
             rangeText.text=Range.ToString("00");
             int found=0;foreach(var c in contacts)if(c.kind==ContactKind.Food && c.position.magnitude<=Range && ContactVisibility(c)>.1f)found++;
             contactsText.text=found.ToString("00");
-            pulseText.text=ScanAge<1.8f?(Mathf.Clamp01(ScanAge/1.8f)*100).ToString("000")+"%":"100%";
+            pulseText.text=!HasScan?"--":ScanAge<1.8f?(Mathf.Clamp01(ScanAge/1.8f)*100).ToString("000")+"%":"100%";
             clockText.text=TimeSpan.FromSeconds(Clock).ToString(@"hh\:mm\:ss");
         }
         static AudioClip Tone(string name,float duration,float first,float last)

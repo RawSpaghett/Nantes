@@ -45,7 +45,6 @@ namespace NantesGame.Gameplay
         {
             if (!ready) { message = "The level is not ready to save."; return false; }
             var player = pause.movement;
-            var light = flashlight ? (GameObject)Light.GetValue(flashlight) : null;
             var data = new GameSaveData
             {
                 scene = player.gameObject.scene.path,
@@ -53,9 +52,11 @@ namespace NantesGame.Gameplay
                 velocity = player.GetComponent<Rigidbody>().linearVelocity,
                 pitch = (float)Pitch.GetValue(player),
                 flashlightCharge = flashlight ? (float)Charge.GetValue(flashlight) : 0,
-                flashlightOn = light && light.activeSelf,
+                flashlightOn = flashlight && flashlight.IsLit,
                 food = pause.chest.tablet.FoodCount, scannerRange = pause.chest.tablet.Range,
-                bodies = bodies.Select(pair => Capture(pair.Key, pair.Value)).ToArray()
+                bodies = bodies.Select(pair => Capture(pair.Key, pair.Value)).ToArray(),
+                collectedFood = FindObjectsByType<FoodPickup>(FindObjectsInactive.Include, FindObjectsSortMode.None)
+                    .Where(item => item.Collected).Select(item => item.SaveId).ToArray()
             };
             return GameSave.Write(data, out message);
         }
@@ -88,6 +89,9 @@ namespace NantesGame.Gameplay
                 if (light) light.SetActive(data.flashlightOn);
             }
             pause.chest.tablet.SetFoodCount(data.food); pause.chest.tablet.SetRange(data.scannerRange);
+            var collected = new HashSet<string>(data.collectedFood ?? Array.Empty<string>());
+            foreach (var item in FindObjectsByType<FoodPickup>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+                if (collected.Contains(item.SaveId)) item.SetCollected();
             foreach (var saved in data.bodies)
             {
                 if (!bodies.TryGetValue(saved.id, out var body) || !body) continue;

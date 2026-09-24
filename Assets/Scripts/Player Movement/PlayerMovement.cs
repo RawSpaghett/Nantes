@@ -25,6 +25,8 @@ public class PlayerMovement : MonoBehaviour
 
     private CapsuleCollider playerCollider;
     private float playerHeight;
+    private float nextYell;
+    public event Action Yelled;
 
     private void FixedUpdate()
     {
@@ -109,7 +111,11 @@ public class PlayerMovement : MonoBehaviour
 
     public void Yell()
     {
+        //one shout at a time
+        if(!enabled || Time.timeScale == 0 || Time.time < nextYell) return;
+        nextYell = Time.time + 2.5f;
         OnPlayerSound?.Invoke(gameObject.transform.position, 10);
+        Yelled?.Invoke();
     }
 
     private void Start()

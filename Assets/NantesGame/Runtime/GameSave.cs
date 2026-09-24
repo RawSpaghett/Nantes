@@ -16,6 +16,7 @@ namespace NantesGame.Gameplay
         public bool flashlightOn;
         public int food;
         public SavedBody[] bodies;
+        public string[] collectedFood;
     }
 
     [Serializable]
@@ -104,6 +105,7 @@ namespace NantesGame.Gameplay
             if (!Finite(data.position) || !Finite(data.velocity) || !Valid(data.rotation) || !Finite(data.pitch) || Mathf.Abs(data.pitch) > 90) return false;
             if (!Finite(data.flashlightCharge) || data.flashlightCharge < 0 || data.flashlightCharge > 3600 || data.food < 0 || data.food > 999) return false;
             if (!Finite(data.scannerRange) || data.scannerRange < 5 || data.scannerRange > 100) return false;
+            if (data.collectedFood != null && (data.collectedFood.Length > 10000 || Array.Exists(data.collectedFood, string.IsNullOrEmpty))) return false;
             var ids = new System.Collections.Generic.HashSet<string>();
             foreach (var body in data.bodies)
                 if (body == null || string.IsNullOrEmpty(body.id) || !ids.Add(body.id) || !Finite(body.position) || !Finite(body.velocity) || !Finite(body.angularVelocity) || !Valid(body.rotation)) return false;

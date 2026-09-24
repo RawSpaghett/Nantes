@@ -37,8 +37,7 @@ namespace NantesGame.Tablet
             for(int i=0;i<5;i++) Rect(1122+i*13, 52-i*3, 6, 8+i*3, i<4?Cyan:Muted);
             Circle(1220, 49, 3, 12, Cyan, true);
             Icon(1300, 50, 17, 2, Ink);
-            Nav(0, 92, 184, 0, tablet.State==TabletState.Home);
-            Nav(1, 92, 307, 1, tablet.State==TabletState.Scanner);
+            Nav(1, 92, 184, 1, tablet.State==TabletState.Scanner);
             Nav(2, 92, 683, 3, false);
             for (int i=0;i<3;i++) Rect(86+i*7, 437, 2, 29-i*6, Muted*.65f);
             if(tablet.State==TabletState.Home) Home(t); else Scanner(t);
@@ -58,7 +57,7 @@ namespace NantesGame.Tablet
             }
             Icon(836,53,21,2,Cyan);Line(36,103,988,103,1,Muted);
             Line(150,133,150,904,1,Muted*.65f);Line(36,930,988,930,1,Muted);
-            Nav(0,86,184,0,tablet.State==TabletState.Home);Nav(1,86,307,1,tablet.State==TabletState.Scanner);
+            Nav(1,86,184,1,tablet.State==TabletState.Scanner);
             Nav(2,86,834,3,false);
             if(tablet.State==TabletState.Home){
                 Panel(174,136,804,770,15,new Color(.023f,.052f,.055f));
@@ -76,8 +75,7 @@ namespace NantesGame.Tablet
                 for(int i=0;i<100;i++){float a=i*Mathf.PI/50;float rr=i%5==0?284:275;Line(x+Mathf.Cos(a)*270,y+Mathf.Sin(a)*270,x+Mathf.Cos(a)*rr,y+Mathf.Sin(a)*rr,1,i%5==0?Ink*.5f:Muted);}
                 if(tablet.ScanAge<2.3f){float rr=Mathf.Clamp01(tablet.ScanAge/1.8f)*r;for(int i=0;i<5;i++)Circle(x,y,Mathf.Max(1,rr-i*3),100,new Color(Cyan.r,Cyan.g,Cyan.b,(1-Mathf.Clamp01((tablet.ScanAge-1.25f)/1.05f))*(i==0?.85f:.09f)));}
                 Arc(x,y,r-2,t*14%360-15,t*14%360,2,Cyan*.6f);Icon(x,y,14,4,Ink);
-                foreach(var contact in tablet.Contacts){Vector2 p=contact.position/tablet.Range*r;if(p.magnitude>r-10)continue;float v=tablet.ContactVisibility(contact);if(v<=0)continue;Color c=contact.kind==ContactKind.Food?Amber:contact.kind==ContactKind.Movement?Cyan:Muted;c.a=v;float xx=x+p.x,yy=y-p.y;if(contact.kind==ContactKind.Food){Line(xx-7,yy,xx,yy-9,2,c);Line(xx,yy-9,xx+7,yy,2,c);Line(xx+7,yy,xx,yy+9,2,c);Line(xx,yy+9,xx-7,yy,2,c);}else Circle(xx,yy,6,14,c);}
-                Panel(188,815,305,96,12,tablet.Hover==5?new Color(.08f,.17f,.16f):new Color(.035f,.07f,.072f));Bracket(188,815,305,96,Muted);Icon(434,864,22,5,Cyan);
+                foreach(var contact in tablet.Contacts){Vector2 p=contact.position/tablet.Range*r;if(p.magnitude>r)continue;p=Vector2.ClampMagnitude(p,r-10);float v=tablet.ContactVisibility(contact);if(v<=0)continue;Color c=contact.kind==ContactKind.Food?Amber:contact.kind==ContactKind.Movement?Cyan:Muted;c.a=v;float xx=x+p.x,yy=y-p.y;if(contact.kind==ContactKind.Food){Line(xx-7,yy,xx,yy-9,2,c);Line(xx,yy-9,xx+7,yy,2,c);Line(xx+7,yy,xx,yy+9,2,c);Line(xx,yy+9,xx-7,yy,2,c);}else Circle(xx,yy,6,14,c);}
                 Panel(550,815,414,96,12,tablet.Hover==4?new Color(.08f,.19f,.18f):new Color(.035f,.088f,.084f));Bracket(550,815,414,96,Cyan);Icon(596,863,24,1,Ink);
             }
         }
@@ -139,7 +137,7 @@ namespace NantesGame.Tablet
             Icon(x,y,12,4,Ink);
             foreach(var contact in tablet.Contacts) {
                 Vector2 p=contact.position/tablet.Range*r;
-                if(p.magnitude>r-12 || contact.confidence<=0)continue;
+                if(p.magnitude>r || contact.confidence<=0)continue; p=Vector2.ClampMagnitude(p,r-12);
                 float visible=tablet.ContactVisibility(contact);
                 if(visible<=0)continue;
                 Color c=contact.kind==ContactKind.Food?Amber:contact.kind==ContactKind.Movement?Cyan:Muted;
@@ -166,7 +164,6 @@ namespace NantesGame.Tablet
             Bracket(986,557,404,74,Cyan);
             Icon(1026,594,19,1,Ink);
             Rect(1370,583,2,22,Cyan);
-            Icon(807,729,12,5,tablet.Hover==5?Ink:Muted);
         }
 
         void Bracket(float x,float y,float w,float h,Color c) {

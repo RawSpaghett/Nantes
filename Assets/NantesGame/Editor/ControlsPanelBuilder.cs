@@ -20,13 +20,13 @@ public static class ControlsPanelBuilder
         Label(page.transform, font, "CONTROLS", -700, 403, 700, 60, 35, new Color(.8f,.87f,.82f));
         Label(page.transform, font, "KEYBOARD / MOUSE", -700, 354, 700, 30, 14, new Color(.39f,.58f,.56f));
         Group(page.transform, font, "ON FOOT", -700, 286, new[] {
-            "W A S D|Move", "MOUSE|Look around", "SPACE|Jump", "HOLD SHIFT|Sprint", "HOLD CTRL|Creep / slow walk",
-            "E|Pick up; press again to throw", "HOLD R|Crank the flashlight", "C|Crouch", "Y|Yell", "ESC|Pause / resume"
+            "W A S D|Move", "MOUSE|Look around", "HOLD SHIFT|Sprint", "HOLD CTRL|Creep / slow walk",
+            "E|Collect food / interact", "HOLD R|Crank the flashlight", "HOLD C|Crouch", "Y|Yell", "ESC|Pause / resume"
         });
         Group(page.transform, font, "TABLET", 70, 286, new[] {
-            "LOOK DOWN|Extend and boot", "LOOK UP|Shut down and stow", "TAB|Use / release the cursor",
-            "RIGHT CLICK|Release the cursor", "CLICK / E|Select a tablet option",
-            "1 / 2|Home / Scanner", "SPACE|Scan (on the scanner screen)"
+            "TAB|Raise / stow tablet", "MOUSE|Move tablet cursor",
+            "CLICK|Use scanner / power button", "SPACE|Scan while tablet is open",
+            "25 METRES|Scanner range"
         });
         Group(page.transform, font, "MENUS", 70, -60, new[] {
             "ARROWS|Move between options", "ENTER / CLICK|Select", "ESC|Back / close the pause menu", "F11|Toggle fullscreen in game"

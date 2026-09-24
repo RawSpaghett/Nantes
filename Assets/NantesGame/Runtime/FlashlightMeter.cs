@@ -57,7 +57,7 @@ namespace NantesGame.Gameplay
             bool active = source.IsCranking || source.IsLit;
             ink = active ? new Color(.86f, .91f, .89f, .94f) : new Color(.34f, .39f, .39f, .38f);
             status.color = ink;
-            status.text = source.IsLit ? (source.Charge01 < .25f && !source.IsCranking ? "LOW CHARGE" : "READY")
+            status.text = source.IsLit ? (source.Charge01 >= .98f ? "MAX" : source.Charge01 < .25f && !source.IsCranking ? "LOW CHARGE" : "READY")
                 : source.IsCranking ? "CHARGING" : "OFF";
             SetVerticesDirty();
         }

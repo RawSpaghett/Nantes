@@ -2,13 +2,13 @@
 
 New Game opens the supermarket in `Prototype_Main` at its existing PlayerHolder spawn and starts a fresh save. Escape opens Resume, Save Game, Controls, Restart, Main Menu, and Quit. Escape again resumes. Restart starts the level over and replaces the save.
 
-The supermarket uses the overcast sky and atmosphere. Red outlines show food through walls. The dev test scene is unchanged.
+The supermarket uses the overcast sky and atmosphere. Tablet scans reveal food through walls for eight seconds. The dev test scene is unchanged.
 
-Gameplay has no control prompts or crosshair. The flashlight meter is inside the tablet, on both Home and Scanner. Controls are listed in the main menu and Escape menu; Escape backs out of Controls before resuming.
+Gameplay has no control prompts or crosshair. The flashlight meter is inside the tablet scanner. Controls are listed in the main menu and Escape menu; Escape backs out of Controls before resuming.
 
-The flashlight icon is dim grey when off, white while cranking, and gains rays as it charges. The bar drains with the light. READY means the beam is on; LOW CHARGE appears near empty. The beam dims and gently flickers over the last 30% of charge. Cranking steadies it. Reduced Motion disables the flicker. There is no overheating or cooldown system.
+The flashlight icon is dim grey when off and white while cranking. Its rays and bar fill with charge. The bulb flickers during startup, steadies at READY, and reaches full brightness at MAX. Light and buzz fade as charge drains. Reduced Motion disables the flicker. There is no overheating system.
 
-Save Game keeps your position, facing direction, flashlight charge, tablet food count and range, and the positions of throwable objects and creatures. A held object stays held. Creature behavior starts again when the scene loads; it does not save their current thoughts or chase paths.
+Save Game keeps your position, facing direction, flashlight charge, collected food, tablet tally, and the positions of throwable objects and creatures. A held object stays held. Creature behavior starts again when the scene loads; it does not save their current thoughts or chase paths.
 
 Main Menu and Quit save before leaving. If saving fails, the menu stays open and shows the problem. Continue loads the save, including after closing and reopening the game. It stays disabled when there is no usable save.
 
@@ -18,12 +18,12 @@ The file is `save-game.json` in Unity's `Application.persistentDataPath`. The pr
 
 Entering and leaving the level fades the picture and audio. The main-menu logo uses Nantes Display with occasional glitches. Reduced Motion keeps it still.
 
-Look down to extend and boot the square scanner on the player. Look up to shut it down and retract it. Tab unlocks the cursor to use the screen; Tab or right-click returns to looking around. 1 opens Home, 2 opens Scanner, and Space sends a scan while using the scanner.
+Tab raises the tablet and opens Scanner. Tab again stows it. Use the cursor to select Scan or press Space. Range stays at 25 metres. Looking down does not open the tablet.
 
-The food counter starts at zero and can be updated with `TabletController.SetFoodCount`. Food collection still needs a gameplay connection. The scanner reads nearby creatures already present in the scene. An empty scene produces an empty scan.
+E collects the food you are aiming at, removes it from the world and radar, and adds one to the tablet tally. No scan is needed to collect food. Saves keep collected food gone. The scanner shows food and creatures within 25 metres. Click Scan or press Space to scan; opening the tablet does not scan. Food dots, the detected count and outlines use the same results for eight seconds, or until collected or out of range.
 
 Tablet labels are real words rendered with the Stray font. Numbers and keyboard hints use the regular UI font. The shrimp counter stays in the top-right.
 
-`SceneUI` attaches the UI when the level loads. It does not change the team's scene, player prefab, or gameplay scripts. The existing movement, flashlight, and creature behavior belong to those systems.
+`SceneUI` attaches the UI and player sounds when the level loads. The scene layout stays unchanged. Crouch uses the team's smoothed code and its matching player prefab settings. Other small edits gate yell presses and cooldown and scale flashlight brightness. Creature behavior is unchanged.
 
 `LevelSave` reads and restores their existing fields. `link.xml` keeps the private fields available in builds. If those field names change, update the bindings in `LevelSave`. Object IDs use their starting scene paths, before picking them up changes their parents. Major level changes may need a new save version.

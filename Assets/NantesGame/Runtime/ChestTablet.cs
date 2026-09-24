@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using NantesGame.Tablet;
+using NantesGame.World;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,45 +16,61 @@ namespace NantesGame.Gameplay
         public PlayerInput actions;
         public Vector3 extendedPosition;
         public Vector3 foldedPosition;
-        public bool LookingDown { get; private set; }
+        [Min(0)] public float foodRevealSeconds = 8;
+        public bool Raised { get; private set; }
         public bool Paused { get; set; }
         public bool CursorMode { get; private set; }
-        float dwell,extension,velocity,nextContactUpdate;
-        bool manualOff;
+        float extension,velocity,scanUntil;
+        float viewHeight;
+        Renderer[] housing;
         InputAction jump,interact;
         InputAction look;
         bool lookWasEnabled;
         bool gated,jumpWasEnabled,interactWasEnabled;
-        TabletState previousState;
         readonly List<Transform> targets=new List<Transform>();
         readonly List<ContactKind> kinds=new List<ContactKind>();
         readonly List<ScannerContact> contacts=new List<ScannerContact>();
 
-        void Start(){tablet.ScanRequested+=Scan;tablet.SetFoodCount(0);mount.localPosition=foldedPosition;jump=actions.actions.FindAction("Jump");interact=actions.actions.FindAction("Interact");look=actions.actions.FindAction("Look");}
+        void Start(){tablet.ScanRequested+=Scan;mount.localPosition=foldedPosition;housing=mount.GetComponentsInChildren<Renderer>(true);SetVisible(false);viewHeight=transform.InverseTransformPoint(view.transform.position).y;jump=actions.actions.FindAction("Jump");interact=actions.actions.FindAction("Interact");look=actions.actions.FindAction("Look");}
         void LateUpdate()
         {
-            tablet.InputEnabled=!Paused&&LookingDown;
             if(Paused)return;
-            GateInput(LookingDown&&tablet.HasFocus);
-            if(CursorMode&&(!tablet.IsReady||Mouse.current!=null&&Mouse.current.rightButton.wasPressedThisFrame))SetCursorMode(false);
-            float downward=Vector3.Dot(view.transform.forward,Vector3.down);
-            bool desired=downward>(LookingDown?.47f:.69f);
-            if(desired!=LookingDown){dwell+=Time.deltaTime;if(dwell>(desired?.20f:.35f)){LookingDown=desired;dwell=0;if(!desired){manualOff=false;tablet.PowerOff();}else if(!manualOff)tablet.PowerOn();}}
-            else dwell=0;
-            if(LookingDown&&previousState!=TabletState.ShuttingDown&&tablet.State==TabletState.ShuttingDown)manualOff=true;
-            previousState=tablet.State;
-            extension=Mathf.SmoothDamp(extension,LookingDown?1:0,ref velocity,.28f);
-            mount.localPosition=Vector3.Lerp(foldedPosition,extendedPosition,extension);
-            if(tablet.IsReady&&LookingDown){
-                var k=Keyboard.current;
-                if(k!=null){if(k.tabKey.wasPressedThisFrame)SetCursorMode(!CursorMode);if(k.digit1Key.wasPressedThisFrame)tablet.ShowHome();if(k.digit2Key.wasPressedThisFrame)tablet.ShowScanner();if(k.spaceKey.wasPressedThisFrame&&tablet.State==TabletState.Scanner)tablet.RequestScan();}
-            }
-            if(tablet.State==TabletState.Scanner&&Time.time>=nextContactUpdate){nextContactUpdate=Time.time+.08f;UpdateContacts();}
+            var k=Keyboard.current;
+            if(k!=null&&k.tabKey.wasPressedThisFrame)SetRaised(!Raised);
+            if(Raised&&tablet.State==TabletState.ShuttingDown)SetRaised(false);
+            GateInput(Raised);SetCursorMode(Raised);tablet.InputEnabled=Raised;
+            extension=Mathf.SmoothDamp(extension,Raised?1:0,ref velocity,.22f);
+            SetVisible(extension>.02f);
+            float crouchOffset=transform.InverseTransformPoint(view.transform.position).y-viewHeight;
+            mount.localPosition=Vector3.Lerp(foldedPosition,extendedPosition,extension)+Vector3.up*crouchOffset;
+            mount.localRotation=Quaternion.Euler(Mathf.Lerp(-90,-25,extension),0,0);
+            //Glance down at the chest mount while it unfolds.
+            float headPitch=Mathf.DeltaAngle(0,view.transform.parent.eulerAngles.x);
+            Quaternion glance=Quaternion.Euler(45-headPitch,view.transform.localEulerAngles.y,view.transform.localEulerAngles.z);
+            view.transform.localRotation=Quaternion.Slerp(view.transform.localRotation,glance,Mathf.SmoothStep(0,1,extension));
+            if(Raised&&tablet.IsReady&&k!=null&&k.spaceKey.wasPressedThisFrame)tablet.RequestScan();
+            UpdateContacts();
+        }
+        void SetVisible(bool value){if(housing==null)return;foreach(var renderer in housing)if(renderer)renderer.enabled=value;}
+        public void SetRaised(bool value)
+        {
+            Raised=value;
+            if(value)tablet.PowerOn();else tablet.PowerOff();
+            GateInput(value);SetCursorMode(value);
         }
         void Scan(float range)
         {
             targets.Clear();kinds.Clear();
-            foreach(var enemy in FindObjectsByType<Enemy>(FindObjectsSortMode.None))Add(enemy.transform,ContactKind.Movement,range);
+            scanUntil=Time.time+foodRevealSeconds;
+            foreach(var food in FindObjectsByType<FoodScanTarget>(FindObjectsSortMode.None))
+            {
+                if(food.gameObject.scene!=gameObject.scene || !food.isActiveAndEnabled)continue;
+                bool inRange=(food.transform.position-transform.position).sqrMagnitude<=range*range;
+                food.Reveal(inRange?foodRevealSeconds:0);
+                Add(food.transform,ContactKind.Food,range);
+            }
+            foreach(var enemy in FindObjectsByType<Enemy>(FindObjectsSortMode.None))
+                if(enemy.gameObject.scene==gameObject.scene)Add(enemy.transform,ContactKind.Movement,range);
             UpdateContacts();
         }
         void Add(Transform target,ContactKind kind,float range){if((target.position-transform.position).sqrMagnitude>range*range)return;targets.Add(target);kinds.Add(kind);}
@@ -62,6 +79,11 @@ namespace NantesGame.Gameplay
             contacts.Clear();
             for(int i=0;i<targets.Count;i++){
                 if(!targets[i]||!targets[i].gameObject.activeInHierarchy)continue;
+                if(Time.time>=scanUntil || (targets[i].position-transform.position).sqrMagnitude>tablet.Range*tablet.Range){
+                    if(targets[i].TryGetComponent<FoodScanTarget>(out var outside))outside.Reveal(0);
+                    targets.RemoveAt(i);kinds.RemoveAt(i--);continue;
+                }
+                if(kinds[i]==ContactKind.Food && (!targets[i].TryGetComponent<FoodScanTarget>(out var food) || !food.IsRevealed))continue;
                 Vector3 p=transform.InverseTransformDirection(targets[i].position-transform.position);
                 contacts.Add(new ScannerContact(new Vector2(p.x,p.z),kinds[i]));
             }
@@ -81,7 +103,7 @@ namespace NantesGame.Gameplay
             if(value){lookWasEnabled=look!=null&&look.enabled;look?.Disable();input.look=Vector2.zero;Cursor.lockState=CursorLockMode.None;Cursor.visible=true;}
             else{if(lookWasEnabled)look?.Enable();Cursor.lockState=CursorLockMode.Locked;Cursor.visible=false;}
         }
-        void OnDisable(){SetCursorMode(false);GateInput(false);}
+        void OnDisable(){SetCursorMode(false);GateInput(false);SetVisible(false);}
         void OnDestroy(){if(tablet)tablet.ScanRequested-=Scan;}
     }
 }

@@ -18,6 +18,7 @@ namespace NantesGame.World
         FogMode oldFogMode;
         float oldDensity, oldReflection;
         bool oldFog, applied;
+        public float lightScale = 1;
 
         void OnEnable()
         {
@@ -38,7 +39,18 @@ namespace NantesGame.World
             RenderSettings.reflectionIntensity = .22f; applied = true;
         }
 
-        void LateUpdate() { if (applied) RenderSettings.ambientProbe = environmentProbe; }
+        void LateUpdate()
+        {
+            if (!applied) return;
+            float colorScale=Mathf.LinearToGammaSpace(lightScale);
+            RenderSettings.ambientSkyColor=skyLight*colorScale;
+            RenderSettings.ambientEquatorColor=sideLight*colorScale;
+            RenderSettings.ambientGroundColor=groundLight*colorScale;
+            var probe = environmentProbe;
+            for (int rgb = 0; rgb < 3; rgb++)
+                for (int coefficient = 0; coefficient < 9; coefficient++) probe[rgb, coefficient] *= lightScale;
+            RenderSettings.ambientProbe = probe;
+        }
 
         void OnDisable()
         {
