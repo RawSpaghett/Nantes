@@ -63,7 +63,7 @@ public class ThrowableObjects : MonoBehaviour, IInteractable
 
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("whatup "+ gameObject.transform.position);
+        //Debug.Log("whatup "+ gameObject.transform.position);
 
         OnLand?.Invoke(gameObject.transform.position, loudness);
     }

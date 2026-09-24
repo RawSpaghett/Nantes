@@ -11,6 +11,7 @@ public class PlayerInputHandler : MonoBehaviour
     public bool interactTriggered;
     public bool walkHeld;
     public bool crankHeld;
+    public bool inScanner = false;
 
     public void OnMoveInput(InputAction.CallbackContext context)
     {
@@ -80,6 +81,13 @@ public class PlayerInputHandler : MonoBehaviour
         {
             crankHeld = false;
         }
+    }
+
+    public void OnGoToScannerInput(InputAction.CallbackContext context)
+    {
+        if(inScanner && context.performed) inScanner = false;
+
+        else if(!inScanner && context.performed) inScanner = true;
     }
 
 }

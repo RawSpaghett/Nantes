@@ -41,6 +41,7 @@ Transform:
   m_Children:
   - {fileID: 28904978609333845}
   - {fileID: 6420577340607262388}
+  - {fileID: 7060565915522132868}
   m_Father: {fileID: 135678198674194828}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1058087889565223720
@@ -212,6 +213,7 @@ MonoBehaviour:
   interactTriggered: 0
   walkHeld: 0
   crankHeld: 0
+  inScanner: 0
 --- !u!114 &3696123242014990456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -349,6 +351,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: fb50e6ed-8729-4af9-bb8e-2a64a6c187ee
     m_ActionName: 'Player/Crank[/Keyboard/r]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 477015156441039442}
+        m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
+        m_MethodName: OnGoToScannerInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 00f9f038-9574-47b0-bb23-03e12649808d
+    m_ActionName: 'Player/GoToScanner[/Keyboard/tab]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -466,6 +484,37 @@ Transform:
   - {fileID: 3544794993816625529}
   m_Father: {fileID: 1080581126465044349}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4075651709460105556
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7060565915522132868}
+  m_Layer: 0
+  m_Name: CameraSpotScanner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7060565915522132868
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4075651709460105556}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.59830236, y: -0, z: -0, w: 0.8012705}
+  m_LocalPosition: {x: 0.0000016782433, y: 0.57, z: 0.53}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1080581126465044349}
+  m_LocalEulerAnglesHint: {x: 73.497, y: 0, z: 0}
 --- !u!1 &4653362097499069019
 GameObject:
   m_ObjectHideFlags: 0
@@ -669,6 +718,7 @@ GameObject:
   - component: {fileID: 6598856571624734133}
   - component: {fileID: 5755094666155858608}
   - component: {fileID: 3272188187388918236}
+  - component: {fileID: 8775635983185262582}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -685,7 +735,7 @@ Transform:
   m_GameObject: {fileID: 6404510729841772020}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.056, y: 0.41999996, z: 0.22659302}
+  m_LocalPosition: {x: 0, y: 0.41999996, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -796,6 +846,22 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!114 &8775635983185262582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6404510729841772020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86dd9ce653c824f4b8aabf85ec3aea37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  playerInputHandler: {fileID: 477015156441039442}
+  scannerTransform: {fileID: 7060565915522132868}
+  smoothTime: 0.3
+  regularPositionTransform: {fileID: 28904978609333845}
 --- !u!1 &7875442639187313881
 GameObject:
   m_ObjectHideFlags: 0
@@ -814,7 +880,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6420577340607262388
 Transform:
   m_ObjectHideFlags: 0
