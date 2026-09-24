@@ -24,6 +24,16 @@ E collects the food you are aiming at, removes it from the world and radar, and 
 
 Tablet labels are real words rendered with the Stray font. Numbers and keyboard hints use the regular UI font. The shrimp counter stays in the top-right.
 
-`SceneUI` attaches the UI and player sounds when the level loads. The scene layout stays unchanged. Crouch uses the team's smoothed code and its matching player prefab settings. Other small edits gate yell presses and cooldown and scale flashlight brightness. Creature behavior is unchanged.
+`SceneUI` attaches the UI and player sounds when the level loads. Crouch uses the team's smoothed code and its matching player prefab settings. Other small edits gate yell presses and cooldown and scale flashlight brightness. Creature behavior is unchanged.
 
 `LevelSave` reads and restores their existing fields. `link.xml` keeps the private fields available in builds. If those field names change, update the bindings in `LevelSave`. Object IDs use their starting scene paths, before picking them up changes their parents. Major level changes may need a new save version.
+
+## Throwables
+
+`Prototype_Main` had no objects with `ThrowableObjects` attached. The existing boxes were static scenery. Two loose boxes now sit near the entrance; the maze boxes and layout are unchanged. Both use the existing Grocery Store Pack Lite Box prefab, with changes saved only on those scene instances.
+
+Each loose box uses the Throwable layer, a convex Mesh Collider, a Rigidbody, and `ThrowableObjects`. Static flags are cleared. The body starts kinematic so it stays put until used. Keep Rigidbody interpolation set to None so parenting it to the hand does not fight the physics pose. Its hold position points to the player's `ObjectHolder`, and its input reference points to `PlayerInputHandler`. Pickup also finds these references from the interacting player, so newly placed copies can work without manual wiring. Keep the scene references assigned for restoring a held object from a save.
+
+`PlayerInteractor` checks for a held box before handling another interaction. `ThrowableObjects.Throw()` consumes that E press, detaches the box, restores world collisions and applies the existing impulse. It ignores the thrower's collider so the box does not hit the player on release. This prevents a throw and another pickup sharing one press. Impact noise still uses `OnLand` at loudness 5. Saves keep each box's position and held state; Restart returns both to their starting spots.
+
+Checked in a Windows build: pickup, turning while holding, throwing, picking up again, food collection without scanning, pause and tablet blocking, saving a held box, Continue, and Restart. Crank and buzz volumes were checked at full charge and while draining. No runtime errors were reported.

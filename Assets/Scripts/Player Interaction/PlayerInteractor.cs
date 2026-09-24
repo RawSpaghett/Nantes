@@ -18,6 +18,17 @@ public class PlayerInteractor : MonoBehaviour
     {
         layerMask = ~ignoreLayer;
 
+        //throw what we're holding before trying to pick up anything else
+        if(playerInputHandler.interactTriggered)
+        {
+            ThrowableObjects heldObject = GetComponentInChildren<ThrowableObjects>();
+            if(heldObject != null && heldObject.isHeld)
+            {
+                heldObject.Throw();
+                return;
+            }
+        }
+
         CheckForInteractable();
 
         if(playerInputHandler.interactTriggered && currentInteractable != null)

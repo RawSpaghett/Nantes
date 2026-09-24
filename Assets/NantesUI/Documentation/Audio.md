@@ -58,6 +58,8 @@ The crank loop combines filtered noise, 14 gear pulses per second, and tones at 
 
 Holding R raises the gear loop's pitch as charge builds. Reaching half charge plays the click. The bulb buzz gets louder and higher toward full charge, then fades with the battery. Letting go of R plays the winding-down sound. Pause stops these sounds until gameplay resumes.
 
+To turn down the whole flashlight, open `Assets/NantesGame/Runtime/PlayerSoundEffects.cs` and lower `flashlightVolume` near the top. It defaults to `0.25`: the crank, buzz, ready click and winding-down sound all play at one quarter of their old volume settings. Yells and footsteps are separate. While playing in the editor, the same setting is on the player's **Player Sound Effects > Flashlight Volume** field; edit the script default to keep the change for future runs.
+
 The WAVs are in `NantesGame/Resources/GameplayAudio`. [GenerateGameplayAudio.py](../../../Design/Audio/GenerateGameplayAudio.py) recreates them with Python, NumPy, and SciPy. Pass the unpacked voice pack folder to include the yell edits.
 
 ## Footsteps

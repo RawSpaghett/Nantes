@@ -4,6 +4,8 @@ namespace NantesGame.Gameplay
 {
     public sealed class PlayerSoundEffects : MonoBehaviour
     {
+        [Header("Flashlight volume")]
+        [Range(0,1)] public float flashlightVolume = .25f;
         PlayerMovement movement;
         FlashlightScript flashlight;
         AudioSource voice, crank, bulb, clicks;
@@ -56,13 +58,13 @@ namespace NantesGame.Gameplay
             if(hold) return;
             float charge = flashlight.Charge01;
             bool turning = flashlight.IsCranking, lit = flashlight.IsLit;
-            if(lit && !wasLit && switchOn) clicks.PlayOneShot(switchOn, .6f);
-            if(wasCranking && !turning && windDown) clicks.PlayOneShot(windDown, .55f);
+            if(lit && !wasLit && switchOn) clicks.PlayOneShot(switchOn, .6f * flashlightVolume);
+            if(wasCranking && !turning && windDown) clicks.PlayOneShot(windDown, .55f * flashlightVolume);
             float blend = 1f - Mathf.Exp(-Time.deltaTime * 12);
-            crank.volume = Mathf.Lerp(crank.volume, turning ? .7f : 0, blend);
+            crank.volume = Mathf.Lerp(crank.volume, turning ? .7f * flashlightVolume : 0, blend);
             crank.pitch = Mathf.Lerp(.9f, 1.45f, charge);
             float hum = lit ? Mathf.Lerp(.25f, .85f, charge * charge) : turning ? charge * .3f : 0;
-            bulb.volume = Mathf.Lerp(bulb.volume, hum, blend);
+            bulb.volume = Mathf.Lerp(bulb.volume, hum * flashlightVolume, blend);
             bulb.pitch = Mathf.Lerp(.78f, 1.25f, charge);
             wasCranking = turning; wasLit = lit;
         }

@@ -21,15 +21,6 @@ public class ThrowableObjects : MonoBehaviour, IInteractable
         rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(playerInputHandler.interactTriggered && isHeld)
-        {
-            Throw();
-        }
-    }
-
     public void Interact(PlayerInteractor playerInteractor)
     {
         if(isHeld)
@@ -37,6 +28,16 @@ public class ThrowableObjects : MonoBehaviour, IInteractable
 
         else
         {
+            //use the player picking this up, including newly placed prefab copies
+            playerInputHandler = playerInteractor.GetComponent<PlayerInputHandler>();
+            if(playerHoldPosition == null || !playerHoldPosition.IsChildOf(playerInteractor.transform))
+            {
+                playerHoldPosition = null;
+                foreach(Transform child in playerInteractor.GetComponentsInChildren<Transform>())
+                    if(child.name == "ObjectHolder") playerHoldPosition = child;
+            }
+            if(playerHoldPosition == null || playerInputHandler == null) return;
+
             rb.isKinematic = true;
             rb.detectCollisions = false;
 
@@ -49,8 +50,18 @@ public class ThrowableObjects : MonoBehaviour, IInteractable
         }
     }
 
-    private void Throw()
+    public void Throw()
     {
+        if(!isHeld || playerHoldPosition == null || playerInputHandler == null) return;
+
+        //one press should not throw and immediately pick the object back up
+        playerInputHandler.interactTriggered = false;
+
+        //keep the box from hitting the player as it leaves their hand
+        foreach(Collider itemCollider in GetComponentsInChildren<Collider>())
+            foreach(Collider playerCollider in playerInputHandler.GetComponents<Collider>())
+                Physics.IgnoreCollision(itemCollider, playerCollider);
+
         rb.isKinematic = false;
         rb.detectCollisions = true;
 

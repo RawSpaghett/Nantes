@@ -21,6 +21,8 @@ Tab raises the tablet and glances down at Scanner. Tab again stows it completely
 
 Menus use mouse clicks or arrows and Enter. Escape goes back.
 
+There are two loose boxes near the supermarket entrance. Aim at one and press E to pick it up, then release and press E again to throw. When holding a box, E throws it before checking other items. Pause and the open tablet block pickup and throwing.
+
 Footsteps get faster and louder with Shift. Normal walking uses a steady pace, Ctrl is slower and quieter, and C is almost silent. Steps stop when you stop moving.
 
 Crouch and yell are now connected in the team's player controls. Jump is currently disabled in `PlayerInputHandler`.
