@@ -107,6 +107,11 @@ public class PlayerMovement : MonoBehaviour
         else playerCollider.height = playerHeight;
     }
 
+    public void Yell()
+    {
+        OnPlayerSound?.Invoke(gameObject.transform.position, 10);
+    }
+
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
