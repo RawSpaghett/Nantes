@@ -68,15 +68,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "GoToScanner",
-                    "type": "Button",
-                    "id": "00f9f038-9574-47b0-bb23-03e12649808d",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -253,17 +244,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Crank",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3d316e9b-f3c9-4032-98a2-a0e268804d41",
-                    "path": "<Keyboard>/tab",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "GoToScanner",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

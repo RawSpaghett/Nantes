@@ -1868,10 +1868,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: BNantes
       objectReference: {fileID: 0}
-    - target: {fileID: 8195064957926718833, guid: 8f4f53ff6e37b48d7ac590c2179b3dee, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

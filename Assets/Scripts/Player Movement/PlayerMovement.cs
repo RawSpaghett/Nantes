@@ -58,8 +58,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Look()
     {
-        if(playerInputHandler.inScanner) return;
-
         //turn
         transform.Rotate(Vector3.up * playerInputHandler.look.x * sensitivity);
 
@@ -88,17 +86,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void SpeedCheck()
     {
-        if(playerInputHandler.inScanner)
-        {
-            speed = 0;
-            return;
-        }
-
-        else
-        {
-            speed = speedHolder;
-        }
-
         if(playerInputHandler.sprintHeld)
             speed = sprintSpeed;
 
