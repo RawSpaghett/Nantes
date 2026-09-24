@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4977554970748555816}
   - component: {fileID: 7629880177534539159}
   - component: {fileID: -1362682200366063949}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Floor_Squared_Gray
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,9 +27,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4742229715554491393}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3.025, y: 3.0249996, z: 3.0250006}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
