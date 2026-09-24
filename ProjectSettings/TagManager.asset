@@ -10,6 +10,7 @@ TagManager:
   - BNantes
   - retreatPoint
   - Flashlight
+  - SceneManager
   layers:
   - Default
   - TransparentFX

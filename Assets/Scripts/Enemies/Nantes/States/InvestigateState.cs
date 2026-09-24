@@ -6,7 +6,7 @@ public class InvestigateState: EState<Nantes>
     {}
     public override void EnterState()
     {
-        enemy.stateMachine.currentState.speed = 3f;
+        enemy.stateMachine.currentState.speed = 1f;
         //Debug.Log($"EnterState: {enemy.stateMachine.currentState}");
         enemy.eyes.enabled = true;
         AudioTriggerEvent();

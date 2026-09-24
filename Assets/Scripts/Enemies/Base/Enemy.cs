@@ -38,6 +38,7 @@ public abstract class Enemy: MonoBehaviour
         rb = GetComponent<Rigidbody>();
         playerLocation = GameObject.FindWithTag("Player").transform;
         speakers = GetComponentInChildren<AudioSource>();
+        loseScript = GameObject.FindWithTag("SceneManager").GetComponent<LoseScript>();
     }
 
     protected virtual void FixedUpdate()
