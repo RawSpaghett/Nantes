@@ -1,4 +1,5 @@
 using TMPro;
+using NantesGame.Tablet;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,9 +10,37 @@ namespace NantesGame.Gameplay
         public GamePause pause;
         public TMP_Text status;
         public CanvasGroup visibility;
+        TabletController tablet;
         FlashlightScript source;
         float charge;
         Color ink;
+
+        public static void Attach(GamePause pause, TabletController tablet)
+        {
+            var go = new GameObject("Tablet flashlight", typeof(RectTransform), typeof(CanvasGroup), typeof(FlashlightMeter));
+            go.layer = tablet.DisplayRoot.gameObject.layer;
+            go.transform.SetParent(tablet.DisplayRoot, false);
+            var rect = (RectTransform)go.transform;
+            rect.anchorMin = rect.anchorMax = rect.pivot = Vector2.zero;
+            rect.anchoredPosition = new Vector2(36, -6);
+            rect.sizeDelta = new Vector2(236, 76);
+            rect.localScale = Vector3.one * (tablet.squareDisplay ? 1.5f : 1.25f);
+            var meter = go.GetComponent<FlashlightMeter>();
+            meter.pause = pause; meter.tablet = tablet;
+            meter.visibility = go.GetComponent<CanvasGroup>();
+            meter.visibility.alpha = 0; meter.visibility.blocksRaycasts = false; meter.visibility.interactable = false;
+            meter.raycastTarget = false;
+            var text = new GameObject("Flashlight status", typeof(RectTransform), typeof(TextMeshProUGUI));
+            text.layer = go.layer; text.transform.SetParent(go.transform, false);
+            var labelRect = (RectTransform)text.transform;
+            labelRect.anchorMin = labelRect.anchorMax = Vector2.zero; labelRect.pivot = new Vector2(0, .5f);
+            labelRect.anchoredPosition = new Vector2(96, 50); labelRect.sizeDelta = new Vector2(140, 24);
+            meter.status = text.GetComponent<TMP_Text>();
+            meter.status.font = tablet.font; meter.status.fontSize = 14; meter.status.text = "OFF";
+            meter.status.alignment = TextAlignmentOptions.MidlineLeft; meter.status.raycastTarget = false;
+            meter.status.textWrappingMode = TextWrappingModes.NoWrap;
+            tablet.HasFlashlightMeter = true;
+        }
 
         protected override void Start()
         {
@@ -22,7 +51,7 @@ namespace NantesGame.Gameplay
 
         void Update()
         {
-            visibility.alpha = source && !pause.IsPaused && !ScreenTransition.Busy ? 1 : 0;
+            visibility.alpha = source && tablet && tablet.IsReady && !pause.IsPaused && !ScreenTransition.Busy ? 1 : 0;
             if (!source) return;
             charge = Mathf.MoveTowards(charge, source.Charge01, Time.deltaTime * 2f);
             bool active = source.IsCranking || source.IsLit;

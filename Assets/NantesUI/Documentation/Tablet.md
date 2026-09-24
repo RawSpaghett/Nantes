@@ -4,13 +4,13 @@
 
 `GameplayBuilder` makes a square housing from cubes and a flat screen from a quad. It saves them as `ChestScreen.prefab` and builds the pause controls into `NantesGameUI.prefab`.
 
-When `CreatureDebug` loads, `SceneUI` copies the position, rotation, and scale of the player's `Scanner` child into a separate tablet mount. The display attaches there, so it still works when the original scanner object is off. The team's player prefab, colliders, level, and movement scripts stay unchanged.
+When the supermarket in `Prototype_Main` loads, `SceneUI` copies the position, rotation, and scale of the player's `Scanner` child into a separate tablet mount. The display attaches there, so it still works when the original scanner object is off. The team's player prefab, colliders, level, and movement scripts stay unchanged.
 
 ## 2. Draw the interface
 
 `TabletDisplay` draws the panels, lines, radar rings, and icons from points. `TabletController` places the text over them. A separate camera draws this interface into a RenderTexture, which is an image Unity updates each frame. That image is placed on the square screen with the tablet glass material.
 
-The screen has Home, Scanner, and Power controls. Home opens the scanner. Scanner has a range toggle and scan button. The food total stays in the top-right.
+The screen has Home, Scanner, and Power controls. Home opens the scanner. Scanner has a range toggle and scan button. The food total stays in the top-right. The flashlight icon, charge bar and status sit along the bottom on Home and Scanner. `SceneUI` attaches `FlashlightMeter` to the tablet's display canvas, so it is drawn into the screen texture instead of the player's HUD. It reads the existing flashlight charge and stays hidden while the tablet is off or booting.
 
 ## 3. Use the alien font
 

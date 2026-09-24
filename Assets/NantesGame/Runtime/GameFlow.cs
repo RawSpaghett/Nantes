@@ -6,7 +6,7 @@ namespace NantesGame.Gameplay
 {
     public sealed class GameFlow : MonoBehaviour
     {
-        public const string Level="Assets/Scenes/CreatureDebug/CreatureDebug.unity";
+        public const string Level="Assets/Boilerplate/Scenes/Prototype_Main.unity";
         public const string Menu="Assets/NantesUI/Scenes/NantesMenuPreview.unity";
         public NantesMenu menu;
         public TMP_FontAsset font;
@@ -33,7 +33,7 @@ namespace NantesGame.Gameplay
         public void Continue()
         {
             if(!GameSave.TryRead(out var data,out _)){RefreshSave();return;}
-            ScreenTransition.Load(Level,font,()=>FindFirstObjectByType<LevelSave>().Restore(data));
+            ScreenTransition.Load(data.scene,font,()=>FindFirstObjectByType<LevelSave>().Restore(data));
         }
         public static void Quit(){
             if(ScreenTransition.Busy)return;

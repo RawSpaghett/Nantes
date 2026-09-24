@@ -1,6 +1,8 @@
 # Object outline
 
-The red outline is separate from the object's existing material. It does not include pickup, scanner, or aiming logic.
+The red outline is separate from the object's existing material. It shows through walls and shelves. In the supermarket, `GameplayWorldLook` adds it to CocoCereals, ChocolateBar and Tomato when the scene loads. Creatures, shelves and other objects are not highlighted.
+
+The food names are listed on `NantesWorld/Resources/GameplayWorldLook.prefab`. Update that list when adding more food. Pickup and scanner behavior are unchanged.
 
 1. Add `ObjectOutline` to an object.
 2. Assign `NantesWorld/Materials/Red outline` to its Material field.

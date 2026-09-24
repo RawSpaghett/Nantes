@@ -35,6 +35,7 @@ namespace NantesGame.Gameplay
             pause.input=chest.input;pause.chest=chest;pause.movement=player;pause.actions=chest.actions;
             pause.saving=gameObject.AddComponent<LevelSave>();pause.saving.pause=pause;
             display.SetActive(true);
+            FlashlightMeter.Attach(pause,tablet);
         }
     }
 }

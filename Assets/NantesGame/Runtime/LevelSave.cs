@@ -48,6 +48,7 @@ namespace NantesGame.Gameplay
             var light = flashlight ? (GameObject)Light.GetValue(flashlight) : null;
             var data = new GameSaveData
             {
+                scene = player.gameObject.scene.path,
                 position = player.transform.position, rotation = player.transform.rotation,
                 velocity = player.GetComponent<Rigidbody>().linearVelocity,
                 pitch = (float)Pitch.GetValue(player),

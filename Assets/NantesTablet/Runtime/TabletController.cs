@@ -21,6 +21,8 @@ namespace NantesGame.Tablet
         public bool manageCursor = true;
         public bool gazeInput;
         public bool InputEnabled { get; set; } = true;
+        public Transform DisplayRoot => screenUI ? screenUI.transform : null;
+        public bool HasFlashlightMeter { get; set; }
         public event Action<bool> FocusChanged;
         public event Action<float> ScanRequested;
         public event Action<int> FoodChanged;
@@ -287,7 +289,7 @@ namespace NantesGame.Tablet
             rangeText.gameObject.SetActive(State==TabletState.Scanner);contactsText.gameObject.SetActive(State==TabletState.Scanner);pulseText.gameObject.SetActive(State==TabletState.Scanner);
             foodTop.gameObject.SetActive(ready);clockText.gameObject.SetActive(ready);
             foodTop.text=FoodCount.ToString("000");
-            tabletTitle.gameObject.SetActive(ready);pageTitle.gameObject.SetActive(ready);statusText.gameObject.SetActive(ready);
+            tabletTitle.gameObject.SetActive(ready);pageTitle.gameObject.SetActive(ready);statusText.gameObject.SetActive(ready&&!HasFlashlightMeter);
             pageTitle.text=State==TabletState.Scanner?"SCANNER":"HOME";
             statusText.text=State==TabletState.Scanner&&ScanAge<1.8f?"SCANNING":"READY";
             bootText.gameObject.SetActive(State==TabletState.Booting||State==TabletState.ShuttingDown);

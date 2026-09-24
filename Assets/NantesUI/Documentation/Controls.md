@@ -28,7 +28,7 @@ The main menu fades and slides into Controls. Back glows on hover or keyboard fo
 
 The existing timer holds 8 seconds of light. Holding R adds 2 seconds of charge per second. It switches on at half charge and runs until empty. Those rules have not changed.
 
-`FlashlightMeter` reads the timer through three read-only properties on `FlashlightScript`. It draws the icon, charge bar and status in the bottom-right. Rounded ends and soft edges keep the icon's rays smooth at different resolutions. The bar's small halfway mark shows the starting threshold. The meter hides while paused or changing scenes.
+`FlashlightMeter` reads the timer through three read-only properties on `FlashlightScript`. It draws the icon, charge bar and status along the tablet's bottom edge on Home and Scanner. Rounded ends and soft edges keep the icon's rays smooth at different resolutions. The bar's small halfway mark shows the starting threshold. The meter hides when the tablet is off or booting, while paused, and during scene changes. Nothing is drawn on the player's screen.
 
 `FlashlightScript.LateUpdate` scales the lights' original intensity during the last 30% of charge. A small noise variation gives the low beam a flicker. Cranking restores normal brightness; Reduced Motion skips the flicker. No overheating or cooldown was added.
 

@@ -23,7 +23,7 @@ public static class GameplayBuilder
         Directory.CreateDirectory(Root+"/Materials");Directory.CreateDirectory(Root+"/Prefabs");Directory.CreateDirectory(Root+"/Resources");AssetDatabase.Refresh();
         var scene=EditorSceneManager.NewScene(NewSceneSetup.EmptyScene,NewSceneMode.Single);
         var screen=PrepareScreen();PrepareGameUI(screen);PrepareCredits();PrepareMenu();
-        EditorBuildSettings.scenes=new[]{new EditorBuildSettingsScene(GameFlow.Menu,true),new EditorBuildSettingsScene(GameFlow.Level,true)};
+        GameplayWorldBuilder.Prepare();
         AssetDatabase.SaveAssets();Debug.Log("GAME_UI_PREPARE_PASS");
     }
     static Material Mat(string name,string shader,Color color)
@@ -133,14 +133,6 @@ public static class GameplayBuilder
             var option=buttons[i].GetComponent<PauseOption>();option.index=i;option.number.text=(i+1).ToString("00");
         }
         if(!pause.controlsPage)pause.controlsPage=ControlsPanelBuilder.Create(pause.panel.transform,Font,out pause.controlsBack);
-        if(!pause.GetComponentInChildren<FlashlightMeter>(true))
-        {
-            var go=new GameObject("Flashlight meter",typeof(RectTransform),typeof(CanvasGroup),typeof(FlashlightMeter));go.transform.SetParent(pause.transform,false);
-            var rect=(RectTransform)go.transform;rect.anchorMin=rect.anchorMax=rect.pivot=new Vector2(1,0);rect.anchoredPosition=new Vector2(-52,42);rect.sizeDelta=new Vector2(236,76);
-            var meter=go.GetComponent<FlashlightMeter>();meter.pause=pause;meter.visibility=go.GetComponent<CanvasGroup>();meter.visibility.blocksRaycasts=false;meter.visibility.interactable=false;meter.raycastTarget=false;
-            meter.status=Text(go.transform,"Charge status","OFF",new Vector2(96,50),new Vector2(140,24),12);
-            var label=meter.status.rectTransform;label.anchorMin=label.anchorMax=new Vector2(0,0);label.pivot=new Vector2(0,.5f);meter.status.alignment=TextAlignmentOptions.MidlineLeft;
-        }
     }
     static void PrepareMenu()
     {
