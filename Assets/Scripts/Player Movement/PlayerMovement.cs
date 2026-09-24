@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header ("Variables")]
     public float sensitivity;
-    [SerializeField] private float speed, maxForce, jumpForce, sprintSpeed, slowWalkSpeed;
+    [SerializeField] private float speed, crouchVar, maxForce, jumpForce, sprintSpeed, slowWalkSpeed;
     private float speedHolder;
 
     private float lookRotation;
@@ -23,10 +23,14 @@ public class PlayerMovement : MonoBehaviour
 
     public static Action<Vector3, float> OnPlayerSound;
 
+    private CapsuleCollider playerCollider;
+    private float playerHeight;
+
     private void FixedUpdate()
     {
         SpeedCheck();
         Move();
+        CrouchCheck();
     }
 
     private void LateUpdate()
@@ -96,10 +100,19 @@ public class PlayerMovement : MonoBehaviour
             speed = speedHolder;
     }
 
+    private void CrouchCheck()
+    {
+        if(playerInputHandler.crouchHeld) playerCollider.height = crouchVar;
+        
+        else playerCollider.height = playerHeight;
+    }
+
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         speedHolder = speed;
+        playerCollider = GetComponent<CapsuleCollider>();
+        playerHeight = playerCollider.height;
     }
 }
 

@@ -11,6 +11,7 @@ public class PlayerInputHandler : MonoBehaviour
     public bool interactTriggered;
     public bool walkHeld;
     public bool crankHeld;
+    public bool crouchHeld;
 
     public void OnMoveInput(InputAction.CallbackContext context)
     {
@@ -35,11 +36,19 @@ public class PlayerInputHandler : MonoBehaviour
         look = context.ReadValue<Vector2>();
     }
 
-    public void OnJumpInput(InputAction.CallbackContext context)
+    /*public void OnJumpInput(InputAction.CallbackContext context)
     {
         if(context.performed)
         {
             playerMovement.Jump();
+        }
+    }*/
+    
+    public void OnYellInput(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+        {
+            //playerMovement.Jump();
         }
     }
 
@@ -53,6 +62,19 @@ public class PlayerInputHandler : MonoBehaviour
         if(context.canceled)
         {
             sprintHeld = false;
+        }
+    }
+
+    public void OnCrouchInput(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+        {
+            crouchHeld = true;
+        }
+
+        if(context.canceled)
+        {
+            crouchHeld = false;
         }
     }
 
